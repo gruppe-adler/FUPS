@@ -1,0 +1,1 @@
+count ((_this select 0) nearObjects ["Building",40]) > 2

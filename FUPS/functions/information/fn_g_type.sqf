@@ -1,0 +1,1 @@
+(_this select 0) getVariable ["FUPS_g_type",([(_this select 0)] call FUPS_fnc_g_type_init)];
