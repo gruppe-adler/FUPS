@@ -85,7 +85,6 @@ class FUPS {
 	class main {
 		file = "FUPS\functions";
 		class do {};
-		class globalParameter {};
 		class main {};
 		class mainHandler {};
 		class preInit { preInit = 1; };

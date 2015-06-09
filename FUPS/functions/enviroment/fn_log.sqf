@@ -1,3 +1,23 @@
+/*
+
+    Description: Logs a message to the .rpt, format:
+    FUNCTION: GROUP, MESSAGE
+    FUNCTION will be the function in which FUPS_fnc_log was called (if present)
+    GROUP will be the FUPS group for which log was called (if present)
+    MESSAGE will be the given message
+
+    PARAMS:
+    0 <ARRAY/STRING> - The message, if it is a array, it'll be interpreted as format array
+    1 <BOOLEAN> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged
+
+    RETURN:
+    -
+
+    Author: [W] Fett_Li
+
+*/
+
+
 private ["_str","_log","_message"];
 _str = _this select 0;
 _log = FUPS_log || (count _this == 2 && {_this select 1});

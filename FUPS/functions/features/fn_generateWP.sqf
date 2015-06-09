@@ -1,3 +1,16 @@
+/*
+
+    Description: Generates a new waypoint for the given group
+
+    PARAMS:
+    0 <GROUP> - the group to generate for
+
+    RETURN:
+    <ARRAY FORMAT POSITION> - the new waypoint
+
+    Author: [W] Fett_Li
+*/
+
 private ["_group","_type","_allowWater","_pos"];
 _group = _this select 0;
 _type = [_group] call FUPS_fnc_ai_type;

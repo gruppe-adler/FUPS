@@ -1,3 +1,18 @@
+/*
+
+    Description: Checks whether the ai fears the group. A group fears antoher when the group has weapons against the ai
+
+    PARAMS:
+    0 <GROUP> - ai group
+    1 <GROUP> - enemy group
+
+    RETURN:
+    <BOOLEAN> - does ai fear the group?
+
+    Author: [W] Fett_Li
+
+*/
+
 private ["_ai","_ai_type"];
 _ai = _this select 0;
 _ai_type = [_ai] call FUPS_fnc_ai_type;

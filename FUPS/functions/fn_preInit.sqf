@@ -1,3 +1,17 @@
+/*
+
+    Description: Sets basic variables and tasks
+
+    PARAMS:
+    -
+
+    RETURN:
+    -
+
+    Author: [W] Fett_Li
+
+*/
+
 // Generall variables
 FUPS_log = true;
 FUPS_simulation_dist = 3500;

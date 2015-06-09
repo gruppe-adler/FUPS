@@ -1,3 +1,19 @@
+/*
+
+	Description: Takes care of the simulation of a group
+
+	PARAMS:
+	0 <GROUP> - group that should be simulated
+	1 <BOOLEAN> - true for simulation turned on, otherwise false
+	2 <BOOLEAN> - true to attach hit eventhandlers to turn simulation on
+
+	RETURN:
+	-
+
+	Author: [W] Fett_Li
+
+*/
+
 private ["_grp","_simulate","_allowEH"];
 
 _grp = _this select 0;

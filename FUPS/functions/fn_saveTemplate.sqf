@@ -1,3 +1,20 @@
+/*
+
+    Description: Will save the given group as template
+
+    PARAMS:
+    0 <GROUP/OBJECT> - group that should be saved
+    1 <SCALAR> - the index of the template
+    2 <BOOLEAN> - true when the objects should be deleted after saving
+    3 <OBJECT> - if present and param 2 is true objects will only be deleted if param 3 is local
+
+    RETURN:
+    -
+
+    Author: [W] Fett_Li
+
+*/
+
 private ["_group","_template","_units"];
 
 _group      = _this select 0;

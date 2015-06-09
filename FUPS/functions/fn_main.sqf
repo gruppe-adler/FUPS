@@ -1,3 +1,19 @@
+/*
+
+    Description: This function will initialize a group with FUPS
+
+    PARAMS:
+    0 <OBJECT> - leader of the group
+    1 <STRING> - the marker to patrol in
+    . <?> - various other arguments
+
+    RETURN:
+    -
+
+    Author: [W] Fett_Li
+
+*/
+
 private ["_leader","_group","_marker"];
 
 _leader = _this select 0;

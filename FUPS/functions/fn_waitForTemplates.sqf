@@ -1,3 +1,16 @@
+/*
+
+    Description: When called this script will sleep until all given indexes will be intialized as templates
+
+    PARAMS:
+    . <SCALAR> - indexes to wait for
+
+    RETURN:
+    -
+
+    Author: [W] Fett_Li
+*/
+
 private "_highest";
 _highest = -1;
 {

@@ -1,3 +1,18 @@
+/*
+
+	Description: Spawns the group randomly in its marker
+
+	PARAMS:
+	0 <GROUP> - the group to spawn
+	1 <OBJECT ARRAY> - vehicles of the group
+
+	RETURN:
+	-
+
+	Author: [W] Fett_Li
+
+*/
+
 private ["_group","_type"];
 _group = _this select 0;
 _vehicles = _this select 1;

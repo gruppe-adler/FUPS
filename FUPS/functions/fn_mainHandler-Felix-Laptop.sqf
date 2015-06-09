@@ -1,18 +1,3 @@
-/*
-
-    Description: Will be executed on each frame. Calculates all FUPS groups frame by frame.
-    After having calculated all groups it will do some overhead work.
-
-    PARAMS:
-    -
-
-    RETURN:
-    -
-
-    Author: [W] Fett_Li
-
-*/
-
 // clock pulse tracking
 FUPS_oefIndex = FUPS_oefIndex + 1;
 // Will be executed after all groups have been calculated
@@ -182,10 +167,9 @@ _share = FUPS_share select _sideIndex;
 
 // re-evaluate current target
 private ["_target_val","_target_dist"];
-_target = _group getVariable "FUPS_target";
 _target_val = 0;
 _target_dist = 10000;
-if !(isNull _target) then {
+if !(isNull _target) then { // ToDo: getVariable
     _target_val = count (_target getVariable ["FUPS_supportFor",[]]);
     _target_dist = _leader distance leader _target;
 };
@@ -228,7 +212,6 @@ _mostDangerousTarget_dist = 10000;
 private "_target";
 _target = _nearestTarget;
 if (_mostDangerousTarget_dist - _nearestTarget_dist < 150) then {_target = _mostDangerousTarget};
-_group setVariable ["FUPS_target",_target];
 
 // get situation variables
 private ["_surrounded","_headsdown","_unknowIncident","_weakened"];
@@ -242,7 +225,6 @@ if ((surfaceIsWater _currpos) && !(_group getVariable ["FUPS_allowWater",false])
     _group setVariable ["FUPS_break",{false}];
 };
 
-// --- ToDo: external orders
 if (call (_group getVariable ["FUPS_break",{true}]) || (_group getVariable ["FUPS_task",""] == "")) then {
     ["Breaking the task"] call FUPS_fnc_log;
 
@@ -279,8 +261,7 @@ if (call (_group getVariable ["FUPS_break",{true}]) || (_group getVariable ["FUP
 
     // get the "right" task for the groups type, if it is defined
     private "_typeName";
-    _typeName = _group getVariable "FUPS_typeName";
-    // --- ToDo: set FUPS_typeName
+    _typeName = _group getVariable ["FUPS_typeName","_man"];
     if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
         _task = _task + _typeName;
     };

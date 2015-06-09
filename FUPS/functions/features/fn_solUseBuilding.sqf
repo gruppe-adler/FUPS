@@ -1,3 +1,18 @@
+/*
+
+    Description: Let's the soldier use the building
+
+    PARAMS:
+    0 <OBJECT> - soldier
+    1 <OBJECT> - building to use
+
+    RETURN:
+    <BOOLEAN> - success or not
+
+    Author: [W] Fett_Li
+
+*/
+
 private ["_sol","_build"];
 _sol = _this select 0;
 _build = _this select 1;

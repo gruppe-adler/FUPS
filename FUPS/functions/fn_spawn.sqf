@@ -1,3 +1,22 @@
+/*
+
+	Description: Spawns the given template or clones the given group
+
+	PARAMS:
+	0 <ARRAY FORMAT POSITION> - position to spawn
+	1 <STRING> - marker to patrol in
+	2 <SCALAR ARRAY> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
+	3 <ARRAY> - additional parameters for FUPS initialization
+	4 <BOOLEAN> - false to suppress FUPS initialization
+	5 <SCALAR> - duration to sleep between EACH spawn
+
+	RETURN:
+	<GROUP ARRAY> - array of spawned groups
+
+	Author: [W] Fett_Li
+
+*/
+
 private ["_spawnPos","_marker","_templates","_params","_initFups","_spawnPosCount","_spawned","_leaders"];
 
 _spawnPos		= [_this,0,[],[[]]]			call BIS_fnc_param;

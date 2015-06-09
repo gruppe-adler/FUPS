@@ -1,4 +1,22 @@
-waitUntil { !isNil "BIS_fnc_init" };
+/*
+
+	Description: Orders a unit to be sent as reinforcement
+
+	PARAMS:
+	0 <OBJECT/OBJECT ARRAY/ARRAY FORMAT POSITION/ARRAY FORMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
+	1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
+	2 <SIDE> - the side of the reinforcement groups to be sent
+	3 <BOOLEAN> - true if the units should be send regardless of their current actions
+	4 <BOOLEAN> - true to let the units stay in the seized area
+	5 <BOOLEAN> - true to let the units work combined (wip)
+
+	RETURN:
+	-
+
+	Author: [W] Fett_Li
+
+*/
+
 
 private ["_areaInfo","_targets","_rIDs","_side","_skipVars","_stayInArea","_reinfGroups","_groups_str","_markerName","_sideStr","_sidePlayerStr","_array","_centerPos","_markerSizeA","_markerSizeB","_marker","_angle","_reinfTrigger","_enemyTrigger","_nil"];
 

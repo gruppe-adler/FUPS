@@ -1,3 +1,18 @@
+/*
+
+	Description: Let's the group use the building
+
+	PARAMS:
+	0 <GROUP> - group
+	1 <OBJECT> - building
+
+	RETURN:
+	<BOOLEAN> - success or not
+
+	Author: [W] Fett_Li
+
+*/
+
 private ["_group","_building","_posArray","_index"];
 
 _group = _this select 0;
