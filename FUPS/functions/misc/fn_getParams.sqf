@@ -112,6 +112,8 @@ if (_index > -1) then {
 };
 
 // print all unknown params
-if !(_list isEqualTo []) then { [["Error: unknown params given in FUPS - %1",_list],true] call FUPS_fnc_log };
+if (count _list != 0) then {
+	[["Error: unknown params given in FUPS - %1",_list],true] call FUPS_fnc_log;
+};
 
 _args

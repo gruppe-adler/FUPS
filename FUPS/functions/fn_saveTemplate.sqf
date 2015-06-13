@@ -19,7 +19,7 @@ private ["_group","_template","_units"];
 
 _group      = _this select 0;
 if (isNull _group) exitWith {};
-if (typeOf _group == typeOf objNull) then {
+if (typeName _group == typeName objNull) then {
     _group = group _group;
 };
 _template   = _this select 1;
