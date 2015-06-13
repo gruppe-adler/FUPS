@@ -18,25 +18,26 @@
 */
 
 
-private ["_areaInfo","_targets","_rIDs","_side","_skipVars","_stayInArea","_reinfGroups","_groups_str","_markerName","_sideStr","_sidePlayerStr","_array","_centerPos","_markerSizeA","_markerSizeB","_marker","_angle","_reinfTrigger","_enemyTrigger","_nil"];
+private ["_targets","_rIDs","_side","_skipVars","_stayInArea","_combined"];
+_targets	= _this select 0;
+_rIDs		= _this select 1;
+_side		= _this select 2;
+_skipVars	= (count _this > 3 && {_this select 3});
+_stayInArea	= (count _this > 4 && {_this select 4});
+_combined	= (count _this < 6 || {_this select 5});
 
-_targets	= [_this,0,[],[[],""]]		call BIS_fnc_param;
-_rIDs		= [_this,1,[],[[]]]			call BIS_fnc_param;
-_side		= [_this,2,"",["",sideUnknown]]	call BIS_fnc_param;
-_skipVars	= [_this,3,false,[true]]	call BIS_fnc_param;
-_stayInArea	= [_this,4,false,[true]]	call BIS_fnc_param;
-_combined	= [_this,5,true,[true]]		call BIS_fnc_param;
-
-if ((_targets isEqualTo []) || (_rIDs isEqualTo []) || (typename _side == "STRING" && { _side == "" })) exitWith { "exiting, wrong params given" call FUPS_fnc_error; };
+if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) || typeName (_rIDs != typeName []) || !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
+	["Exiting, wrong params given",true] call FUPS_fnc_log;
+}
 
 [["Sending reinforcements to: %1",_targets]] call FUPS_fnc_log;
 
 // create the reinforcements array
+private ["_reinfGroups","_reinfArray"];
 _reinfGroups = [];
 _reinfArray = missionNamespace getVariable (format ["FUPS_reinforcements_%1",_side]);
-_countReinf	= count _reinfArray;
 {
-	if (_countReinf > _x && { !isNil { _reinfArray select _x } }) then {
+	if (count _reinfArray > _x && { !isNil { _reinfArray select _x } }) then {
 		{
 			if (!(isNull _x) && (local leader _x) && {!(count (units _x) == 0) && !(_x in _reinfGroups)}) then {
 				_reinfGroups pushBack _x;
@@ -46,15 +47,19 @@ _countReinf	= count _reinfArray;
 } forEach _rIDs;
 
 // set the reinf params
+private "_areaInfo";
+_areaInfo = [];
 if (typeName _targets == typeName "") then {
 	_areaInfo = _targets call FUPS_fnc_markerData;
 	_targets = [];
 } else {
-	_areaInfo = [_targets,50] call FUPS_fnc_coverMarker
+	_areaInfo = [_targets,50] call FUPS_fnc_coverMarker;
 };
 
+private "_params";
 _params = [_areaInfo,_stayInArea,[],_targets];
 if (_combined) then {
+	private "_array";
 	_array = [];
 	{
 		_array pushBack _x;
@@ -64,14 +69,14 @@ if (_combined) then {
 
 {
 	_grp = _x;
-	systemchat str leader _x;
 	if (local _grp) then {
-		if !(isNull (_grp getVariable ["FUPS_simulationTrigger",objNull])) then {
-			_array = ((_grp getVariable "FUPS_simulationTrigger") getVariable "FUPS_simulationGroups");
-			 _array deleteAt (_array find _grp);
-
-			[_grp,true,true] call FUPS_fnc_simulation;
+		if (!isNil {_grp getVariable "FUPS_simulation"}) then {
+			if (!simulationEnabled (leader _grp)) then {
+				[_grp,true,true] call FUPS_fnc_simulation;
+			};
+			_grp setVariable ["FUPS_simulation",{true}];
 		};
+
 		_grp setVariable ["FUPS_reinforcementReady",false];
 		{ _grp reveal _x } forEach _targets;
 		[_x,"REINFORCEMENT",_skipVars,_params] call FUPS_fnc_do;
