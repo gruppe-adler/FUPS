@@ -7,7 +7,7 @@
     MESSAGE will be the given message
 
     PARAMS:
-    0 <ARRAY/STRING> - The message, if it is a array, it'll be interpreted as format array
+    0 <ARRAY/ANY> - The message, if it is a array, it'll be interpreted as format array
     1 <BOOLEAN> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged
 
     RETURN:

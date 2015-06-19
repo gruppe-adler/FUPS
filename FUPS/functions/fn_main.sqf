@@ -65,6 +65,7 @@ if (_randomSpawn) then {
 
 private "_simulation";
 _simulation = _settings select 8;
+_group setVariable ["FUPS_simulation",{true}];
 if ((typename _simulation == typename objNull && {!isNull _simulation})) then {
     private "_fnc";
     _fnc = {
@@ -97,19 +98,37 @@ if (count _reinforcement > 0) then {
     // --- ToDo
 };
 
+private ["_closeenough","_typeName","_allowWater"];
 _closeenough = 7;
+_typeName = "_man";
+_allowWater = false;
 switch ([_group] call FUPS_fnc_ai_type) do {
     case 1: {
         _closeenough = 20;
+        _typeName = "_vehicle";
     };
     case 2: {
         _closeenough = 50;
+        _typeName = "_air";
+        _allowWater = true;
     };
     case 3: {
         _closeenough = 20;
+        _typeName = "_ship";
+        _allowWater = true;
     };
 };
 _group setVariable ["FUPS_closeenough",_closeenough];
+_group setVariable ["FUPS_typeName",_typeName];
+_group setVariable ["FUPS_allowWater",_allowWater];
+
+// Initializing generic varaibles
+_group setVariable ["FUPS_break",{true}];
+_group setVariable ["FUPS_task",""];
+_group setVariable ["FUPS_order",""];
+_group setVariable ["FUPS_clockPulse",-1];
+_group setVariable ["FUPS_lastDamage",0];
+_group setVariable ["FUPS_target",objNull];
 
 [["Adding %1",_group]] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;

@@ -1,4 +1,7 @@
-switch (_group getVariable ["FUPS_taskState","init"]) do {
+private "_group";
+_group = _this select 0;
+
+switch (_this select 1) do {
 	case ("init"): {
 		["Patroling"] call FUPS_fnc_log;
 

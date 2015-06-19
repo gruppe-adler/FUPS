@@ -1,4 +1,8 @@
-switch (_group getVariable ["FUPS_taskState","init"]) do {
+private ["_group","_target"];
+_group = _this select 0;
+_target = _this select 2;
+
+switch (_this select 1) do {
     case ("init"): {
         ["Attacking"] call FUPS_fnc_log;
         [_group] call FUPS_fnc_clearWP;

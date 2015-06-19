@@ -85,13 +85,13 @@ _side = side _group;
 _sideIndex = [west,east,independent] find _side;
 _leader = leader _group;
 _members = units _group;
-_clockPulse = _group getVariable ["FUPS_clockPulse",-1];
+_membersCount = count _members;
+_clockPulse = _group getVariable "FUPS_clockPulse";
 _clockPulse = _clockPulse + 1;
 _group setVariable ["FUPS_clockPulse",_clockPulse];
 
 // handle simulation
-_simulation = _group getVariable ["FUPS_simulation",{true}];
-if !([_group] call _simulation) exitWith {
+if !([_group] call (_group getVariable "FUPS_simulation")) exitWith {
     if (simulationEnabled _leader) then {[_group,false,true] call FUPS_fnc_simulation};
 };
 if !(simulationEnabled _leader) then {
@@ -112,12 +112,12 @@ _groupdamage        = 0;
 } forEach _members;
 _groupdamage = _groupdamage + ((_group getVariable ["FUPS_members",count _members]) - (count _members));
 
-if (_groupdamage == _group getVariable ["FUPS_members",count _members]) exitWith {
+if (_groupdamage == _membersCount) exitWith {
     FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
 };
 
-_combatStrength = 1 - (_groupdamage / (_group getVariable ["FUPS_members",count _members]));
-_gothit = _groupdamage > (_group getVariable ["FUPS_lastDamage",0]);
+_combatStrength = 1 - (_groupdamage / _membersCount);
+_gothit = _groupdamage > (_group getVariable "FUPS_lastDamage");
 
 // get the situation
 private ["_maxknowledge","_targets","_directions","_enemies","_nearEnemies","_fears","_theyGotUs","_share"];
@@ -130,7 +130,7 @@ _fears = [];
 _theyGotUs = false;
 _share = FUPS_shareNow select _sideIndex;
 
-if (_group getVariable ["FUPS_doShare",true]) then {
+if (_group getVariable "FUPS_doShare") then {
     {
         if (_leader distance leader _x < 600) then {
             {_group reveal [3,_x]} forEach (units _x);
@@ -180,12 +180,16 @@ _share = FUPS_share select _sideIndex;
     };
 } forEach (FUPS_enemies select _sideIndex);
 
+// set external variables
+_group setVariable ["FUPS_maxknowledge",_maxknowledge];
+
 // re-evaluate current target
 private ["_target_val","_target_dist"];
 _target = _group getVariable "FUPS_target";
 _target_val = 0;
 _target_dist = 10000;
 if !(isNull _target) then {
+    // --- ToDo: FUPS_supportFor
     _target_val = count (_target getVariable ["FUPS_supportFor",[]]);
     _target_dist = _leader distance leader _target;
 };
@@ -237,58 +241,74 @@ _headsdown      = !(_fears isEqualTo []);
 _unknowIncident = (_maxknowledge == 0) && _gothit;
 _weakened       = _combatStrength < 0.4;
 
-if ((surfaceIsWater _currpos) && !(_group getVariable ["FUPS_allowWater",false])) then {
-    _group setVariable ["FUPS_task","FUPS_fnc_getOutOfWater"];
-    _group setVariable ["FUPS_break",{false}];
-};
+switch (true) do {
+    case ((surfaceIsWater _currpos) && !(_group getVariable "FUPS_allowWater")): {
+        // Group is in water
 
-// --- ToDo: external orders
-if (call (_group getVariable ["FUPS_break",{true}]) || (_group getVariable ["FUPS_task",""] == "")) then {
-    ["Breaking the task"] call FUPS_fnc_log;
-
-    // get current task
-    private "_tasks";
-    _tasks = [];
-    if (_gothit && _targets isEqualTo [] || !(_enemies isEqualTo []) || _unknowIncident) then {
-        _tasks pushBack "FUPS_fnc_task_hold";
+        _group setVariable ["FUPS_task","FUPS_fnc_getOutOfWater"];
+        _group setVariable ["FUPS_taskState","init"];
     };
-    if (!isNull _target) then {
-        _tasks pushBack "FUPS_fnc_task_attack";
-    };
-    if (!(_fears isEqualTo []) || _weakened || (_groupdamage > (2*_lastdamage)) || ((_groupdamage - _lastdamage) > 1.5)) then {
-        _tasks pushBack "FUPS_fnc_task_retreat";
-    };
+    case (_group getVariable "FUPS_order" != ""): {
+        // Getting orders
 
-    private ["_highestPriority","_task"];
-    _highestPriority = 0;
-    _task = "FUPS_fnc_task_patrol";
+        ["Receiving orders"] call FUPS_fnc_log;
 
-    {
-        private ["_taskName","_prior"];
-        _taskName = _x;
-        _prior = call (missionnamespace getVariable [(_taskName + "_prior"),{-10}]);
-        if (_prior > _highestPriority) then {
-            _task = _taskName;
-            _highestPriority = _prior;
+        private "_typeName";
+        _typeName = _group getVariable "FUPS_typeName";
+        _task = _group getVariable "FUPS_order";
+        _group setVariable []
+    };
+    case (call (_group getVariable "FUPS_break") || (_group getVariable "FUPS_task" == "")): {
+        // New task
+
+        ["Breaking the task"] call FUPS_fnc_log;
+
+        // get current task
+        private "_tasks";
+        _tasks = [];
+        if (_gothit && _targets isEqualTo [] || !(_enemies isEqualTo []) || _unknowIncident) then {
+            _tasks pushBack "FUPS_fnc_task_hold";
         };
-    } forEach _tasks;
+        if (!isNull _target) then {
+            _tasks pushBack "FUPS_fnc_task_attack";
+        };
+        if (!(_fears isEqualTo []) || _weakened || (_groupdamage > (2*_lastdamage)) || ((_groupdamage - _lastdamage) > 1.5)) then {
+            _tasks pushBack "FUPS_fnc_task_retreat";
+        };
 
-    // [["Selected task is: %1",_task]] call FUPS_fnc_log;
+        private ["_highestPriority","_task"];
+        _highestPriority = 0;
+        _task = "FUPS_fnc_task_patrol";
 
-    _group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
+        {
+            private ["_taskName","_prior"];
+            _taskName = _x;
+            _prior = call (missionnamespace getVariable [(_taskName + "_prior"),{-10}]);
+            if (_prior > _highestPriority) then {
+                _task = _taskName;
+                _highestPriority = _prior;
+            };
+        } forEach _tasks;
 
-    // get the "right" task for the groups type, if it is defined
-    private "_typeName";
-    _typeName = _group getVariable "FUPS_typeName";
-    // --- ToDo: set FUPS_typeName
-    if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
-        _task = _task + _typeName;
+        // [["Selected task is: %1",_task]] call FUPS_fnc_log;
+
+        _group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
+
+        // get the "right" task for the groups type, if it is defined
+        private "_typeName";
+        _typeName = _group getVariable "FUPS_typeName";
+        if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
+            _task = _task + _typeName;
+        };
+        _group setVariable ["FUPS_task",_task];
+        _group setVariable ["FUPS_taskState","init"];
     };
-    _group setVariable ["FUPS_task",_task];
-    _group setVariable ["FUPS_taskState","init"];
 };
 
-0 call (missionnamespace getVariable (_group getVariable "FUPS_task"));
+private "_params";
+_params = [_group,_group getVariable "FUPS_taskState"];
+_params append (0 call (missionnamespace getVariable (_task + "_params")));
+_params call (missionnamespace getVariable (_group getVariable "FUPS_task"));
 
 _group setVariable ["FUPS_gothit",_gothit];
 _group setVariable ["FUPS_lastPos",_currpos];

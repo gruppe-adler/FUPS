@@ -66,6 +66,8 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
     _prior
 },{ // break condition
     _surrounded || _headsdown || _weakened || _theyGotUs
+},{
+    [_target]
 }] call FUPS_fnc_registerTask;
 
 // register hold task
@@ -77,6 +79,8 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
     _prior
 },{ // break condition
     _weakened
+},{
+    []
 }] call FUPS_fnc_registerTask;
 
 // register retreat task
@@ -88,6 +92,8 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
     _prior
 },{ // break condition
     _surrounded || _headsdown || _theyGotUs
+},{
+    [_directions,_nearEnemies]
 }] call FUPS_fnc_registerTask;
 
 ["FUPS_fnc_task_reinforcement",{ // priority
@@ -97,7 +103,9 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
     _prior = if (_gothit) then {_prior - 0.1} else {_prior + 0.5};
     _prior = if (_weakened) then {_prior - 0.3} else {_prior + 0.5};
     _prior
-},{false}] call FUPS_fnc_registerTask;
+},{false},{
+    [_target]
+}] call FUPS_fnc_registerTask;
 
 if (isServer) then {
     "FUPS_enableSimulation" addPublicVariableEventhandler {

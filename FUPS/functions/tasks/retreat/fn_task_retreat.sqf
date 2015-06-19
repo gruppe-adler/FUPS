@@ -1,33 +1,37 @@
-private ["_group","_fsm","_directions","_currpos"];
-_group = _this select 1;
-["Retreating"] call FUPS_fnc_log;
-_fsm = _this select 2;
-_directions = _this select 19;
-_currpos = getPosATL leader _group;
+private ["_group","_directions","_nearEnemies"];
+_group = _this select 0;
+_directions = _this select 2;
+_nearEnemies = _this select 3;
 
-private ["_settings","_closeenough"];
-_settings = _group getVariable "FUPS_settings";
-if (isNil "_settings") exitWith {["Error: FUPS not initialized (no settings)",true] call FUPS_fnc_log};
-_closeenough = _settings select 12;
+switch (_this select 1) do {
+	case ("init"): {
+		["Retreating"] call FUPS_fnc_log;
 
-private "_escaping";
-_escaping = true;
-while {_escaping} do {
-	private ["_escapeDir","_escapePos"];
-	_escapeDir = _directions call FUPS_fnc_escapeDirection;
-	_escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
+		private "_currpos";
+		_currpos = getPosATL leader _group;
 
-	if !(completedFSM _fsm) then {
-		[_fsm,_escapePos] call FUPS_fnc_combinedEmbark;
-	} else {
-		_group move _escapePos;
+		private ["_escapeDir","_escapePos"];
+		_escapeDir = _directions call FUPS_fnc_escapeDirection;
+		_escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
+		_group setVariable ["FUPS_movePos",_escapePos];
+
+		_group setVariable ["FUPS_taskState","flee"];
 	};
-	waituntil { leader _group distance _escapePos < _closeenough };
+	case ("flee"): {
+		if (leader _group distance _pos < _group getVariable "FUPS_closeenough") then {
+			if (count _nearEnemies == 0) then {
+				_group setVariable ["FUPS_break",{true}];
+			} else {
+				_group setVariable ["FUPS_taskState","loop"];
+			};
+		};
+	};
+	case ("loop") : {
+		private ["_escapeDir","_escapePos"];
+		_escapeDir = _directions call FUPS_fnc_escapeDirection;
+		_escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
+		_group setVariable ["FUPS_movePos",_escapePos];
 
-	// _nearEnemies isEqualTo []
-	if (_this select 13 isEqualTo []) then {_escaping = false};
+		_group setVariable ["FUPS_taskState","flee"];
+	};
 };
-
-if !(completedFSM _fsm) then {[_fsm] call FUPS_fnc_combinedDisembark};
-
-[_group,"HOLD"] call FUPS_fnc_do;

@@ -36,6 +36,9 @@ switch (typeName _templates) do {
 			_data = [];
 			if (_count > _x && { !isNil { FUPS_templates select _x } }) then {
 				_data = FUPS_templates select _x;
+			}
+			else {
+				[["Error: Template %1 not found",_x],true] call FUPS_fnc_log;
 			};
 			_templates set [_forEachIndex,_data];
 		} forEach _templates;

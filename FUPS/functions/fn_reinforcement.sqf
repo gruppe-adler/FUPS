@@ -17,7 +17,6 @@
 
 */
 
-
 private ["_targets","_rIDs","_side","_skipVars","_stayInArea","_combined"];
 _targets	= _this select 0;
 _rIDs		= _this select 1;
@@ -28,7 +27,7 @@ _combined	= (count _this < 6 || {_this select 5});
 
 if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) || typeName (_rIDs != typeName []) || !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
 	["Exiting, wrong params given",true] call FUPS_fnc_log;
-}
+};
 
 [["Sending reinforcements to: %1",_targets]] call FUPS_fnc_log;
 
@@ -41,6 +40,9 @@ _reinfArray = missionNamespace getVariable (format ["FUPS_reinforcements_%1",_si
 		{
 			if (!(isNull _x) && (local leader _x) && {!(count (units _x) == 0) && !(_x in _reinfGroups)}) then {
 				_reinfGroups pushBack _x;
+			}
+			else {
+				[["Error: reinforcements not found for %1",_x],true] call FUPS_fnc_log;
 			};
 		} forEach (_reinfArray select _x);
 	};
