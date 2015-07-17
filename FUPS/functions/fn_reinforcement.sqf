@@ -21,11 +21,11 @@ private ["_targets","_rIDs","_side","_skipVars","_stayInArea","_combined"];
 _targets	= _this select 0;
 _rIDs		= _this select 1;
 _side		= _this select 2;
-_skipVars	= (count _this > 3 && {_this select 3});
-_stayInArea	= (count _this > 4 && {_this select 4});
-_combined	= (count _this < 6 || {_this select 5});
+_skipVars	= (count _this > 3 AND {_this select 3});
+_stayInArea	= (count _this > 4 AND {_this select 4});
+_combined	= (count _this < 6 OR {_this select 5});
 
-if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) || typeName (_rIDs != typeName []) || !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
+if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) OR typeName (_rIDs != typeName []) OR !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
 	["Exiting, wrong params given",true] call FUPS_fnc_log;
 };
 
@@ -36,9 +36,9 @@ private ["_reinfGroups","_reinfArray"];
 _reinfGroups = [];
 _reinfArray = missionNamespace getVariable (format ["FUPS_reinforcements_%1",_side]);
 {
-	if (count _reinfArray > _x && { !isNil { _reinfArray select _x } }) then {
+	if (count _reinfArray > _x AND { !isNil { _reinfArray select _x } }) then {
 		{
-			if (!(isNull _x) && (local leader _x) && {!(count (units _x) == 0) && !(_x in _reinfGroups)}) then {
+			if (!(isNull _x) AND (local leader _x) AND {!(count (units _x) == 0) AND !(_x in _reinfGroups)}) then {
 				_reinfGroups pushBack _x;
 			}
 			else {

@@ -18,7 +18,7 @@ private ["_grp","_simulate","_allowEH"];
 
 _grp = _this select 0;
 _simulate = _this select 1;
-_allowEH = !(count _this == 3 && {!(_this select 2)});
+_allowEH = !(count _this == 3 AND {!(_this select 2)});
 
 [["enableSimulationGlobal %1 for %2",_simulate,_grp]] call FUPS_fnc_log;
 

@@ -26,7 +26,7 @@ switch (_this select 1) do {
 		_movePos = getPosATL leader _group;
 		_dir = [_center,_movePos] call FUPS_fnc_getDir;
 		_relDist = [_areainfo,_dir] call FUPS_fnc_recMarkerRad;
-		if (count _combinedGroups == 0 && _center distance _movePos > _relDist + 350) then {
+		if (count _combinedGroups == 0 AND _center distance _movePos > _relDist + 350) then {
 			_movePos = [_center,_dir,_relDist + 300] call FUPS_fnc_relPos;
 		};
 
@@ -41,7 +41,7 @@ switch (_this select 1) do {
 			private "_combinedGroups";
 			_combinedGroups = (_group getVariable "FUPS_reinfInfo") select 2;
 
-			if ({!(_x getVariable ["FUPS_reinfReady",false])} count == 0) then {
+			if ({!(_x getVariable ["FUPS_reinfReady",false])} count _combinedGroups == 0) then {
 				_group setVariable ["FUPS_taskState","newwp"];
 				_group setVariable ["FUPS_reinfInArea",time];
 			};

@@ -26,7 +26,7 @@ _params			= [_this,3,[],[[]]]			call BIS_fnc_param;
 _initFUPS		= [_this,4,true,[true]]		call BIS_fnc_param;
 _sleepTime		= [_this,5,2,[0]]			call BIS_fnc_param;
 
-if (_spawnPos isEqualTo [] || (_marker == "" && _initFUPS) || _templates isEqualTo []) exitWith { ["Error: wrong params"] call FUPS_fnc_log; [] };
+if (_spawnPos isEqualTo [] OR (_marker == "" AND _initFUPS) OR _templates isEqualTo []) exitWith { ["Error: wrong params"] call FUPS_fnc_log; [] };
 
 private "_count";
 _count = count FUPS_templates;
@@ -34,7 +34,7 @@ switch (typeName _templates) do {
 	case ("ARRAY"): {
 		{
 			_data = [];
-			if (_count > _x && { !isNil { FUPS_templates select _x } }) then {
+			if (_count > _x AND { !isNil { FUPS_templates select _x } }) then {
 				_data = FUPS_templates select _x;
 			}
 			else {

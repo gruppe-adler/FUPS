@@ -118,7 +118,7 @@ switch (_this select 1) do {
 	case ("fight"): {
 		if (_group knowsAbout leader _target > 0.2) then {_timeOnTarget = _group setVariable ["FUPS_timeOnTarget",time + 600]};
 
-		if (({alive _x} count units _target == 0) || (time > (_group getVariable "FUPS_timeOnTarget"))) then {
+		if (({alive _x} count units _target == 0) OR (time > (_group getVariable "FUPS_timeOnTarget"))) then {
 			_group setVariable ["FUPS_task",""];
 		};
 	};

@@ -14,7 +14,7 @@
 private "_highest";
 _highest = -1;
 {
-	if (_x > _highest) then {_highest = _x};
+    _highest = _highest max _x;
 } forEach _this;
 
 waitUntil {!isNil "FUPS_templates"};

@@ -146,8 +146,8 @@ _share = FUPS_share select _sideIndex;
         private ["_v","_knows"];
         _v = vehicle _x;
         _knows = _group knowsAbout _v;
-        if (_knows > 0.5) then {_knowsgroup = true};
-        if (_knows > _maxknowledge) then {_maxknowledge = _knows};
+        _knowsgroup = _knowsgroup OR (_knows > 0.5);
+        _maxknowledge = _maxknowledge max _knows;
     } forEach (units _x);
 
     if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
@@ -173,7 +173,7 @@ _share = FUPS_share select _sideIndex;
                 { // foreach
                     private "_v";
                     _v = vehicle _x;
-                    if ({_v aimedAtTarget [_x] > 0.9} count _members > 0) then {_theyGotUs = true};
+                    _theyGotUs = _theyGotUs OR ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
                 } forEach (units _x);
             };
         };
@@ -220,7 +220,7 @@ _mostDangerousTarget_dist = 10000;
         _mostDangerousTarget_dist = _dist;
     }
     else {
-        if (_val == _mostDangerousTarget_val && _dist < _mostDangerousTarget_dist) then {
+        if (_val == _mostDangerousTarget_val AND _dist < _mostDangerousTarget_dist) then {
             _mostDangerousTarget = _x;
             _mostDangerousTarget_val = _val;
             _mostDangerousTarget_dist = _dist;
@@ -238,11 +238,11 @@ _group setVariable ["FUPS_target",_target];
 private ["_surrounded","_headsdown","_unknowIncident","_weakened"];
 _surrounded     = _directions call FUPS_fnc_isSurrounded;
 _headsdown      = !(_fears isEqualTo []);
-_unknowIncident = (_maxknowledge == 0) && _gothit;
+_unknowIncident = (_maxknowledge == 0) AND _gothit;
 _weakened       = _combatStrength < 0.4;
 
 switch (true) do {
-    case ((surfaceIsWater _currpos) && !(_group getVariable "FUPS_allowWater")): {
+    case ((surfaceIsWater _currpos) AND !(_group getVariable "FUPS_allowWater")): {
         // Group is in water
 
         _group setVariable ["FUPS_task","FUPS_fnc_getOutOfWater"];
@@ -258,7 +258,7 @@ switch (true) do {
         _task = _group getVariable "FUPS_order";
         _group setVariable []
     };
-    case (call (_group getVariable "FUPS_break") || (_group getVariable "FUPS_task" == "")): {
+    case (call (_group getVariable "FUPS_break") OR (_group getVariable "FUPS_task" == "")): {
         // New task
 
         ["Breaking the task"] call FUPS_fnc_log;
@@ -266,13 +266,13 @@ switch (true) do {
         // get current task
         private "_tasks";
         _tasks = [];
-        if (_gothit && _targets isEqualTo [] || !(_enemies isEqualTo []) || _unknowIncident) then {
+        if (_gothit AND _targets isEqualTo [] OR !(_enemies isEqualTo []) OR _unknowIncident) then {
             _tasks pushBack "FUPS_fnc_task_hold";
         };
         if (!isNull _target) then {
             _tasks pushBack "FUPS_fnc_task_attack";
         };
-        if (!(_fears isEqualTo []) || _weakened || (_groupdamage > (2*_lastdamage)) || ((_groupdamage - _lastdamage) > 1.5)) then {
+        if (!(_fears isEqualTo []) OR _weakened OR (_groupdamage > (2*_lastdamage)) OR ((_groupdamage - _lastdamage) > 1.5)) then {
             _tasks pushBack "FUPS_fnc_task_retreat";
         };
 

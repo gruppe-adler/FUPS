@@ -66,7 +66,7 @@ if (_randomSpawn) then {
 private "_simulation";
 _simulation = _settings select 8;
 _group setVariable ["FUPS_simulation",{true}];
-if ((typename _simulation == typename objNull && {!isNull _simulation})) then {
+if ((typename _simulation == typename objNull AND {!isNull _simulation})) then {
     private "_fnc";
     _fnc = {
         triggerActivated ((_this select 0) getVariable "FUPS_simulation_trigger");

@@ -20,9 +20,9 @@
 
 private ["_str","_log","_message"];
 _str = _this select 0;
-_log = FUPS_log || (count _this == 2 && {_this select 1});
+_log = FUPS_log OR (count _this == 2 AND {_this select 1});
 
-if (_str isEqualTo "" || !_log) exitWith {};
+if (_str isEqualTo "" OR !_log) exitWith {};
 
 _message = "FUPS_log: ";
 //--- Insert function name where available

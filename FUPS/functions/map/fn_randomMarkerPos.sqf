@@ -17,7 +17,7 @@ while {_tries < 25} do {
 	private "_pos";
 	_pos = _markerpos vectorAdd (_markervector vectorMultiply random 1) vectorAdd (_markervector_1 vectorMultiply random 1),
 	_pos = _pos findEmptyPosition [_freeRadius,30];
-	if (!(_pos isEqualTo []) && _waterCondition) then {
+	if (!(_pos isEqualTo []) AND _waterCondition) then {
 		_randompos = _pos;
 		_tries = 25;
 	};

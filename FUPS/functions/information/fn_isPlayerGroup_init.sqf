@@ -1,6 +1,6 @@
 private ["_group","_isPlayerGroup"];
-_group = _this select 0;
-_isPlayerGroup = count (units _x) > {isPlayer _x} count (units _x);
+_group = param [0,grpNull,[grpNull]];
+_isPlayerGroup = {!(isPlayer _x)} count (units _group) == 0;
 
 _group setVariable ["FUPS_grpIsPlayer",_isPlayerGroup];
 

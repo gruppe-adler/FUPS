@@ -1,18 +1,42 @@
 private ["_v","_weapons"];
-_v = _this select 0;
-_weapons = [false,false,false];
+_v = param [0,objNull,[objNull]];
+_weapons = weapons _v;
+_magazines = magazines _v;
+{
+    private "_weaponMagazines";
+    _weaponMagazines = (getArray (configFile >> "CfgWeapons" >> _x >> "magazines")) arrayIntersect _magazines;
+
+    {
+        private "_ammo";
+        _ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
+        _weaponMagazines set [_forEachIndex,_ammo];
+    } forEach _weaponMagazines;
+
+    _weapons set [_forEachIndex,[_x,_weaponMagazines]];
+} forEach _weapons;
+
+_effectiveness = [false,false,false,false];
 
 {
-	private ["_ammo","_hit","_airLock"];
-	_ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
-	_hit = getNumber (configFile >> "CfgAmmo" >> _ammo >> "hit");
-	_airLock = getNumber (configFile >> "CfgAmmo" >> _ammo >> "airLock") == 1;
+	private ["_hit","_isLauncher","_isAA"];
+	_hit = 0;
+	_isLauncher = getNumber (configFile >> "CfgWeapons" >> (_x select 0) >> "canLock") == 2;
+    _isAA = false;
 
-	_weapons set [0,_weapons select 0 || _hit > 0];
-	_weapons set [1,_weapons select 1 || (_hit >= 120 && !_airLock)];
-	_weapons set [2,_weapons select 2 || _airLock];
-	_weapons set [3,_weapons select 3 || (_hit >= 120 && !_airLock)];
-} forEach (magazines _v);
-_v setVariable ["FUPS_weapons", _weapons];
+    {
+        private "_cfg";
+        _cfg = configFile >> "CfgAmmo" >> _x;
+        _hit = _hit max (getNumber (_cfg >> "hit"));
+        _isAA = _isAA OR (_isLauncher AND (getNumber (_cfg >> "airLock") == 1));
+    } forEach (_x select 1);
 
-_weapons
+	_effectiveness set [0,(_effectiveness select 0) OR (_hit > 0)];
+	_effectiveness set [1,(_effectiveness select 1) OR (_hit >= 120 AND !_isAA)];
+	_effectiveness set [2,(_effectiveness select 2) OR _isAA];
+	_effectiveness set [3,(_effectiveness select 3) OR (_hit >= 120 AND !_isAA)];
+
+} forEach _weapons;
+
+_v setVariable ["FUPS_weapons", _effectiveness];
+
+_effectiveness
