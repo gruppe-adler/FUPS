@@ -1,1 +1,1 @@
-count ((_this select 0) nearObjects ["Building",40]) > 2
+count (param [0,objNull,[objNull]] nearObjects ["Building",40]) > 2

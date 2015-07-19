@@ -1,7 +1,7 @@
 private ["_searchPos","_searchDistance","_pos","_buildings","_building","_minDist","_dist"];
 
-_searchPos = _this select 0;
-_searchDistance = _this select 1;
+_searchPos = param [0,[0,0,0],[[]]];
+_searchDistance = param [0,0,[0]];
 
 _building = objNull;
 _buildings = _searchPos nearObjects ["Building",_searchDistance];

@@ -14,7 +14,11 @@ switch (_this select 1) do {
 			private ["_index","_wp"];
 			_index = _group getVariable "FUPS_routeIndex";
 			_wp = _route select _index;
-			_group setVariable ["FUPS_routeIndex",(_index + 1) % (count _route)];
+			_index = _wp select 1;
+			if (_index == -1) then {
+				_group setVariable ["FUPS_route",[]];
+			};
+			_group setVariable ["FUPS_routeIndex",_index];
 
 			_group move (_wp select 0);
 			_group setVariable ["FUPS_movePos",_wp select 0];

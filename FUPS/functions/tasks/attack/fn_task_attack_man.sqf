@@ -77,7 +77,7 @@ switch (_this select 1) do {
 			};
 		};
 	};
-	case ("evase"): {
+	case ("flank"): {
 		// evasing finished?
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			// go to flanking position

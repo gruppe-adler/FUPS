@@ -1,34 +1,36 @@
+scopeName _fnc_scriptName;
 private ["_group","_wps"];
 _group = _this select 0;
-_wps	= [];
+_wps = waypoints _group;
 
-if (count waypoints _group <= 1) exitWith { _wps };
-
-for "_i" from 1 to (count waypoints _group - 1) do {
-	private "_array";
-	_array = [[0,0,0],_i + 1];
-	_array set [0,waypointPosition [_group,_i]];
-	if (waypointType [_group,_i] == "CYCLE") exitWith {
-		_array set [1,0];
-		_wps pushBack _array;
+{
+	private "_nextIndex";
+	_nextIndex = if (waypointType _x == "CYCLE") then {
+		_wps set [_forEachIndex,[waypointPosition _x,-1]];
+		breakTo _fnc_scriptName;
+	}
+	else {
+		_wps set [_forEachIndex,[waypointPosition _x,_forEachIndex + 1]];
 	};
+} forEach _wps;
 
-	_wps pushBack _array;
+private "_lastWp";
+_lastWp = _wps select (count _wps - 1);
+if (_lastWp select 1 == -1) then {
+	private ["_pos","_nearest","_index"];
+	_pos = _lastWp select 0;
+	_nearest = [0,0,0];
+	_index = -1;
+	{
+		if (_pos distance (_x select 0) < _pos distance _nearest) then {
+			_nearest = _x select 0;
+			_index = _forEachIndex;
+		}
+	} forEach (_wps - [_lastWp]);
+
+	_lastWp set [1,_index];
+} else {
+	_lastWp set [1,-1];
 };
-
-private ["_minDist","_index","_cyclePos"];
-_minDist	= 100000;
-_index		= 0;
-_cyclePos	= _wps select ((count _wps) - 1) select 0;
-for "_i" from 0 to ((count _wps) - 2) do {
-	private "_dist";
-	_dist = (_wps select _i select 0) distance _cyclePos;
-	if (_dist < _minDist) then {
-		_index = _i;
-	};
-};
-(_wps select ((count _wps) - 1)) set [1,_index];
-
-if (count _wps == 1) exitWith { [] };
 
 _wps

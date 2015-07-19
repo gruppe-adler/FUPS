@@ -13,6 +13,8 @@
 
 */
 
+// -- ToDo
+
 private ["_group","_building","_posArray","_index"];
 
 _group = _this select 0;

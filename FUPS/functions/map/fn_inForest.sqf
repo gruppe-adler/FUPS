@@ -9,6 +9,6 @@ _trees		= 0;
 			true breakOut _fnc_scriptname;
 		};
 	};
-} count nearestObjects [(_this select 0), [], 20];
+} count nearestObjects [param [0,objNull,[objNull]], [], 20];
 
 false

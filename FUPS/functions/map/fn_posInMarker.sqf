@@ -1,6 +1,7 @@
 private ["_data","_pos"];
-_pos = _this select 0;
-_data = _this select 1;
+_pos = param [0,[0,0,0],[[]]];
+// --- ToDo: set proper backup data for _data
+_data = param [1,[],[[]]];
 
 private ["_center","_angle"];
 _center	= (_data select 0) vectorAdd ((_data select 2) vectorMultiply 0.5) vectorAdd ((_data select 3) vectorMultiply 0.5);

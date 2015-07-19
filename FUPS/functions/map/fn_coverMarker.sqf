@@ -1,12 +1,23 @@
-private ["_targets","_positions","_minSize","_targetsCount","_centerpos","_center1","_center2","_sizeA","_sizeB"];
-
-_targets = _this select 0;
+private ["_targets","_positions","_targetsCount"];
+_targets = param [0,[],[[]]];
 _positions = [];
 {
-	_positions set [_forEachIndex,(getPosATL _x)];
+	switch (typeName _x) do {
+		case (typeName []): {
+			_positions set [_forEachIndex,_x];
+		};
+		case (typeName objNull): {
+			_positions set [_forEachIndex,(getPosATL _x)];
+		};
+		case (typeName ""): {
+			_positions set [_forEachIndex,(markerPos _x)];
+		};
+	};
 } forEach _targets;
+systemchat str _positions;
 _targetsCount = count _targets;
 
+private ["_xCord","_yCord"];
 _xCord = 0;
 _yCord = 0;
 {
@@ -16,8 +27,9 @@ _yCord = 0;
 _xCord = _xCord / _targetsCount;
 _yCord = _yCord / _targetsCount;
 
+private ["_centerpos","_minSize","_sizeA","_sizeB"];
 _centerpos = [_xCord,_yCord,0];
-_minSize = [_this,1,0,[0]] call BIS_fnc_param;
+_minSize = param [1,0,[0]];
 _sizeA = _minSize;
 _sizeB = _minSize;
 {
@@ -25,16 +37,12 @@ _sizeB = _minSize;
 	_xDist = _xCord - (_positions select _forEachIndex select 0);
 	_yDist = _yCord - (_positions select _forEachIndex select 1);
 
-	if (_sizeA < _xDist) then {
-		_sizeA = _xDist;
-	};
-
-	if (_sizeB < _yDist) then {
-		_sizeB = _yDist;
-	};
+	_sizeA = _sizeA max _xDist;
+	_sizeB = _sizeB max _yDist;
 } forEach _targets;
 
 // create imaginery marker
+private ["_markervector","_markervector_1","_mindist"];
 _markervector	= [1,0,0] vectorMultiply (2*_sizeA);
 _markervector_1	= [0,1,0] vectorMultiply (2*_sizeB);
 _markerPos		= (_centerpos vectorAdd (_markervector vectorMultiply -0.5)) vectorAdd (_markervector_1 vectorMultiply -0.5);
