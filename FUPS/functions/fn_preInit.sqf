@@ -67,7 +67,7 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
 },{ // break condition
     _surrounded OR _headsdown OR _weakened OR _theyGotUs
 },{
-    [_target]
+    [leader _target]
 }] call FUPS_fnc_registerTask;
 
 // register hold task

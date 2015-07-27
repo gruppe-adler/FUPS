@@ -37,7 +37,7 @@ switch (_this select 1) do {
 		if (leader _group distance _pos < (_group getVariable "FUPS_closeenough")) then {
 			if (_group getVariable "FUPS_wait") then {
 				_group setVariable ["FUPS_patrolWait",time + 60];
-				_group setVariable ["FUPS_taskState","wait"]
+				_group setVariable ["FUPS_taskState","wait"];
 			}
 			else {
 				_group setVariable ["FUPS_taskState","init"];

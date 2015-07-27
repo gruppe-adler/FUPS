@@ -241,6 +241,8 @@ _headsdown      = !(_fears isEqualTo []);
 _unknowIncident = (_maxknowledge == 0) AND _gothit;
 _weakened       = _combatStrength < 0.4;
 
+private "_task";
+_task = _group getVariable "FUPS_task";
 switch (true) do {
     case ((surfaceIsWater _currpos) AND !(_group getVariable "FUPS_allowWater")): {
         // Group is in water
@@ -261,7 +263,14 @@ switch (true) do {
     case (call (_group getVariable "FUPS_break") OR (_group getVariable "FUPS_task" == "")): {
         // New task
 
-        ["Breaking the task"] call FUPS_fnc_log;
+        [["Breaking the task with:
+            _gothit := %1
+            _weakened := %2
+            _surrounded := %3
+            _headsdown := %4
+            _unknowIncident := %5
+            _theyGotUs := %6
+            _maxknowledge := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_maxknowledge]] call FUPS_fnc_log;
 
         // get current task
         private "_tasks";
@@ -294,12 +303,6 @@ switch (true) do {
 
         _group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
 
-        // get the "right" task for the groups type, if it is defined
-        private "_typeName";
-        _typeName = _group getVariable "FUPS_typeName";
-        if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
-            _task = _task + _typeName;
-        };
         _group setVariable ["FUPS_task",_task];
         _group setVariable ["FUPS_taskState","init"];
     };
@@ -308,7 +311,17 @@ switch (true) do {
 private "_params";
 _params = [_group,_group getVariable "FUPS_taskState"];
 _params append (0 call (missionnamespace getVariable (_task + "_params")));
-_params call (missionnamespace getVariable (_group getVariable "FUPS_task"));
+
+// get the "right" task for the groups type, if it is defined
+private "_typeName";
+_typeName = _group getVariable "FUPS_typeName";
+if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
+    _task = _task + _typeName;
+};
+
+_task call FUPS_fnc_watch;
+
+_params call (missionnamespace getVariable _task);
 
 _group setVariable ["FUPS_gothit",_gothit];
 _group setVariable ["FUPS_lastPos",_currpos];
