@@ -1,6 +1,4 @@
-private ["_group","_pos"];
-_group = _this select 0;
-_pos = _this select 1;
+params ["_group","_pos"];
 
 private ["_data","_markerPos","_yVector","_xVector","_markerDir"];
 _data		= _group getVariable "FUPS_marker";

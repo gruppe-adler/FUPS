@@ -1,5 +1,5 @@
-private ["_v","_type"];
-_v = _this select 0;
+params ["_v"];
+private "_type";
 _type = -1;
 
 switch (true) do {

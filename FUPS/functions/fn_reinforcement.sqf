@@ -1,9 +1,9 @@
 /*
 
-	Description: Orders a unit to be sent as reinforcement
+	Description: orders a unit to be sent as reinforcement
 
 	PARAMS:
-	0 <OBJECT/OBJECT ARRAY/ARRAY FORMAT POSITION/ARRAY FORMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
+	0 <OBJECT/OBJECT ARRAY/ARRAY ForMAT POSITION/ARRAY ForMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
 	1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
 	2 <SIDE> - the side of the reinforcement groups to be sent
 	3 <BOOLEAN> - true if the units should be send regardless of their current actions
@@ -17,15 +17,9 @@
 
 */
 
-private ["_targets","_rIDs","_side","_skipVars","_stayInArea","_combined"];
-_targets	= _this select 0;
-_rIDs		= _this select 1;
-_side		= _this select 2;
-_skipVars	= (count _this > 3 AND {_this select 3});
-_stayInArea	= (count _this > 4 AND {_this select 4});
-_combined	= (count _this < 6 OR {_this select 5});
+params ["_targets","_rIDs","_side",["_skipVars",false],["_stayInArea",false],["_combined",true]];
 
-if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) OR typeName (_rIDs != typeName []) OR !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
+if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) or typeName (_rIDs != typeName []) or !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
 	["Exiting, wrong params given",true] call FUPS_fnc_log;
 };
 
@@ -81,6 +75,6 @@ if (_combined) then {
 
 		_grp setVariable ["FUPS_reinforcementReady",false];
 		{ _grp reveal _x } forEach _targets;
-		[_x,"REINFORCEMENT",_skipVars,_params] call FUPS_fnc_do;
+		[_x,"REINForCEMENT",_skipVars,_params] call FUPS_fnc_do;
 	};
 } forEach _reinfGroups;

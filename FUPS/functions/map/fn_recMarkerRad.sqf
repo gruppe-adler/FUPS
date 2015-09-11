@@ -1,6 +1,4 @@
-private ["_data","_angle"];
-_data = _this select 0;
-_angle = _this select 1;
+params ["_data","_angle"];
 
 private ["_yVec","_xVec","_dir"];
 _yVec = (_data select 2) vectorMultiply 0.5;

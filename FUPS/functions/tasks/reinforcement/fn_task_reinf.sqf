@@ -1,11 +1,9 @@
-private ["_group","_target"];
-_group = _this select 0;
-_target = _this select 2;
+params ["_group","_mode","_target"];
 
-switch (_this select 1) do {
+switch _mode do {
 	case "init": {
 		_group setBehaviour "AWARE";
-		_group setBehaviour "NORMAL";
+		_group setBehaviour "NorMAL";
 
 		private ["_params","_areainfo","_combinedGroups","_targets"];
 		_params = _group getVariable "FUPS_reinfInfo";

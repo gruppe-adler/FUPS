@@ -1,7 +1,6 @@
-private ["_group","_target"];
-_group = _this select 0;
+params ["_group","_mode"];
 
-switch (_this select 1) do {
+switch _mode do {
     case ("init"): {
 		["Holding"] call FUPS_fnc_log;
 

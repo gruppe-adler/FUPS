@@ -12,8 +12,8 @@
 
 */
 
-private ["_group","_units","_types"];
-_group = _this select 0;
+params ["_group"];
+private ["_units","_types"];
 _units = units _group;
 _types = [_group] call FUPS_fnc_g_type_get;
 

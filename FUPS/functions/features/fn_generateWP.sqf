@@ -6,14 +6,14 @@
     0 <GROUP> - the group to generate for
 
     RETURN:
-    <ARRAY FORMAT POSITION> - the new waypoint
+    <ARRAY ForMAT POSITION> - the new waypoint
 
     Author: [W] Fett_Li
 */
 
-private ["_group","_type","_allowWater","_pos"];
-_group = param [0,grpNull,[grpNull]];
+params ["_group"];
 
+private ["_type","_allowWater","_pos"];
 _type = [_group] call FUPS_fnc_ai_type;
 _allowWater = [0,0,2,1] select _type;
 _pos = [_group,0,_allowWater] call FUPS_fnc_randomMarkerPos;

@@ -3,7 +3,7 @@
 	Description: Spawns the given template or clones the given group
 
 	PARAMS:
-	0 <ARRAY FORMAT POSITION> - position to spawn
+	0 <ARRAY ForMAT POSITION> - position to spawn
 	1 <STRING> - marker to patrol in
 	2 <SCALAR ARRAY> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
 	3 <ARRAY> - additional parameters for FUPS initialization
@@ -17,16 +17,9 @@
 
 */
 
-private ["_spawnPos","_marker","_templates","_params","_initFups","_spawnPosCount","_spawned","_leaders"];
+params ["_spawnPos","_marker","_templates",["_params",[]],["_initFups",true],["_sleepTime",2]];
 
-_spawnPos		= [_this,0,[],[[]]]			call BIS_fnc_param;
-_marker			= [_this,1,"",[""]]			call BIS_fnc_param;
-_templates		= [_this,2,[],[[],objNull]]	call BIS_fnc_param;
-_params			= [_this,3,[],[[]]]			call BIS_fnc_param;
-_initFUPS		= [_this,4,true,[true]]		call BIS_fnc_param;
-_sleepTime		= [_this,5,2,[0]]			call BIS_fnc_param;
-
-if (_spawnPos isEqualTo [] OR (_marker == "" AND _initFUPS) OR _templates isEqualTo []) exitWith { ["Error: wrong params"] call FUPS_fnc_log; [] };
+if (isNil "_spawnPos" || isNil "_marker" || isNil "_templates") exitWith { ["Error: wrong params"] call FUPS_fnc_log; [] };
 
 private "_count";
 _count = count FUPS_templates;
@@ -48,6 +41,7 @@ switch (typeName _templates) do {
 	};
 };
 
+private ["_spawnPosCount","_spawned"];
 _spawnPosCount	= -1; // will get incremented right away, so start with -1
 _spawned		= []; // saves spawned leaders
 {

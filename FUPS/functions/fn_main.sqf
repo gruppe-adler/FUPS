@@ -14,12 +14,12 @@
 
 */
 
-private ["_leader","_group","_marker"];
 
-_leader = _this select 0;
+params ["_leader","_marker"]
+
+private "_group";
 _group = group _leader;
 _leader = leader _group;
-_marker = _this select 1;
 
 _group setVariable ["FUPS_marker",([_marker] call FUPS_fnc_markerData)];
 

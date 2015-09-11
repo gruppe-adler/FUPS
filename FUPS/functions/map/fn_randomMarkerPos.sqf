@@ -1,7 +1,6 @@
-private ["_group","_freeRadius","_water","_waterCondition"];
-_group = _this select 0;
-_freeRadius = _this select 1;
-_water = _this select 2; // 0 - no water, 1 - force water, 2 - don't care
+params ["_group","_freeRadius","_water"];
+// for _water: 0 - no water, 1 - force water, 2 - don't care
+private "_waterCondition";
 _waterCondition = [{!surfaceIsWater _pos},{surfaceIsWater _pos},{true}] select _water;
 
 private ["_markerdata","_markerpos","_markervector","_markervector_1"];

@@ -1,9 +1,6 @@
-private ["_group","_directions","_nearEnemies"];
-_group = _this select 0;
-_directions = _this select 2;
-_nearEnemies = _this select 3;
+params ["_group","_mode","_directions","_nearEnemies"];
 
-switch (_this select 1) do {
+switch _mode do {
 	case ("init"): {
 		["Retreating"] call FUPS_fnc_log;
 

@@ -1,1 +1,2 @@
-(_this select 0) getVariable ["FUPS_grpIsPlayer",([_this select 0] call FUPS_fnc_isPlayerGroup_init)];
+params ["_group"];
+_group getVariable ["FUPS_grpIsPlayer",([_group] call FUPS_fnc_isPlayerGroup_init)];

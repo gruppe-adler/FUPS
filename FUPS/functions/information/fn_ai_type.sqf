@@ -11,4 +11,5 @@
     Author: [W] Fett_Li
 */
 
-(_this select 0) getVariable ["FUPS_ai_type",([(_this select 0)] call FUPS_fnc_ai_type_init)];
+params ["_v"];
+_v getVariable ["FUPS_ai_type",([_v] call FUPS_fnc_ai_type_init)];

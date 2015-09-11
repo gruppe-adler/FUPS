@@ -54,7 +54,7 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
 
 // register patrol task
 ["FUPS_fnc_task_patrol",{0},{
-    _gothit OR _maxknowledge > 0.5
+    _gothit or _maxknowledge > 0.5
 }] call FUPS_fnc_registerTask;
 
 // register attack task
@@ -65,7 +65,7 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
     if (_surrounded AND !_weakened) then {_prior = _prior + 0.3};
     _prior
 },{ // break condition
-    _surrounded OR _headsdown OR _weakened OR _theyGotUs
+    _surrounded or _headsdown or _weakened or _theyGotUs
 },{
     [leader _target]
 }] call FUPS_fnc_registerTask;
@@ -74,7 +74,7 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
 ["FUPS_fnc_task_hold",{ // priority
     private "_prior";
     _prior = 0;
-    if ((_surrounded AND _weakened) OR (_headsdown AND !_weakened)) then {_prior = _prior + 2};
+    if ((_surrounded AND _weakened) or (_headsdown AND !_weakened)) then {_prior = _prior + 2};
     if (!_surrounded AND _weakened) then {_prior = _prior - 0.5};
     _prior
 },{ // break condition
@@ -91,7 +91,7 @@ FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc
     _prior = if (_surrounded) then {_prior - 3} else {_prior + 0.3};
     _prior
 },{ // break condition
-    _surrounded OR _headsdown OR _theyGotUs
+    _surrounded or _headsdown or _theyGotUs
 },{
     [_directions,_nearEnemies]
 }] call FUPS_fnc_registerTask;

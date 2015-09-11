@@ -1,8 +1,6 @@
-private ["_group","_target"];
-_group = _this select 0;
-_target = _this select 2;
+params ["_group","_mode","_target"];
 
-switch (_this select 1) do {
+switch _mode do {
 	case ("init"): {
 		["Attacking"] call FUPS_fnc_log;
 
@@ -118,7 +116,7 @@ switch (_this select 1) do {
 	case ("fight"): {
 		if (_group knowsAbout leader _target > 0.2) then {_timeOnTarget = _group setVariable ["FUPS_timeOnTarget",time + 600]};
 
-		if (({alive _x} count units _target == 0) OR (time > (_group getVariable "FUPS_timeOnTarget"))) then {
+		if (({alive _x} count units _target == 0) or (time > (_group getVariable "FUPS_timeOnTarget"))) then {
 			_group setVariable ["FUPS_task",""];
 		};
 	};

@@ -15,10 +15,7 @@
 
 // -- ToDo
 
-private ["_group","_building","_posArray","_index"];
-
-_group = _this select 0;
-_building = _this select 1;
+params ["_group","_building"];
 
 private ["_index","_posArray"];
 _index = 0;

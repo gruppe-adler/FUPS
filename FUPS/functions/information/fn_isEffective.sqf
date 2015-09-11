@@ -1,7 +1,6 @@
-private ["_ai","_ai_weapons","_group","_g_type"];
-_ai = _this select 0;
+params ["_ai","_group"];
+private ["_ai_weapons","_g_type"];
 _ai_weapons = [_ai] call FUPS_fnc_g_weapons;
-_group = _this select 1;
 _g_type = [_group] call FUPS_fnc_g_type;
 
 private "_effective";

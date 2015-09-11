@@ -1,1 +1,2 @@
-(_this select 0) getVariable ["FUPS_type",([(_this select 0)] call FUPS_fnc_v_type_init)];
+params ["_v"];
+_v getVariable ["FUPS_type",([_v] call FUPS_fnc_v_type_init)];

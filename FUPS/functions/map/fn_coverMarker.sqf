@@ -1,5 +1,5 @@
-private ["_targets","_positions","_targetsCount"];
-_targets = param [0,[],[[]]];
+params ["_targets"];
+private ["_positions","_targetsCount"];
 _positions = [];
 {
 	switch (typeName _x) do {

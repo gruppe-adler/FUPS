@@ -1,6 +1,7 @@
 scopeName _fnc_scriptName;
-private ["_group","_wps"];
+params ["_group"];
 _group = _this select 0;
+private "_wps";
 _wps = waypoints _group;
 
 {

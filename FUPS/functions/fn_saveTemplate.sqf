@@ -15,17 +15,14 @@
 
 */
 
-private ["_group","_template","_units"];
+params ["_group","_template",["_doDelete",true],["_ownerObj",objNull]];
 
-_group      = _this select 0;
 if (isNull _group) exitWith {};
 if (typeName _group == typeName objNull) then {
     _group = group _group;
 };
-_template   = _this select 1;
-_doDelete = count _this < 3 OR {_this select 2};
-_ownerObj = if (count _this < 4) then {objNull} else {_this select 3};
 
+private ["_units","_checked"];
 _units = [[vehicle leader _group,skill commander leader _group]];
 _checked = [vehicle leader _group];
 {
@@ -39,11 +36,11 @@ _checked = [vehicle leader _group];
     (_units select _forEachIndex) set [0,typeOf (_x select 0)];
 } forEach _units;
 
-if (_template >= 0 AND ((count FUPS_templates <= _template) OR { isNil {FUPS_templates select _template} })) then {
+if (_template >= 0 AND ((count FUPS_templates <= _template) or { isNil {FUPS_templates select _template} })) then {
     FUPS_templates set [_template,[side _group,_units]];
 };
 
-if (_doDelete AND (isNull _ownerObj OR local _ownerObj)) then {
+if (_doDelete AND (isNull _ownerObj or local _ownerObj)) then {
     {
         if (vehicle _x != _x) then {
             deleteVehicle (vehicle _x);

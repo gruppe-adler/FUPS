@@ -18,12 +18,12 @@
 */
 
 
-private ["_str","_log","_message"];
-_str = _this select 0;
-_log = FUPS_log OR (count _this == 2 AND {_this select 1});
+params ["_str",["_log",false]]
+_log = FUPS_log or _log;
 
-if (_str isEqualTo "" OR !_log) exitWith {};
+if (_str isEqualTo "" or !_log) exitWith {};
 
+private "_message";
 _message = "FUPS_log: ";
 //--- Insert function name where available
 if !(isnil "_fnc_scriptNameParent") then { _message = "FUPS_log in " + _fnc_scriptNameParent + ": " };

@@ -13,8 +13,8 @@
 
 */
 
-private ["_ai","_ai_type"];
-_ai = _this select 0;
+params ["_ai"];
+private ["_ai_type","_g_weapons"];
 _ai_type = [_ai] call FUPS_fnc_ai_type;
 _group = _this select 1;
 _g_weapons = [_group] call FUPS_fnc_g_weapons;

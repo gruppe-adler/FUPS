@@ -1,5 +1,5 @@
-private ["_v","_weapons"];
-_v = param [0,objNull,[objNull]];
+params ["_v"];
+private ["_weapons","_magazines"];
 _weapons = weapons _v;
 _magazines = magazines _v;
 {
@@ -27,13 +27,13 @@ _effectiveness = [false,false,false,false];
         private "_cfg";
         _cfg = configFile >> "CfgAmmo" >> _x;
         _hit = _hit max (getNumber (_cfg >> "hit"));
-        _isAA = _isAA OR (_isLauncher AND (getNumber (_cfg >> "airLock") == 1));
+        _isAA = _isAA or (_isLauncher AND (getNumber (_cfg >> "airLock") == 1));
     } forEach (_x select 1);
 
-	_effectiveness set [0,(_effectiveness select 0) OR (_hit > 0)];
-	_effectiveness set [1,(_effectiveness select 1) OR (_hit >= 120 AND !_isAA)];
-	_effectiveness set [2,(_effectiveness select 2) OR _isAA];
-	_effectiveness set [3,(_effectiveness select 3) OR (_hit >= 120 AND !_isAA)];
+	_effectiveness set [0,(_effectiveness select 0) or (_hit > 0)];
+	_effectiveness set [1,(_effectiveness select 1) or (_hit >= 120 AND !_isAA)];
+	_effectiveness set [2,(_effectiveness select 2) or _isAA];
+	_effectiveness set [3,(_effectiveness select 3) or (_hit >= 120 AND !_isAA)];
 
 } forEach _weapons;
 

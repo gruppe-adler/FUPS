@@ -13,9 +13,7 @@
 
 */
 
-private ["_group","_vehicles","_type"];
-_group = param [0,grpNull,[grpNull]];
-_vehicles = param [1,[],[[]]];
+params ["_group","_vehicles"];
 
 _type = [_group] call FUPS_fnc_ai_type;
 

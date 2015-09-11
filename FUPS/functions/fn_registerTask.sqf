@@ -14,11 +14,8 @@
     Author: [W] Fett_Li
 */
 
-private ["_task","_taskPriority","_taskBreak","_taskFile","_taskStdIndex"];
-_task			= toUpper (_this select 0);
-_taskPriority	= _this select 1;
-_taskBreak		= _this select 2;
-_taskParams     = _this select 3;
+params ["_task","_taskPriority","_taskBreak","_taskParams"];
+_task = toUpper _task;
 
 missionNamespace setVariable [_task + "_prior",_taskPriority];
 missionNamespace setVariable [_task + "_break",_taskBreak];

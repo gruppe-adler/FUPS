@@ -1,8 +1,8 @@
-private ["_marker","_markerpos","_markerdir","_markersize","_markerrelpos"];
-_marker = param [0,"",[""]];
-_markerpos		= getMarkerPos (_this select 0);
-_markerdir		= markerDir (_this select 0);
-_markersize		= getmarkerSize (_this select 0);
+params ["_marker"];
+private ["_markerpos","_markerdir","_markersize","_markerrelpos"];
+_markerpos		= getMarkerPos _marker;
+_markerdir		= markerDir _marker;
+_markersize		= getmarkerSize _marker;
 _markerrelpos	= [(_markerpos select 0) + (sin _markerdir), (_markerpos select 1) + (cos _markerdir),0];
 
 private "_markervector";
