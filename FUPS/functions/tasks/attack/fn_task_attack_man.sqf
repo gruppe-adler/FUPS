@@ -7,16 +7,8 @@ switch _mode do {
 		_group setBehaviour "COMBAT";
 		_group setSpeedMode "FULL";
 
-		// position calculation
-		private ["_offsVal","_offsX","_offsY"];
-		_offsVal = if (_maxknowledge != 0) then {50 / (_maxknowledge * _maxknowledge * 3)} else {300};
-		_offsX = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-		_offsY = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-
 		private "_targetPos";
-		_targetPos = getPosATL leader _target;
-		_targetPos set [0,(_targetPos select 0) + _offsX];
-		_targetPos set [1,(_targetPos select 1) + _offsX];
+		_targetPos = (_leader targetKnowledge leader _target) select 6;
 
 		// let all units watch into the enemy direction
 		{ _x doWatch _targetPos } forEach (units _group);
@@ -52,15 +44,8 @@ switch _mode do {
 			// only sortie if not to far away
 			if (_leader distance leader _target < 800) then {
 				// position calculation
-				private ["_offsVal","_offsX","_offsY"];
-				_offsVal = if (_maxknowledge != 0) then {50 / (_maxknowledge * _maxknowledge * 3)} else {300};
-				_offsX = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-				_offsY = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-
 				private "_targetPos";
-				_targetPos = getPosATL leader _target;
-				_targetPos set [0,(_targetPos select 0) + _offsX];
-				_targetPos set [1,(_targetPos select 1) + _offsX];
+				_targetPos = (_leader targetKnowledge leader _target) select 6;
 
 				private ["_dir","_dist","_pos"];
 				_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
@@ -79,13 +64,9 @@ switch _mode do {
 		// evasing finished?
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			// go to flanking position
-			private ["_offsVal","_offsX","_offsY"];
-			_offsVal = if (_maxknowledge != 0) then {50 / (_maxknowledge * _maxknowledge * 3)} else {300};
-			_offsX = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-			_offsY = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-			_targetPos = getPosATL leader _target;
-			_targetPos set [0,(_targetPos select 0) + _offsX];
-			_targetPos set [1,(_targetPos select 1) + _offsX];
+			private "_targetPos";
+			_targetPos = (_leader targetKnowledge leader _target) select 6;
+
 			_dist = if ([_targetPos] call FUPS_fnc_inTown) then {100} else {200};
 			private "_dir";
 			_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
@@ -110,13 +91,10 @@ switch _mode do {
 
 			_group setVariable ["FUPS_movePos",nil];
 			_group setVariable ["FUPS_taskState","fight"];
-			_group setVariable ["FUPS_tot",time + 600];
 		};
 	};
 	case ("fight"): {
-		if (_group knowsAbout leader _target > 0.2) then {_timeOnTarget = _group setVariable ["FUPS_timeOnTarget",time + 600]};
-
-		if (({alive _x} count units _target == 0) or (time > (_group getVariable "FUPS_timeOnTarget"))) then {
+		if ({alive _x} count units _target == 0 || time - FUPS_timeOnTarget > (leader _group targetKnowledge leader _target) select 3) then {
 			_group setVariable ["FUPS_task",""];
 		};
 	};

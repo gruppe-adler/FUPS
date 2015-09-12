@@ -120,8 +120,8 @@ _combatStrength = 1 - (_groupdamage / _membersCount);
 _gothit = _groupdamage > (_group getVariable "FUPS_lastDamage");
 
 // get the situation
-private ["_maxknowledge","_targets","_directions","_enemies","_nearEnemies","_fears","_theyGotUs","_share"];
-_maxknowledge = 0.5;
+private ["_knowsAny","_targets","_directions","_enemies","_nearEnemies","_fears","_theyGotUs","_share"];
+_knowsAny = false;
 _targets = [];
 _directions = [];
 _enemies = [];
@@ -140,21 +140,17 @@ if (_group getVariable "FUPS_doShare") then {
 
 _share = FUPS_share select _sideIndex;
 { // foreach
-    private "_knowsgroup";
-    _knowsgroup = false;
+    private "_knowsGroup";
+    _knowsGroup = false;
     { // foreach
-        private ["_v","_knows"];
-        _v = vehicle _x;
-        _knows = _group knowsAbout _v;
-        _knowsgroup = _knowsgroup or (_knows > 0.5);
-        _maxknowledge = _maxknowledge max _knows;
+        _knowsGroup = (_leader targetKnowledge _x) select 1;
+        if (_knowsGroup) exitWith {};
     } forEach (units _x);
+    _knowsAny = _knowsAny || _knowsGroup;
 
     if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
 
-    if (_knowsgroup) then {
-        _x setVariable ["FUPS_lastSpotted",time];
-
+    if (_knowsGroup) then {
         _enemies pushBack _x;
         _share pushBack _x;
 
@@ -179,9 +175,6 @@ _share = FUPS_share select _sideIndex;
         };
     };
 } forEach (FUPS_enemies select _sideIndex);
-
-// set external variables
-_group setVariable ["FUPS_maxknowledge",_maxknowledge];
 
 // re-evaluate current target
 private ["_target_val","_target_dist"];
@@ -238,7 +231,7 @@ _group setVariable ["FUPS_target",_target];
 private ["_surrounded","_headsdown","_unknowIncident","_weakened"];
 _surrounded     = _directions call FUPS_fnc_isSurrounded;
 _headsdown      = !(_fears isEqualTo []);
-_unknowIncident = (_maxknowledge == 0) AND _gothit;
+_unknowIncident = !_knowsAny AND _gothit;
 _weakened       = _combatStrength < 0.4;
 
 private "_task";
@@ -270,7 +263,7 @@ switch (true) do {
             _headsdown := %4
             _unknowIncident := %5
             _theyGotUs := %6
-            _maxknowledge := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_maxknowledge]] call FUPS_fnc_log;
+            _knowsAny := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_knowsAny]] call FUPS_fnc_log;
 
         // get current task
         private "_tasks";

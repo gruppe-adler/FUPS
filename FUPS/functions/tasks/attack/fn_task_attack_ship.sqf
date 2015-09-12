@@ -10,15 +10,10 @@ switch _mode do {
         _wp setWaypointType "DESTROY";
         _wp waypointAttachVehicle (vehicle leader _target);
 
-        _group setVariable ["FUPS_timeOnTarget",time + 600];
         _group setVariable ["FUPS_taskState","fight"];
     };
     case ("fight"): {
-        if (_group knowsAbout leader _target > 0.2) then {
-            _group setVariable ["FUPS_timeOnTarget",time + 600];
-        };
-
-        if ({alive _x} count units _target == 0 or time > (_group getVariable "FUPS_timeOnTarget")) then {
+        if ({alive _x} count units _target == 0 || time - FUPS_timeOnTarget > (leader _group targetKnowledge leader _target) select 3) then {
             _group setVariable ["FUPS_task",""];
         };
     };

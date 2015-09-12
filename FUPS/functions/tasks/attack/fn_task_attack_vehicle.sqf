@@ -7,14 +7,8 @@ switch _mode do {
 		_group setBehaviour "COMBAT";
 		_group setSpeedMode "FULL";
 
-		private ["_maxknowledge","_offsVal","_offsX","_offsY","_targetPos"];
-		_maxknowledge = _this select 17;
-		_offsVal = if (_maxknowledge != 0) then {50 / (_maxknowledge * _maxknowledge * 3)} else {300};
-		_offsX = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-		_offsY = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-		_targetPos = getPosATL leader _target;
-		_targetPos set [0,(_targetPos select 0) + _offsX];
-		_targetPos set [1,(_targetPos select 1) + _offsX];
+		private "_targetPos";
+		_targetPos = (_leader targetKnowledge leader _target) select 6;
 
 		{_x doWatch _targetPos} forEach (units _group);
 
@@ -37,12 +31,8 @@ switch _mode do {
 	};
 	case ("flank"): {
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
-			_offsVal = if (_maxknowledge != 0) then {50 / (_maxknowledge * _maxknowledge * 3)} else {300};
-			_offsX = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-			_offsY = (random (2 * _offsVal) + random _offsVal) * ([1,-1] select (floor random 2));
-			_targetPos = getPosATL leader _target;
-			_targetPos set [0,(_targetPos select 0) + _offsX];
-			_targetPos set [1,(_targetPos select 1) + _offsX];
+			private "_targetPos";
+			_targetPos = (_leader targetKnowledge leader _target) select 6;
 
 			private "_pos";
 			_pos = (selectbestPlaces [_currpos,50,"meadow + trees - forest + hill - houses",5,1]) select 0 select 0;
@@ -52,15 +42,11 @@ switch _mode do {
 			{_x doWatch _targetPos} forEach (units _group);
 
 			_group setVariable ["FUPS_taskState","fight"];
-			_group setVariable ["FUPS_timeOnTarget",time + 600];
 		};
 	};
 	case ("fight"): {
-		if (_group knowsAbout leader _target > 0.2) then {
-			_group setVariable ["FUPS_timeOnTarget",time + 600];
-		};
 
-		if (({alive _x} count units _target == 0) or (time > (_group getVariable "FUPS_timeOnTarget"))) then {
+		if ({alive _x} count units _target == 0 || time - FUPS_timeOnTarget > (leader _group targetKnowledge leader _target) select 3) then {
 			_group setVariable ["FUPS_task",""];
 		};
 	};

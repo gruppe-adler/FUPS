@@ -41,13 +41,10 @@ switch _mode do {
 
 		{_x doWatch leader _target} forEach (units _group);
 
-		_group setVariable ["FUPS_timeOnTarget",time + 600];
 		_group setVariable ["FUPS_taskState","fight"];
 	};
 	case ("fight"): {
-		if (_group knowsAbout leader _target > 0.2) then {_group setVariable ["FUPS_timeOnTarget",time + 600]};
-
-		if ({alive _x} count units _target == 0 or time > (_group getVariable "FUPS_timeOnTarget")) then {
+		if ({alive _x} count units _target == 0 || time - FUPS_timeOnTarget > (leader _group targetKnowledge leader _target) select 3) then {
 			_group setVariable ["FUPS_task",""];
 		};
 	};
