@@ -18,10 +18,10 @@
 */
 
 
-params ["_str",["_log",false]]
-_log = FUPS_log or _log;
+params ["_str",["_format",true],["_log",false]];
+_log = FUPS_log || _log;
 
-if (_str isEqualTo "" or !_log) exitWith {};
+if (_str isEqualTo "" || !_log) exitWith {};
 
 private "_message";
 _message = "FUPS_log: ";
@@ -29,7 +29,7 @@ _message = "FUPS_log: ";
 if !(isnil "_fnc_scriptNameParent") then { _message = "FUPS_log in " + _fnc_scriptNameParent + ": " };
 
 if (!isNil "_group") then { _message = _message + str _group + ", " };
-if (typename _str == "ARRAY") then {
+if (typename _str == "ARRAY" && _format) then {
 	_message = _message + format _str;
 } else {
 	_message = _message +  str _str;

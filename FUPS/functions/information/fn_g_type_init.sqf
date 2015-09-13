@@ -1,4 +1,4 @@
-params ["_group"]
+params ["_group"];
 private "_types";
 _types = [_group] call FUPS_fnc_g_type_get;
 

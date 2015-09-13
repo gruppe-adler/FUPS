@@ -30,7 +30,7 @@ _index = _list find "BEHAVIOUR:";
 if (_index > -1) then {
 	private "_value";
 	_value = [_list,_index + 1,"SAFE",[""]] call BIS_fnc_param;
-	if (toUpper _value in ["SAFE","AWARE","COMBAT","STEALTH","CARELESS"]) then { _args set [0,_value] } else { ["Error: Wrong param for 'BEHAVIOUR:'",true] call FUPS_fnc_log };
+	if (toUpper _value in ["SAFE","AWARE","COMBAT","STEALTH","CARELESS"]) then { _args set [0,_value] } else { ["Error: Wrong param for 'BEHAVIOUR:'",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
 };
@@ -40,7 +40,7 @@ _index = _list find "SPEED:";
 if (_index > -1) then {
 	private "_value";
 	_value = [_list,_index + 1,"LIMITED",[""]] call BIS_fnc_param;
-	if (toUpper _value in ["LIMITED","NorMAL","FULL"]) then { _args set [1,_value] } else {  ["Error: Wrong param for 'SPEED:'",true] call FUPS_fnc_log };
+	if (toUpper _value in ["LIMITED","NorMAL","FULL"]) then { _args set [1,_value] } else {  ["Error: Wrong param for 'SPEED:'",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
 };
@@ -80,7 +80,7 @@ _index = _list find "VEHICLE:";
 if (_index > -1) then {
 	private "_value";
 	_value = [_list,_index + 1,objNull,[objNull]] call BIS_fnc_param;
-	if !(isNull _value) then { _args set [6,_value] } else { ["Error: Wrong param for 'VEHICLE:'",true] call FUPS_fnc_log };
+	if !(isNull _value) then { _args set [6,_value] } else { ["Error: Wrong param for 'VEHICLE:'",true,true] call FUPS_fnc_log };
 	_List deleteAt _index;
 	_list deleteAt _index;
 };
@@ -97,7 +97,7 @@ _index = _list find "SIMULATION:";
 if (_index > -1) then {
 	private "_value";
 	_value = [_list,_index + 1,objNull,[objNull,0]] call BIS_fnc_param;
-	if !(_value isEqualTo objNull) then { _args set [8,_value] } else { ["Error: Wrong param for 'SIMULATION:'",true] call FUPS_fnc_log };
+	if !(_value isEqualTo objNull) then { _args set [8,_value] } else { ["Error: Wrong param for 'SIMULATION:'",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
 };
@@ -107,14 +107,14 @@ _index = _list find "REINForCEMENT:";
 if (_index > -1) then {
 	private "_value";
 	_value = [_list,_index + 1,[],[[]]] call BIS_fnc_param;
-	if !(_value isEqualTo []) then { _args set [9,_value] } else { ["Error: Wrong params for REINForCEMENT:",true] call FUPS_fnc_log };
+	if !(_value isEqualTo []) then { _args set [9,_value] } else { ["Error: Wrong params for REINForCEMENT:",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
 };
 
 // print all unknown params
 if (count _list != 0) then {
-	[["Error: unknown params given in FUPS - %1",_list],true] call FUPS_fnc_log;
+	[["Error: unknown params given in FUPS - %1",_list],true,true] call FUPS_fnc_log;
 };
 
 _args

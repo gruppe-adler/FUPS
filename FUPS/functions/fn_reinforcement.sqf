@@ -20,7 +20,7 @@
 params ["_targets","_rIDs","_side",["_skipVars",false],["_stayInArea",false],["_combined",true]];
 
 if (!(typeName _targets in [typeName [],typeName objNull,typeName ""]) or typeName (_rIDs != typeName []) or !(typeName _side in [typeName sideUnknown,typeName ""])) exitWith {
-	["Exiting, wrong params given",true] call FUPS_fnc_log;
+	["Exiting, wrong params given",true,true] call FUPS_fnc_log;
 };
 
 [["Sending reinforcements to: %1",_targets]] call FUPS_fnc_log;
@@ -36,7 +36,7 @@ _reinfArray = missionNamespace getVariable (format ["FUPS_reinforcements_%1",_si
 				_reinfGroups pushBack _x;
 			}
 			else {
-				[["Error: reinforcements not found for %1",_x],true] call FUPS_fnc_log;
+				[["Error: reinforcements not found for %1",_x],true,true] call FUPS_fnc_log;
 			};
 		} forEach (_reinfArray select _x);
 	};

@@ -1,15 +1,15 @@
 /*
 
-    Description: Will be executed on each frame. Calculates all FUPS groups frame by frame.
-    After having calculated all groups it will do some overhead work.
+	Description: Will be executed on each frame. Calculates all FUPS groups frame by frame.
+	After having calculated all groups it will do some overhead work.
 
-    PARAMS:
-    -
+	PARAMS:
+	-
 
-    RETURN:
-    -
+	RETURN:
+	-
 
-    Author: [W] Fett_Li
+	Author: [W] Fett_Li
 
 */
 
@@ -17,64 +17,63 @@
 FUPS_oefIndex = FUPS_oefIndex + 1;
 // Will be executed after all groups have been calculated
 if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
-    FUPS_oefIndex = -1;
-    FUPS_oefClockPulse = FUPS_oefClockPulse + 1;
-    // new clock cycle period
+	FUPS_oefIndex = -1;
+	FUPS_oefClockPulse = FUPS_oefClockPulse + 1;
+	// new clock cycle period
 
-    // delete groups
-    if (count FUPS_oefGroups_toDelete > 0) then {
-        FUPS_oefGroups_toDelete sort false;
-        {
-            FUPS_oefGroups deleteAt _x;
-        } foreach FUPS_oefGroups_toDelete;
-        FUPS_oefGroups_toDelete = [];
-    };
+	// delete groups
+	if (count FUPS_oefGroups_toDelete > 0) then {
+		FUPS_oefGroups_toDelete sort false;
+		{
+			FUPS_oefGroups deleteAt _x;
+		} foreach FUPS_oefGroups_toDelete;
+		FUPS_oefGroups_toDelete = [];
+	};
 
-    // re-calculate all groups
-    {
-        _x resize 0;
-        _x = +(FUPS_share select _forEachIndex);
-    } forEach FUPS_shareNow;
+	// re-calculate all groups
+	{
+		_x resize 0;
+		_x = +(FUPS_share select _forEachIndex);
+	} forEach FUPS_shareNow;
 
-    {
-        {
-            // clear array without resetting the pointer
-            _x resize 0;
-        } forEach _x;
-    } forEach [FUPS_enemies,FUPS_groups,FUPS_share];
+	{
+		{
+			// clear array without resetting the pointer
+			_x resize 0;
+		} forEach _x;
+	} forEach [FUPS_enemies,FUPS_groups,FUPS_share];
 
-    {
-        private "_side";
-        _side = side _x;
-        // refill the enemie arrays
-        if (_side getFriend west < 0.6) then {FUPS_enemies_west pushBack _x};
-        if (_side getFriend east < 0.6) then {FUPS_enemies_east pushBack _x};
-        if (_side getFriend independent < 0.6) then {FUPS_enemies_guer pushBack _x};
+	{
+		private "_side";
+		_side = side _x;
+		// refill the enemie arrays
+		if (_side getFriend west < 0.6) then {FUPS_enemies_west pushBack _x};
+		if (_side getFriend east < 0.6) then {FUPS_enemies_east pushBack _x};
+		if (_side getFriend independent < 0.6) then {FUPS_enemies_guer pushBack _x};
 
-        if (_side != civilian) then {
-            (FUPS_groups select ([west,east,independent] find _side)) pushBack _x;
-        };
-    } forEach allGroups;
+		if (_side != civilian) then {
+			(FUPS_groups select ([west,east,independent] find _side)) pushBack _x;
+		};
+	} forEach allGroups;
 
-    if (count FUPS_oefGroups_toAdd > 0) then {
-        FUPS_oefGroups append FUPS_oefGroups_toAdd;
-        FUPS_oefGroups_toAdd = [];
-    };
+	if (count FUPS_oefGroups_toAdd > 0) then {
+		FUPS_oefGroups append FUPS_oefGroups_toAdd;
+		FUPS_oefGroups_toAdd = [];
+	};
 
-    FUPS_players = [];
-    if (isMultiplayer) then {
-        private "_players";
-        _players = playableUnits;
-        {
-            if (!isNull (getConnectedUAV _x)) then {
-                _players pushBack (getConnectedUAV _x);
-            };
-        } forEach _players;
-        FUPS_players = _players;
-    }
-    else {
-        FUPS_players = [player];
-    };
+	FUPS_players = [];
+	if (isMultiplayer) then {
+		private "_players";
+		_players = playableUnits;
+		{
+			if (!isNull (getConnectedUAV _x)) then {
+				_players pushBack (getConnectedUAV _x);
+			};
+		} forEach _players;
+		FUPS_players = _players;
+	} else {
+		FUPS_players = [player];
+	};
 };
 
 //if (count FUPS_oefGroups == 0) exitWith {};
@@ -92,10 +91,10 @@ _group setVariable ["FUPS_clockPulse",_clockPulse];
 
 // handle simulation
 if !([_group] call (_group getVariable "FUPS_simulation")) exitWith {
-    if (simulationEnabled _leader) then {[_group,false,true] call FUPS_fnc_simulation};
+	if (simulationEnabled _leader) then {[_group,false,true] call FUPS_fnc_simulation};
 };
 if !(simulationEnabled _leader) then {
-    [_group,true,true] call FUPS_fnc_simulation;
+	[_group,true,true] call FUPS_fnc_simulation;
 };
 
 // get moved distance
@@ -108,12 +107,12 @@ private ["_combatStrength","_groupdamage"];
 _combatStrength     = 1;
 _groupdamage        = 0;
 {
-    _groupdamage = _groupdamage + damage _x;
+	_groupdamage = _groupdamage + damage _x;
 } forEach _members;
 _groupdamage = _groupdamage + ((_group getVariable ["FUPS_members",count _members]) - (count _members));
 
 if (_groupdamage == _membersCount) exitWith {
-    FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
+	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
 };
 
 _combatStrength = 1 - (_groupdamage / _membersCount);
@@ -131,49 +130,48 @@ _theyGotUs = false;
 _share = FUPS_shareNow select _sideIndex;
 
 if (_group getVariable "FUPS_doShare") then {
-    {
-        if (_leader distance leader _x < 600) then {
-            {_group reveal [3,_x]} forEach (units _x);
-        };
-    } forEach _share;
+	{
+		if (_leader distance leader _x < 600) then {
+			{_group reveal [3,_x]} forEach (units _x);
+		};
+	} forEach _share;
 };
 
 _share = FUPS_share select _sideIndex;
 { // foreach
-    private "_knowsGroup";
-    _knowsGroup = false;
-    { // foreach
-        _knowsGroup = (_leader targetKnowledge _x) select 1;
-        if (_knowsGroup) exitWith {};
-    } forEach (units _x);
-    _knowsAny = _knowsAny || _knowsGroup;
+	private "_knowsGroup";
+	_knowsGroup = false;
+	{ // foreach
+		_knowsGroup = (_leader targetKnowledge _x) select 1;
+		if (_knowsGroup) exitWith {};
+	} forEach (units _x);
+	_knowsAny = _knowsAny || _knowsGroup;
 
-    if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
+	if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
 
-    if (_knowsGroup) then {
-        _enemies pushBack _x;
-        _share pushBack _x;
+	if (_knowsGroup) then {
+		_enemies pushBack _x;
+		_share pushBack _x;
 
-        if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
-            _directions pushBack ([_currpos,getPosATL leader _x] call FUPS_fnc_getDir)
-        };
+		if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
+			_directions pushBack ([_currpos,getPosATL leader _x] call FUPS_fnc_getDir);
+		};
 
-        if ([_group,_x] call FUPS_fnc_isEffective) then {
-            _targets pushBack _x;
-        }
-        else {
-            if ([_group,_x] call FUPS_fnc_fears) then {
-                _fears pushBack _x;
+		if ([_group,_x] call FUPS_fnc_isEffective) then {
+			_targets pushBack _x;
+		} else {
+			if ([_group,_x] call FUPS_fnc_fears) then {
+				_fears pushBack _x;
 
-                // is this vehicle aimed at the group?
-                { // foreach
-                    private "_v";
-                    _v = vehicle _x;
-                    _theyGotUs = _theyGotUs or ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
-                } forEach (units _x);
-            };
-        };
-    };
+				// is this vehicle aimed at the group?
+				{ // foreach
+					private "_v";
+					_v = vehicle _x;
+					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
+				} forEach (units _x);
+			};
+		};
+	};
 } forEach (FUPS_enemies select _sideIndex);
 
 // re-evaluate current target
@@ -182,9 +180,9 @@ _target = _group getVariable "FUPS_target";
 _target_val = 0;
 _target_dist = 10000;
 if !(isNull _target) then {
-    // --- ToDo: FUPS_supportFor
-    _target_val = count (_target getVariable ["FUPS_supportFor",[]]);
-    _target_dist = _leader distance leader _target;
+	// --- ToDo: FUPS_supportFor
+	_target_val = count (_target getVariable ["FUPS_supportFor",[]]);
+	_target_dist = _leader distance leader _target;
 };
 
 private ["_nearestTarget","_nearestTarget_dist","_nearestTarget_val","_mostDangerousTarget","_mostDangerousTarget_val","_mostDangerousTarget_dist"];
@@ -195,110 +193,114 @@ _mostDangerousTarget = grpNull;
 _mostDangerousTarget_val = 0;
 _mostDangerousTarget_dist = 10000;
 { // foreach
-    private ["_dist","_val"];
-    _dist = _leader distance leader _x;
-    _val = count (_x getVariable ["FUPS_supportFor",[]]);
+	private ["_dist","_val"];
+	_dist = _leader distance leader _x;
+	_val = count (_x getVariable ["FUPS_supportFor",[]]);
 
-    // nearest Target
-    if (_dist < _nearestTarget_dist) then {
-        _nearestTarget = _x;
-        _nearestTarget_dist = _dist;
-        _nearestTarget_val = _val;
-    };
+	// nearest Target
+	if (_dist < _nearestTarget_dist) then {
+		_nearestTarget = _x;
+		_nearestTarget_dist = _dist;
+		_nearestTarget_val = _val;
+	};
 
-    // most dangerous Target
-    if (_val > _mostDangerousTarget_val) then {
-        _mostDangerousTarget = _x;
-        _mostDangerousTarget_val = _val;
-        _mostDangerousTarget_dist = _dist;
-    }
-    else {
-        if (_val == _mostDangerousTarget_val AND _dist < _mostDangerousTarget_dist) then {
-            _mostDangerousTarget = _x;
-            _mostDangerousTarget_val = _val;
-            _mostDangerousTarget_dist = _dist;
-        };
-    };
+	// most dangerous Target
+	if (_val > _mostDangerousTarget_val) then {
+		_mostDangerousTarget = _x;
+		_mostDangerousTarget_val = _val;
+		_mostDangerousTarget_dist = _dist;
+	} else {
+		if (_val == _mostDangerousTarget_val && _dist < _mostDangerousTarget_dist) then {
+			_mostDangerousTarget = _x;
+			_mostDangerousTarget_val = _val;
+			_mostDangerousTarget_dist = _dist;
+		};
+	};
 } forEach _targets;
 
 // get the target
 private "_target";
 _target = _nearestTarget;
-if (_mostDangerousTarget_dist - _nearestTarget_dist < 150) then {_target = _mostDangerousTarget};
+if (_mostDangerousTarget_dist - _nearestTarget_dist < 150) then {
+	_target = _mostDangerousTarget;
+};
 _group setVariable ["FUPS_target",_target];
 
 // get situation variables
 private ["_surrounded","_headsdown","_unknowIncident","_weakened"];
 _surrounded     = _directions call FUPS_fnc_isSurrounded;
 _headsdown      = !(_fears isEqualTo []);
-_unknowIncident = !_knowsAny AND _gothit;
+_unknowIncident = !_knowsAny && _gothit;
 _weakened       = _combatStrength < 0.4;
 
 private "_task";
 _task = _group getVariable "FUPS_task";
 switch (true) do {
-    case ((surfaceIsWater _currpos) AND !(_group getVariable "FUPS_allowWater")): {
-        // Group is in water
+	case ((surfaceIsWater _currpos) && !(_group getVariable "FUPS_allowWater")): {
+		// Group is in water
 
-        _group setVariable ["FUPS_task","FUPS_fnc_getOutOfWater"];
-        _group setVariable ["FUPS_taskState","init"];
-    };
-    case (_group getVariable "FUPS_order" != ""): {
-        // Getting orders
+		_group setVariable ["FUPS_task","FUPS_fnc_getOutOfWater"];
+		_group setVariable ["FUPS_taskState","init"];
+	};
+	case (_group getVariable "FUPS_order" != ""): {
+		// Getting orders
 
-        ["Receiving orders"] call FUPS_fnc_log;
+		["Receiving orders"] call FUPS_fnc_log;
 
-        private "_typeName";
-        _typeName = _group getVariable "FUPS_typeName";
-        _task = _group getVariable "FUPS_order";
-        _group setVariable []
-    };
-    case (call (_group getVariable "FUPS_break") or (_group getVariable "FUPS_task" == "")): {
-        // New task
+		private "_typeName";
+		_typeName = _group getVariable "FUPS_typeName";
+		_task = _group getVariable "FUPS_order";
+		_group setVariable []
+	};
+	case (call (_group getVariable "FUPS_break") || (_group getVariable "FUPS_task" == "")): {
+		// New task
 
-        [["Breaking the task with:
-            _gothit := %1
-            _weakened := %2
-            _surrounded := %3
-            _headsdown := %4
-            _unknowIncident := %5
-            _theyGotUs := %6
-            _knowsAny := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_knowsAny]] call FUPS_fnc_log;
+		[["Breaking the task with:
+			_gothit := %1
+			_weakened := %2
+			_surrounded := %3
+			_headsdown := %4
+			_unknowIncident := %5
+			_theyGotUs := %6
+			_knowsAny := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_knowsAny]] call FUPS_fnc_log;
 
-        // get current task
-        private "_tasks";
-        _tasks = [];
-        if (_gothit AND _targets isEqualTo [] or !(_enemies isEqualTo []) or _unknowIncident) then {
-            _tasks pushBack "FUPS_fnc_task_hold";
-        };
-        if (!isNull _target) then {
-            _tasks pushBack "FUPS_fnc_task_attack";
-        };
-        if (!(_fears isEqualTo []) or _weakened or (_groupdamage > (2*_lastdamage)) or ((_groupdamage - _lastdamage) > 1.5)) then {
-            _tasks pushBack "FUPS_fnc_task_retreat";
-        };
+		// get current task
+		private "_tasks";
+		_tasks = [];
+		if (_gothit && _targets isEqualTo [] || !(_enemies isEqualTo []) || _unknowIncident) then {
+			_tasks pushBack "FUPS_fnc_task_hold";
+		};
+		if (!isNull _target) then {
+			_tasks pushBack "FUPS_fnc_task_attack";
+		};
+		if (!(_fears isEqualTo []) || _weakened || (_groupdamage > (2 * _lastdamage)) || ((_groupdamage - _lastdamage) > 1.5)) then {
+			_tasks pushBack "FUPS_fnc_task_retreat";
+		};
+		[_tasks,false] call FUPS_fnc_log;
 
-        private ["_highestPriority","_task"];
-        _highestPriority = 0;
-        _task = "FUPS_fnc_task_patrol";
+		private "_highestPriority";
+		_highestPriority = 0;
+		_task = "FUPS_fnc_task_patrol";
 
-        {
-            private ["_taskName","_prior"];
-            _taskName = _x;
-            _prior = call (missionnamespace getVariable [(_taskName + "_prior"),{-10}]);
-            if (_prior > _highestPriority) then {
-                _task = _taskName;
-                _highestPriority = _prior;
-            };
-        } forEach _tasks;
+		{
+			private ["_taskName","_prior"];
+			_taskName = _x;
+			_prior = call (missionnamespace getVariable [(_taskName + "_prior"),{-10}]);
+			[["%1 has the priority %2, %3",_taskName,_prior,_prior > _highestPriority]] call FUPS_fnc_log;
+			if (_prior > _highestPriority) then {
+				_task = _taskName;
+				[["Task is now %1",_task]] call FUPS_fnc_log;
+				_highestPriority = _prior;
+			};
+		} forEach _tasks;
 
-        // [["Selected task is: %1",_task]] call FUPS_fnc_log;
+		// [["Selected task is: %1",_task]] call FUPS_fnc_log;
 
-        _group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
+		_group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
 
-        _group setVariable ["FUPS_task",_task];
-        _group setVariable ["FUPS_taskState","init"];
-    };
+		_group setVariable ["FUPS_task",_task];
+		_group setVariable ["FUPS_taskState","init"];
+	};
 };
 
 private "_params";
@@ -309,7 +311,7 @@ _params append (0 call (missionnamespace getVariable (_task + "_params")));
 private "_typeName";
 _typeName = _group getVariable "FUPS_typeName";
 if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
-    _task = _task + _typeName;
+	_task = _task + _typeName;
 };
 
 _task call FUPS_fnc_watch;

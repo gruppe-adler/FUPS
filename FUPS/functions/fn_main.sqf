@@ -15,7 +15,7 @@
 */
 
 
-params ["_leader","_marker"]
+params ["_leader","_marker"];
 
 private "_group";
 _group = group _leader;
