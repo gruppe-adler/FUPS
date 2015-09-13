@@ -21,6 +21,7 @@ FUPS_templates  = [];
 FUPS_reinforcements_east = [];
 FUPS_reinforcements_west = [];
 FUPS_reinforcements_guer = [];
+FUPS_reinforcements = [FUPS_reinforcements_west,FUPS_reinforcements_east,FUPS_reinforcements_guer];
 
 FUPS_oefIndex = -1;
 FUPS_oefGroups = [];
@@ -50,8 +51,6 @@ FUPS_shareNow_guer = [];
 FUPS_shareNow = [FUPS_shareNow_west,FUPS_shareNow_east,FUPS_shareNow_guer];
 
 FUPS_players = [];
-
-FUPS_oefHandler = ["FUPS_oef","onEachFrame",FUPS_fnc_mainHandler,0] call BIS_fnc_addStackedEventhandler;
 
 // register patrol task
 ["FUPS_fnc_task_patrol",{0},{

@@ -129,7 +129,7 @@ _fears = [];
 _theyGotUs = false;
 _share = FUPS_shareNow select _sideIndex;
 
-if (_group getVariable "FUPS_doShare") then {
+if (_group getVariable "FUPS_doSupport") then {
 	{
 		if (_leader distance leader _x < 600) then {
 			{_group reveal [3,_x]} forEach (units _x);
@@ -137,6 +137,9 @@ if (_group getVariable "FUPS_doShare") then {
 	} forEach _share;
 };
 
+
+private "_askedForSupport";
+_askedForSupport = _group getVariable "FUPS_askedForSupport";
 _share = FUPS_share select _sideIndex;
 { // foreach
 	private "_knowsGroup";
@@ -151,7 +154,9 @@ _share = FUPS_share select _sideIndex;
 
 	if (_knowsGroup) then {
 		_enemies pushBack _x;
-		_share pushBack _x;
+		if (_group getVariable "FUPS_doShare") then {
+			_share pushBack _x;
+		};
 
 		if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
 			_directions pushBack ([_currpos,getPosATL leader _x] call FUPS_fnc_getDir);
@@ -169,10 +174,26 @@ _share = FUPS_share select _sideIndex;
 					_v = vehicle _x;
 					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
 				} forEach (units _x);
+
+				if (isNil {_x getVariable "FUPS_supportFor"}) then {
+					_x setVariable ["FUPS_supportFor",[]];
+				};
+
+				if !(_x in _askedForSupport) then {
+					(_x getVariable "FUPS_supportFor") pushBack _group;
+					_askedForSupport pushBack _x;
+				};
 			};
 		};
 	};
 } forEach (FUPS_enemies select _sideIndex);
+
+{
+	private "_supportArray";
+	_supportArray = _x getVariable "FUPS_supportFor";
+	_supportArray deleteAt (_supportArray find _group);
+	_askedForSupport deleteAt (_askedForSupport find _group);
+} forEach (_askedForSupport - _fears);
 
 // re-evaluate current target
 private ["_target_val","_target_dist"];
@@ -180,7 +201,6 @@ _target = _group getVariable "FUPS_target";
 _target_val = 0;
 _target_dist = 10000;
 if !(isNull _target) then {
-	// --- ToDo: FUPS_supportFor
 	_target_val = count (_target getVariable ["FUPS_supportFor",[]]);
 	_target_dist = _leader distance leader _target;
 };
@@ -242,16 +262,6 @@ switch (true) do {
 		_group setVariable ["FUPS_task","FUPS_fnc_getOutOfWater"];
 		_group setVariable ["FUPS_taskState","init"];
 	};
-	case (_group getVariable "FUPS_order" != ""): {
-		// Getting orders
-
-		["Receiving orders"] call FUPS_fnc_log;
-
-		private "_typeName";
-		_typeName = _group getVariable "FUPS_typeName";
-		_task = _group getVariable "FUPS_order";
-		_group setVariable []
-	};
 	case (call (_group getVariable "FUPS_break") || (_group getVariable "FUPS_task" == "")): {
 		// New task
 
@@ -294,7 +304,17 @@ switch (true) do {
 			};
 		} forEach _tasks;
 
-		// [["Selected task is: %1",_task]] call FUPS_fnc_log;
+		// Exectuing given orders
+		private "_orders";
+		_orders = _group getVariable "FUPS_orders";
+		if (count _orders > 0) then {
+				(_orders select 0) params ["_order","_force"];
+				if (_force || _task == "FUPS_fnc_task_patrol"): {
+					_task = _order;
+					_orders deleteAt 0;
+				};
+			};
+		};
 
 		_group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
 
@@ -313,8 +333,6 @@ _typeName = _group getVariable "FUPS_typeName";
 if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
 	_task = _task + _typeName;
 };
-
-_task call FUPS_fnc_watch;
 
 _params call (missionnamespace getVariable _task);
 

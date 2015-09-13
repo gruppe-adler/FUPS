@@ -7,12 +7,13 @@ _args = [
 	"LIMITED",	// 1 - SPEED:
 	false,		// 2 - NOFOLLOW
 	false,		// 3 - NOSHARE
-	false,		// 4 - NOWAIT
-	[],			// 5 - ROUTE
-	objNull,	// 6 - VEHICLE:
-	false,		// 7 - RANDOM
-	objNull,	// 8 - SIMULATION:
-	[]			// 9 - REINForCEMENT:
+	false,		// 4 - NOSUPPORT
+	false,		// 5 - NOWAIT
+	[],			// 6 - ROUTE
+	objNull,	// 7 - VEHICLE:
+	false,		// 8 - RANDOM
+	objNull,	// 9 - SIMULATION:
+	[]			// 10 - REINFORCEMENT:
 ];
 if (count _list == 2) exitWith { _args };
 
@@ -29,7 +30,7 @@ private "_index";
 _index = _list find "BEHAVIOUR:";
 if (_index > -1) then {
 	private "_value";
-	_value = [_list,_index + 1,"SAFE",[""]] call BIS_fnc_param;
+	_value = _list param [_index + 1,"SAFE",[""]];
 	if (toUpper _value in ["SAFE","AWARE","COMBAT","STEALTH","CARELESS"]) then { _args set [0,_value] } else { ["Error: Wrong param for 'BEHAVIOUR:'",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
@@ -39,7 +40,7 @@ if (_index > -1) then {
 _index = _list find "SPEED:";
 if (_index > -1) then {
 	private "_value";
-	_value = [_list,_index + 1,"LIMITED",[""]] call BIS_fnc_param;
+	_value = _list param [_index + 1,"LIMITED",[""]];
 	if (toUpper _value in ["LIMITED","NorMAL","FULL"]) then { _args set [1,_value] } else {  ["Error: Wrong param for 'SPEED:'",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
@@ -59,10 +60,17 @@ if (_index > -1) then {
 	_list deleteAt _index;
 };
 
+// get nosupport
+_index =_list find "NOSUPPORT";
+if (_index > -1) then {
+	_args set [4,true];
+	_list deleteAt _index;
+};
+
 // get nowait
 _index = _list find "NOWAIT";
 if (_index > -1) then {
-	_args set [4,true];
+	_args set [5,true];
 	_list deleteAt _index;
 };
 
@@ -71,7 +79,7 @@ _index = _list find "ROUTE";
 if (_index > -1) then {
 	private ["_wps"];
 	_wps = [_group] call FUPS_fnc_getWaypoints;
-	_args set [5,_wps];
+	_args set [6,_wps];
 	_list deleteAt _index;
 };
 
@@ -79,8 +87,8 @@ if (_index > -1) then {
 _index = _list find "VEHICLE:";
 if (_index > -1) then {
 	private "_value";
-	_value = [_list,_index + 1,objNull,[objNull]] call BIS_fnc_param;
-	if !(isNull _value) then { _args set [6,_value] } else { ["Error: Wrong param for 'VEHICLE:'",true,true] call FUPS_fnc_log };
+	_value = _list param [_index + 1,objNull,[objNull]];
+	if !(isNull _value) then { _args set [7,_value] } else { ["Error: Wrong param for 'VEHICLE:'",true,true] call FUPS_fnc_log };
 	_List deleteAt _index;
 	_list deleteAt _index;
 };
@@ -88,7 +96,7 @@ if (_index > -1) then {
 // get random spawn
 _index = _list find "RANDOM";
 if (_index > -1) then {
-	_args set [7,true];
+	_args set [8,true];
 	_list deleteAt _index;
 };
 
@@ -96,18 +104,18 @@ if (_index > -1) then {
 _index = _list find "SIMULATION:";
 if (_index > -1) then {
 	private "_value";
-	_value = [_list,_index + 1,objNull,[objNull,0]] call BIS_fnc_param;
-	if !(_value isEqualTo objNull) then { _args set [8,_value] } else { ["Error: Wrong param for 'SIMULATION:'",true,true] call FUPS_fnc_log };
+	_value = _list param [_index + 1,objNull,[objNull,0]];
+	if !(_value isEqualTo objNull) then { _args set [9,_value] } else { ["Error: Wrong param for 'SIMULATION:'",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
 };
 
 // get reinf areas
-_index = _list find "REINForCEMENT:";
+_index = _list find "REINFORCEMENT:";
 if (_index > -1) then {
 	private "_value";
-	_value = [_list,_index + 1,[],[[]]] call BIS_fnc_param;
-	if !(_value isEqualTo []) then { _args set [9,_value] } else { ["Error: Wrong params for REINForCEMENT:",true,true] call FUPS_fnc_log };
+	_value = _list param [_index + 1,[],[[]]];
+	if !(_value isEqualTo []) then { _args set [10,_value] } else { ["Error: Wrong params for REINFORCEMENT:",true,true] call FUPS_fnc_log };
 	_list deleteAt _index;
 	_list deleteAt _index;
 };

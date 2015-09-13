@@ -20,3 +20,4 @@ _task = toUpper _task;
 missionNamespace setVariable [_task + "_prior",_taskPriority];
 missionNamespace setVariable [_task + "_break",_taskBreak];
 missionNamespace setVariable [_task + "_params",_taskParams];
+missionNamespace setVariable [_task + "_isTask",true];
