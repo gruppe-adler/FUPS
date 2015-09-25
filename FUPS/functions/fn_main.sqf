@@ -74,7 +74,7 @@ if (_randomSpawn) then {
 };
 
 private "_simulation";
-_simulation = _settings select 9
+_simulation = _settings select 9;
 _group setVariable ["FUPS_simulation",{true}];
 if ((typename _simulation == typename objNull AND {!isNull _simulation})) then {
 	private "_fnc";
@@ -109,12 +109,12 @@ if (count _reinforcement > 0) then {
 	_reinforcement = _reinforcement arrayIntersect _reinforcement;
 
 	private ["_sideIndex","_reinfArray"];
-	_sideIndex = [west,east,independent] find (side _group);
-	_reinfArray = FUPS_reinforcements select _side;
+	_sideIndex = FUPS_sideOrder find (side _group);
+	_reinfArray = FUPS_reinforcements select _sideIndex;
 
 	{
 		// If this array isn't initialized
-		if (isNil {_reinfArray param [_x]}) then {
+		if (isNil {_reinfArray param [_x,nil]}) then {
 			_reinfArray set [_x,[]];
 		};
 
@@ -154,6 +154,9 @@ _group setVariable ["FUPS_clockPulse",-1];
 _group setVariable ["FUPS_lastDamage",0];
 _group setVariable ["FUPS_target",objNull];
 _group setVariable ["FUPS_askedForSupport",[]];
+if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
+	_group setVariable ["FUPS_onTaskEhs",[]];
+};
 
 [["Adding %1",_group]] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;

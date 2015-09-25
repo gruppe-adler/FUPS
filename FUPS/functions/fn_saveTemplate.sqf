@@ -6,7 +6,7 @@
     0 <GROUP/OBJECT> - group that should be saved
     1 <SCALAR> - the index of the template
     2 <BOOLEAN> - true when the objects should be deleted after saving
-    3 <OBJECT> - if present and param 2 is true objects will only be deleted if param 3 is local
+    3 <OBJECT> - if present && param 2 is true objects will only be deleted if param 3 is local
 
     RETURN:
     -
@@ -15,9 +15,10 @@
 
 */
 
-params ["_group","_template",["_doDelete",true],["_ownerObj",objNull]];
+params ["_group","_template",["_doDelete",false]];
 
-if (isNull _group) exitWith {};
+if (isNil "_group" || isNil "_template") exitWith {};
+
 if (typeName _group == typeName objNull) then {
     _group = group _group;
 };
@@ -36,11 +37,14 @@ _checked = [vehicle leader _group];
     (_units select _forEachIndex) set [0,typeOf (_x select 0)];
 } forEach _units;
 
-if (_template >= 0 AND ((count FUPS_templates <= _template) or { isNil {FUPS_templates select _template} })) then {
-    FUPS_templates set [_template,[side _group,_units]];
+private "_saved";
+_saved = [side _group,_units];
+
+if (_template > -1 && {count (FUPS_templates param [_template,[]]) == 0}) then {
+    FUPS_templates set [_template,_saved];
 };
 
-if (_doDelete AND (isNull _ownerObj or local _ownerObj)) then {
+if (_doDelete) then {
     {
         if (vehicle _x != _x) then {
             deleteVehicle (vehicle _x);
@@ -48,3 +52,5 @@ if (_doDelete AND (isNull _ownerObj or local _ownerObj)) then {
         deleteVehicle _x;
     } forEach (units _group);
 };
+
+_saved

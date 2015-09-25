@@ -1,4 +1,5 @@
 scopeName _fnc_scriptname;
+params [["_pos",objNull,[objNull,[]]]];
 private ["_trees"];
 
 _trees = 0;
@@ -9,6 +10,6 @@ _trees = 0;
 			true breakOut _fnc_scriptname;
 		};
 	};
-} count nearestObjects [param [0,objNull,[objNull]], [], 20];
+} count nearestObjects [_pos,[],20];
 
 false

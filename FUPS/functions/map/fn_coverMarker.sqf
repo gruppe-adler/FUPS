@@ -14,7 +14,6 @@ _positions = [];
 		};
 	};
 } forEach _targets;
-systemchat str _positions;
 _targetsCount = count _targets;
 
 private ["_xCord","_yCord"];

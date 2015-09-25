@@ -31,6 +31,7 @@ switch _mode do {
 		_group setVariable ["FUPS_taskState","patrol"];
 	};
 	case ("patrol"): {
+
 		private "_pos";
 		_pos = _group getVariable "FUPS_movePos";
 		if (leader _group distance _pos < (_group getVariable "FUPS_closeenough")) then {

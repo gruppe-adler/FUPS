@@ -16,6 +16,10 @@
 FUPS_log = true;
 FUPS_simulation_dist = 3500;
 FUPS_timeOnTarget = 300;
+FUPS_shareDist = 900;
+FUPS_damageToRetreat = 0.4;
+
+FUPS_sideOrder = [west,east,independent];
 
 FUPS_templates  = [];
 FUPS_reinforcements_east = [];

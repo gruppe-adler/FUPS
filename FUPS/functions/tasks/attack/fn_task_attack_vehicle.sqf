@@ -22,8 +22,7 @@ switch _mode do {
 			_group move _pos;
 
 			_group setVariable ["FUPS_movePos",_pos];
-		}
-		else {
+		} else {
 			// do not flank, so set this to nil
 			_group setVariable ["FUPS_movePos",nil];
 		};
@@ -45,8 +44,7 @@ switch _mode do {
 		};
 	};
 	case ("fight"): {
-
-		if ({alive _x} count units _target == 0 || time - FUPS_timeOnTarget > (leader _group targetKnowledge leader _target) select 3) then {
+		if ({alive _x} count units _target == 0 || time - FUPS_timeOnTarget > (_target getVariable ["FUPS_revealedAt",0])) then {
 			_group setVariable ["FUPS_task",""];
 		};
 	};

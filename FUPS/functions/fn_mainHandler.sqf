@@ -19,7 +19,6 @@ FUPS_oefIndex = FUPS_oefIndex + 1;
 if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
 	FUPS_oefIndex = -1;
 	FUPS_oefClockPulse = FUPS_oefClockPulse + 1;
-	// new clock cycle period
 
 	// delete groups
 	if (count FUPS_oefGroups_toDelete > 0) then {
@@ -52,7 +51,7 @@ if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
 		if (_side getFriend independent < 0.6) then {FUPS_enemies_guer pushBack _x};
 
 		if (_side != civilian) then {
-			(FUPS_groups select ([west,east,independent] find _side)) pushBack _x;
+			(FUPS_groups select (FUPS_sideOrder find _side)) pushBack _x;
 		};
 	} forEach allGroups;
 
@@ -81,7 +80,7 @@ if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
 private ["_group","_side","_sideIndex","_leader","_members","_clockPulse"];
 _group = FUPS_oefGroups select FUPS_oefIndex;
 _side = side _group;
-_sideIndex = [west,east,independent] find _side;
+_sideIndex = FUPS_sideOrder find _side;
 _leader = leader _group;
 _members = units _group;
 _membersCount = count _members;
@@ -127,20 +126,19 @@ _enemies = [];
 _nearEnemies = [];
 _fears = [];
 _theyGotUs = false;
-_share = FUPS_shareNow select _sideIndex;
+_shareNow = FUPS_shareNow select _sideIndex;
 
 if (_group getVariable "FUPS_doSupport") then {
 	{
-		if (_leader distance leader _x < 600) then {
-			{_group reveal [3,_x]} forEach (units _x);
+		if (_leader distance leader _x < FUPS_shareDist) then {
+			{_group reveal [_x,3]} forEach (units _x);
 		};
-	} forEach _share;
+	} forEach _shareNow;
 };
 
-
-private "_askedForSupport";
+private ["_askedForSupport","_shareNext"];
 _askedForSupport = _group getVariable "FUPS_askedForSupport";
-_share = FUPS_share select _sideIndex;
+_shareNext = FUPS_share select _sideIndex;
 { // foreach
 	private "_knowsGroup";
 	_knowsGroup = false;
@@ -153,9 +151,10 @@ _share = FUPS_share select _sideIndex;
 	if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
 
 	if (_knowsGroup) then {
+		_x setVariable ["FUPS_revealedAt",time];
 		_enemies pushBack _x;
 		if (_group getVariable "FUPS_doShare") then {
-			_share pushBack _x;
+			_shareNext pushBack _x;
 		};
 
 		if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
@@ -251,7 +250,7 @@ private ["_surrounded","_headsdown","_unknowIncident","_weakened"];
 _surrounded     = _directions call FUPS_fnc_isSurrounded;
 _headsdown      = !(_fears isEqualTo []);
 _unknowIncident = !_knowsAny && _gothit;
-_weakened       = _combatStrength < 0.4;
+_weakened       = _combatStrength < FUPS_damageToRetreat;
 
 private "_task";
 _task = _group getVariable "FUPS_task";
@@ -308,11 +307,10 @@ switch (true) do {
 		private "_orders";
 		_orders = _group getVariable "FUPS_orders";
 		if (count _orders > 0) then {
-				(_orders select 0) params ["_order","_force"];
-				if (_force || _task == "FUPS_fnc_task_patrol"): {
-					_task = _order;
-					_orders deleteAt 0;
-				};
+			(_orders select 0) params ["_order","_force"];
+			if (_force || _task == "FUPS_fnc_task_patrol") then {
+				_task = _order;
+				_orders deleteAt 0;
 			};
 		};
 
@@ -320,6 +318,23 @@ switch (true) do {
 
 		_group setVariable ["FUPS_task",_task];
 		_group setVariable ["FUPS_taskState","init"];
+
+		private ["_onTaskEhs","_disposedEhs"];
+		_onTaskEhs = _group getvariable "FUPS_onTaskEhs";
+		_disposedEhs = [];
+		{
+			_x params ["_ehTask","_onAct","_isDisposable"];
+			if (_ehTask == _task) then {
+				[_group] call _onAct;
+				if (_isDisposable) then {
+					_disposedEhs = [_forEachIndex] append _disposedEhs;
+				};
+			};
+		} forEach _onTaskEhs;
+
+		{
+			_onTaskEhs deleteAt _x;
+		} forEach _disposedEhs;
 	};
 };
 

@@ -1,4 +1,10 @@
 class FUPS {
+	class api {
+		file = "FUPS\functions\api";
+		class getTemplateSize {};
+		class reinforcementsExist {};
+		class reveal {};
+	};
 	class enviroment {
 		file = "FUPS\functions\enviroment";
 		class log {};
@@ -90,6 +96,7 @@ class FUPS {
 		class preInit { preInit = 1; };
 		class registerTask {};
 		class reinforcement {};
+		class saveTemplate {};
 		class setPatrolMarker {};
 		class spawn {};
 		class waitForTemplates {};

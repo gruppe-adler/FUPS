@@ -3,7 +3,7 @@
 	Description: orders a unit to be sent as reinforcement
 
 	PARAMS:
-	0 <OBJECT/OBJECT ARRAY/ARRAY ForMAT POSITION/ARRAY ForMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
+	0 <OBJECT/OBJECT ARRAY/ARRAY FORMAT POSITION/ARRAY FORMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
 	1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
 	2 <SIDE> - the side of the reinforcement groups to be sent
 	3 <BOOLEAN> - true if the units should be send regardless of their current actions
@@ -19,7 +19,7 @@
 
 params ["_targets","_rIDs","_side",["_skipVars",false],["_stayInArea",false],["_combined",true]];
 
-if (isNil "_targets" || isNil "_rIDs" || isNil "_side" || isNil) exitWith {
+if (isNil "_targets" || isNil "_rIDs" || isNil "_side") exitWith {
 	["Exiting, wrong params given",true,true] call FUPS_fnc_log;
 };
 
@@ -28,14 +28,9 @@ if (isNil "_targets" || isNil "_rIDs" || isNil "_side" || isNil) exitWith {
 // create the reinforcements array
 private ["_reinfGroups","_reinfArray"];
 _reinfGroups = [];
-_reinfArray = FUPS_reinforcements select ([west,east,independent] find _side);
+_reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
 {
-	private "_reinfsX";
-	_reinfsX = _reinfArray param [_x];
-	if (isNil "_reinfsX") then {
-		[["Error: reinforcements not found for %1",_x],true,true] call FUPS_fnc_log;
-	};
-	_reinfGroups append _reinfsX;
+	_reinfGroups append (_reinfArray param [_x,[]]);
 } forEach _rIDs;
 
 // Create the marker to seize
