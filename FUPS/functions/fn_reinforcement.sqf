@@ -3,15 +3,15 @@
 	Orders groups of reinforcement to attack the given things. Only groups that have been added to a reinforcement array can be called as reinforcements.
 
 	PARAMS:
-	0 <OBJECT/OBJECT ARRAY/ARRAY FORMAT POSITION/ARRAY FORMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
-	1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
-	2 <SIDE> - the side of the reinforcement groups to be sent
-	@optional 3 <BOOLEAN> - true if the units should be send regardless of their current actions, default false
-	@optional 4 <BOOLEAN> - true to let the units stay in the seized area, default false
-	@optional 5 <BOOLEAN> - true to let the units work combined, default true --- ToDo
+		0 <(<OBJECT> ARRAY)/(<ARRAY FORMAT POSITION> ARRAY)/STRING> - data to describe the area to be sent in
+		1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
+		2 <SIDE> - the side of the reinforcement groups to be sent
+		@optional 3 <BOOLEAN> - true if the units should be send regardless of their current actions, default false
+		@optional 4 <BOOLEAN> - true to let the units stay in the seized area, default false
+		@optional 5 <BOOLEAN> - true to let the units work combined, default true --- ToDo
 
 	RETURN:
-	-
+		nil
 
 	Author: [W] Fett_Li
 
@@ -60,7 +60,14 @@ _combined = if (_combined) then {_reinfGroups} else {[]};
 	};
 
 	_grp setVariable ["FUPS_reinforcementReady",false];
-	{ _grp reveal _x } forEach _targets;
-	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,_combined,_targets]];
+	private "_targetsParam";
+	_targetsParam = [];
+	{
+		if (typeName _x == typeName objNull) then {
+			_grp reveal _x;
+			_targetsParam pushBack _x;
+		};
+	} forEach _targets;
+	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,_combined,_targetsParam]];
 	[_grp,"FUPS_fnc_task_reinf",_skipVars] call FUPS_fnc_do;
 } forEach _reinfGroups;

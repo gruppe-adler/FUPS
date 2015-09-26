@@ -4,13 +4,13 @@ _positions = [];
 {
 	switch (typeName _x) do {
 		case (typeName []): {
-			_positions set [_forEachIndex,_x];
+			_positions pushBack _x;
 		};
 		case (typeName objNull): {
-			_positions set [_forEachIndex,(getPosATL _x)];
+			_positions pushBack getPosATL _x;
 		};
 		case (typeName ""): {
-			_positions set [_forEachIndex,(markerPos _x)];
+			_positions pushBack markerPos _x;
 		};
 	};
 } forEach _targets;

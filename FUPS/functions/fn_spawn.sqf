@@ -41,8 +41,8 @@ switch (typeName _templates) do {
 };
 
 private ["_spawnPosCount","_spawned"];
-_spawnPosCount	= -1; // will get incremented right away, so start with -1
-_spawned		= []; // saves spawned leaders
+_spawnPosCount = -1; // will get incremented right away, so start with -1
+_spawned = []; // saves spawned leaders
 {
 	_x params ["_side","_units"];
 
