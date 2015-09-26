@@ -29,3 +29,9 @@ To make an AI gfroup use FUPS, just add this to it init-Field of _any_ but only 
 Whereas the "marker" will be the marker in which the group will patrol.
 
 There are optional parameters, listed in the file fn_main.sqf in the folder functions. You may want to look there. Also, FUPS_fnc_spawn and FUPS_fnc_reinforcement may look interesting to you.
+
+-------------------------
+include.cfg
+-------------------------
+
+You can safely ignore and delete this file. I need this for a personal ArmA 3 mission development enviroment.
