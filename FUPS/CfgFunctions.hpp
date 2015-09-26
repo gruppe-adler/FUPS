@@ -4,6 +4,7 @@ class FUPS {
 		class getTemplateSize {};
 		class reinforcementsExist {};
 		class reveal {};
+		class setPatrolMarker {};
 	};
 	class enviroment {
 		file = "FUPS\functions\enviroment";
@@ -91,14 +92,13 @@ class FUPS {
 	class main {
 		file = "FUPS\functions";
 		class do {};
+		// class globalParameter {}; --- ToDo
 		class main {};
 		class mainHandler {};
 		class preInit { preInit = 1; };
 		class registerTask {};
 		class reinforcement {};
 		class saveTemplate {};
-		class setPatrolMarker {};
 		class spawn {};
-		class waitForTemplates {};
 	};
 };

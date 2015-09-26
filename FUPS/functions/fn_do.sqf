@@ -1,16 +1,21 @@
+
 /*
 
-    Description: This file will order any group to exectue given order
+    This function will order any group to exectue given task. The task has to be defined via FUPS_fnc_registerTask.
 
     PARAMS:
+    	0 <GROUP> - group to order the task
+    	1 <STRING> - the task
+    	@optional 2 <BOOL> - true to force the group to do the task, if false the group will wait to patrol and then do it
 
     RETURN:
+        nil
 
-    Author: [W] Fett_Li
+    AUTHOR: [W] Fett_Li
 
 */
 
-params ["_grp","_task",["_force",false],["_params",[]]];
+params ["_grp","_task",["_force",false]];
 
 if (isNil "_grp" || isNil "_task" || {!isNil _task || !(missionNamespace getVariable [_task + "_isTask",false])}) exitWith {
 	["Error: wrong params given"] call FUPS_fnc_log;

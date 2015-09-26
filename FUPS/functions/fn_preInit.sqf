@@ -1,12 +1,12 @@
 /*
 
-    Description: Sets basic variables && tasks
+    Sets basic variables & tasks, called during preInit
 
     PARAMS:
-    -
+        -
 
     RETURN:
-    -
+        -
 
     Author: [W] Fett_Li
 
@@ -19,14 +19,19 @@ FUPS_timeOnTarget = 300;
 FUPS_shareDist = 900;
 FUPS_damageToRetreat = 0.4;
 
+// DO NOT EDIT BELOW THIS LINE
+
+// Save the side order for all arrays
 FUPS_sideOrder = [west,east,independent];
 
 FUPS_templates  = [];
+
 FUPS_reinforcements_east = [];
 FUPS_reinforcements_west = [];
 FUPS_reinforcements_guer = [];
 FUPS_reinforcements = [FUPS_reinforcements_west,FUPS_reinforcements_east,FUPS_reinforcements_guer];
 
+// OnEachFrame handler variables
 FUPS_oefIndex = -1;
 FUPS_oefGroups = [];
 FUPS_oefGroups_toAdd = [];
@@ -110,12 +115,3 @@ FUPS_players = [];
 },{false},{
     [_target]
 }] call FUPS_fnc_registerTask;
-
-if (isServer) then {
-    "FUPS_enableSimulation" addPublicVariableEventhandler {
-        [(_this select 1),true] call FUPS_fnc_simulation;
-    };
-    "FUPS_disableSimulation" addPublicVariableEventhandler {
-        [(_this select 1),false] call FUPS_fnc_simulation;
-    };
-};

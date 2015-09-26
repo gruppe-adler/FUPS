@@ -1,14 +1,14 @@
 /*
 
-	Description: orders a unit to be sent as reinforcement
+	Orders groups of reinforcement to attack the given things. Only groups that have been added to a reinforcement array can be called as reinforcements.
 
 	PARAMS:
 	0 <OBJECT/OBJECT ARRAY/ARRAY FORMAT POSITION/ARRAY FORMAT POSITION ARRAY/STRING> - data to describe the area to be sent in
 	1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
 	2 <SIDE> - the side of the reinforcement groups to be sent
-	3 <BOOLEAN> - true if the units should be send regardless of their current actions
-	4 <BOOLEAN> - true to let the units stay in the seized area
-	5 <BOOLEAN> - true to let the units work combined (wip)
+	@optional 3 <BOOLEAN> - true if the units should be send regardless of their current actions, default false
+	@optional 4 <BOOLEAN> - true to let the units stay in the seized area, default false
+	@optional 5 <BOOLEAN> - true to let the units work combined, default true --- ToDo
 
 	RETURN:
 	-

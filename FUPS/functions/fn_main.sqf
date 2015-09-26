@@ -1,14 +1,34 @@
+
 /*
 
-	Description: This function will initialize a group with FUPS
+	This function will initialize a group with FUPS.
 
 	PARAMS:
 	0 <OBJECT> - leader of the group
 	1 <STRING> - the marker to patrol in
-	. <?> - various other arguments
+	@optional 2...* <?> - various other arguments
+
+	Available arguments:
+		"BEHAVIOUR:",X - sets the default behaiour of the group to X, can be "SAFE", "AWARE", "CARELESS", "COMBAT", "STEALTH"
+
+		"SPEED:",X - sets the default speedmode of the group to X, can be "LIMITED", "NORMAL", "FULL"
+
+		"NOSHARE" - disables the group to share information about known enemies with other groups
+
+		"NOSUPPORT" - disables the group to receive information about known enemies from other groups
+
+		"NOWAIT" - disables for the group to wait for a while after a waypoint was reached
+
+		"ROUTE" - this parameter sets the groups route. When given, the group will patrol given waypoints until the end or a cycle is reached. If the end is reached, it will patrol randomly in the given marker area. If a cycle waypoint is reached, it will start again from the nearest waypoint. By this you can set a route for a group to patrol. When an enemy is detected it will attack it normaly, etc. but return to the waypoints after combat is finished.
+
+		"RANDOM" - this will randomize the groups position on FUPS initialization in the given marker area. Does take into account proper space for vehicles, etc.
+
+		"SIMULATION:",X - disables the the simulation of this group in some cases. If X is a trigger simulation is activated if it the trigger is activated. If it is a number simulation is activeated if there are players within X range to the group.
+
+		"REINFORCEMENT:",X - adds the group to the reinforcement groups X. X must be an array containing indexes.
 
 	RETURN:
-	-
+		nil
 
 	Author: [W] Fett_Li
 
@@ -42,9 +62,12 @@ _speed = _settings select 1;
 _group setSpeedMode _speed;
 _group setVariable ["FUPS_orgSpeed",_speed];
 
+// -- ToDo
+/*
 private "_nofollow";
 _nofollow = _settings select 2;
 _group setVariable ["FUPS_nofollow",_nofollow];
+*/
 
 private "_noshare";
 _noshare = _settings select 3;
@@ -63,9 +86,12 @@ _route = _settings select 6;
 _group setVariable ["FUPS_route",_route];
 _group setVariable ["FUPS_routeIndex",0];
 
+// --- ToDo
+/*
 private "_vehicle";
 _vehicle = _settings select 7;
 _group setVariable ["FUPS_vehicle",_vehicle];
+*/
 
 private "_randomSpawn";
 _randomSpawn = _settings select 8;

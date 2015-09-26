@@ -1,17 +1,16 @@
 /*
 
-    Description: Will save the given group as template
+    Will save the given group as template to be spawned. Only direct vehicles are taken into account. No loadout, etc.
 
     PARAMS:
     0 <GROUP/OBJECT> - group that should be saved
     1 <SCALAR> - the index of the template
-    2 <BOOLEAN> - true when the objects should be deleted after saving
-    3 <OBJECT> - if present && param 2 is true objects will only be deleted if param 3 is local
+    @optional 2 <BOOLEAN> - true when the objects should be deleted after saving, default false
 
     RETURN:
-    -
+        nil
 
-    Author: [W] Fett_Li
+    AUTHOR: [W] Fett_Li
 
 */
 

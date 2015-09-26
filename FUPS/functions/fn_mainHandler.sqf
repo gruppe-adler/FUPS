@@ -1,13 +1,15 @@
 /*
 
-	Description: Will be executed on each frame. Calculates all FUPS groups frame by frame.
+	Will be executed on each frame. Calculates all FUPS groups frame by frame.
 	After having calculated all groups it will do some overhead work.
 
+	DON'T CALL THIS FUNCTION BY HAND AS IT WILL CLASH WITH NORMAL FUPS CALCULATION!
+
 	PARAMS:
-	-
+		-
 
 	RETURN:
-	-
+		-
 
 	Author: [W] Fett_Li
 
@@ -63,7 +65,7 @@ if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
 	FUPS_players = [];
 	if (isMultiplayer) then {
 		private "_players";
-		_players = playableUnits;
+		_players = allPlayers;
 		{
 			if (!isNull (getConnectedUAV _x)) then {
 				_players pushBack (getConnectedUAV _x);
@@ -323,9 +325,9 @@ switch (true) do {
 		_onTaskEhs = _group getvariable "FUPS_onTaskEhs";
 		_disposedEhs = [];
 		{
-			_x params ["_ehTask","_onAct","_isDisposable"];
+			_x params ["_ehTask","_onAct","_isDisposable","_params"];
 			if (_ehTask == _task) then {
-				[_group] call _onAct;
+				[_group,_params] call _onAct;
 				if (_isDisposable) then {
 					_disposedEhs = [_forEachIndex] append _disposedEhs;
 				};
@@ -340,7 +342,7 @@ switch (true) do {
 
 private "_params";
 _params = [_group,_group getVariable "FUPS_taskState"];
-_params append (0 call (missionnamespace getVariable (_task + "_params")));
+_params pushBack (0 call (missionnamespace getVariable (_task + "_params")));
 
 // get the "right" task for the groups type, if it is defined
 private "_typeName";

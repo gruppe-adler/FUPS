@@ -5,12 +5,12 @@ private "_args";
 _args = [
 	"SAFE",		// 0 - BEHAVIOUR:
 	"LIMITED",	// 1 - SPEED:
-	false,		// 2 - NOFOLLOW
+	false,		// 2 - NOFOLLOW --- ToDo
 	false,		// 3 - NOSHARE
 	false,		// 4 - NOSUPPORT
 	false,		// 5 - NOWAIT
 	[],			// 6 - ROUTE
-	objNull,	// 7 - VEHICLE:
+	objNull,	// 7 - VEHICLE: --- ToDO
 	false,		// 8 - RANDOM
 	objNull,	// 9 - SIMULATION:
 	[]			// 10 - REINFORCEMENT:
@@ -46,12 +46,14 @@ if (_index > -1) then {
 	_list deleteAt _index;
 };
 
-// get nofollow
+// get nofollow --- ToDo
+/*
 _index = _list find "NOFOLLOW";
 if (_index > -1) then {
 	_args set [2,true];
 	_list deleteAt _index;
 };
+*/
 
 // get noshare
 _index = _list find "NOSHARE";
@@ -83,7 +85,8 @@ if (_index > -1) then {
 	_list deleteAt _index;
 };
 
-// get support vehicle
+// get support vehicle --- ToDo
+/*
 _index = _list find "VEHICLE:";
 if (_index > -1) then {
 	private "_value";
@@ -92,6 +95,7 @@ if (_index > -1) then {
 	_List deleteAt _index;
 	_list deleteAt _index;
 };
+*/
 
 // get random spawn
 _index = _list find "RANDOM";

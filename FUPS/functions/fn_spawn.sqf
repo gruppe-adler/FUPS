@@ -1,19 +1,19 @@
 /*
 
-	Description: Spawns the given template or clones the given group
+	Spawns the given template or clones the given group
 
 	PARAMS:
-	0 <ARRAY FORMAT POSITION> - position to spawn
-	1 <STRING> - marker to patrol in
-	2 <SCALAR ARRAY> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
-	@optional 3 <ARRAY> - additional parameters for FUPS initialization
-	@optional 4 <BOOLEAN> - false to suppress FUPS initialization
-	@optional 5 <SCALAR> - duration to sleep between EACH spawn
+		0 <ARRAY FORMAT POSITION> - position to spawn
+		1 <STRING> - marker to patrol in
+		2 <SCALAR ARRAY> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
+		@optional 3 <ARRAY> - additional parameters for FUPS initialization
+		@optional 4 <BOOLEAN> - false to suppress FUPS initialization
+		@optional 5 <SCALAR> - duration to sleep between EACH spawn
 
 	RETURN:
-	<GROUP ARRAY> - array of spawned groups
+		<GROUP ARRAY> - array of spawned groups
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 

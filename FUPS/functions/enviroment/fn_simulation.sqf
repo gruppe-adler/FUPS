@@ -1,6 +1,6 @@
 /*
 
-	Description: Takes care of the simulation of a group
+	Takes care of the simulation of a group
 
 	PARAMS:
 	0 <GROUP> - group that should be simulated
@@ -8,9 +8,9 @@
 	2 <BOOLEAN> - true to attach hit eventhandlers to turn simulation on
 
 	RETURN:
-	-
+		nil
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 
@@ -19,6 +19,7 @@ params ["_grp","_simulate",["_allowEH",true]];
 [["enableSimulationGlobal %1 for %2",_simulate,_grp]] call FUPS_fnc_log;
 
 if (isServer) then {
+	private "_vs";
 	_vs = [];
 	{
 		_v = vehicle _x;
@@ -34,9 +35,7 @@ if (isServer) then {
 		_x enableSimulationGlobal _simulate;
 	} forEach _vs;
 } else {
-	_var = ["FUPS_disableSimulation","FUPS_enableSimulation"] select _simulate;
-	missionnamespace setVariable [_var,_grp];
-	publicVariableServer _var;
+	[_grp,_simulate] remoteExecCall ["FUPS_fnc_simulation",2];
 };
 
 if (local _grp) then {
@@ -55,14 +54,14 @@ if (local _grp) then {
 				if !(vehicle _x in _added) then {
 					_eh = (vehicle _x) addEventHandler ["Hit",{
 						["Got hit while not simulated"] call FUPS_fnc_log;
-						[(group (_this select 0)),true] call FUPS_fnc_simulate;
+						[(group (_this select 0)),true] call FUPS_fnc_simulation;
 						_group setVariable ["FUPS_simulation",{true}];
 					}];
 					(vehicle _x) setVariable ["FUPS_hitHandler",_eh];
 
 					_eh = (vehicle _x) addEventHandler ["Killed",{
 						["Got hit while not simulated"] call FUPS_fnc_log;
-						[(group (_this select 0)),true] call FUPS_fnc_simulate;
+						[(group (_this select 0)),true] call FUPS_fnc_simulation;
 						_group setVariable ["FUPS_simulation",{true}];
 					}];
 					(vehicle _x) setVariable ["FUPS_killedHandler",_eh];
