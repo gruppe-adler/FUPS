@@ -81,7 +81,7 @@ _spawned = []; // saves spawned leaders
 		_initParams call FUPS_fnc_main;
 	};
 
-	sleep _sleepTime;
+	if (_sleepTime > 0) then {sleep _sleepTime};
 } forEach _toSpawn;
 
 _spawned
