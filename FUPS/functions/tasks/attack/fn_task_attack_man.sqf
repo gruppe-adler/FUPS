@@ -8,7 +8,7 @@ switch _mode do {
 		_group setSpeedMode "FULL";
 
 		private "_targetPos";
-		_targetPos = (_leader targetKnowledge leader _target) select 6;
+		_targetPos = (leader _group targetKnowledge leader _target) select 6;
 
 		// let all units watch into the enemy direction
 		{ _x doWatch _targetPos } forEach (units _group);
@@ -31,7 +31,7 @@ switch _mode do {
 		};
 
 		_group setVariable ["FUPS_movePos",_pos];
-		if (_leader distance leader _target < 100) then {
+		if (leader _group distance leader _target < 100) then {
 			// skip flanking, etc. when enemy is too close
 			_group setVariable ["FUPS_taskState","flank"];
 		}
@@ -42,10 +42,10 @@ switch _mode do {
 	case ("evase"): {
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			// only sortie if not to far away
-			if (_leader distance leader _target < 800) then {
+			if (leader _group distance leader _target < 800) then {
 				// position calculation
 				private "_targetPos";
-				_targetPos = (_leader targetKnowledge leader _target) select 6;
+				_targetPos = (leader _group targetKnowledge leader _target) select 6;
 
 				private ["_dir","_dist","_pos"];
 				_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
@@ -65,7 +65,7 @@ switch _mode do {
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			// go to flanking position
 			private "_targetPos";
-			_targetPos = (_leader targetKnowledge leader _target) select 6;
+			_targetPos = (leader _group targetKnowledge leader _target) select 6;
 
 			_dist = if ([_targetPos] call FUPS_fnc_inTown) then {100} else {200};
 			private "_dir";
