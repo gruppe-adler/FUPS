@@ -12,6 +12,9 @@
 
 */
 
+// Variable to check if FUPS is loaded
+FUPS_present = true;
+
 // Generall variables
 FUPS_log = true;
 FUPS_simulation_dist = 3500;

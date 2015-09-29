@@ -5,6 +5,7 @@ class FUPS {
 		class reinforcementsExist {};
 		class reveal {};
 		class setPatrolMarker {};
+		class stop {};
 	};
 	class enviroment {
 		file = "FUPS\functions\enviroment";
