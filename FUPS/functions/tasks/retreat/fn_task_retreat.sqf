@@ -1,4 +1,5 @@
-params ["_group","_mode","_directions","_nearEnemies"];
+params ["_group","_mode","_params"];
+_params params ["_directions","_nearEnemies"];
 
 switch _mode do {
 	case ("init"): {

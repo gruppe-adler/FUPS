@@ -1,4 +1,5 @@
-params ["_group","_mode","_target"];
+params ["_group","_mode","_params"];
+_params params ["_target"];
 
 switch _mode do {
     case ("init"): {
