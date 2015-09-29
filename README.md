@@ -35,3 +35,14 @@ include.cfg
 -------------------------
 
 You can safely ignore and delete this file. I need this for a personal ArmA 3 mission development enviroment.
+
+-------------------------
+Changelog
+-------------------------
+
+* v2.0.0
+Release
+
+* v2.0.01
+Small script fix
+
