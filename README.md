@@ -1,4 +1,4 @@
-# FUPS v2.0.01
+# FUPS v2.0.02
 
 -------------------------
 Introduction
@@ -42,7 +42,4 @@ Changelog
 
 * v2.0.0
 Release
-
-* v2.0.01
-Small script fix
 
