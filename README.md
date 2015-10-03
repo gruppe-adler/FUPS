@@ -4,7 +4,7 @@
 Introduction
 -------------------------
 
-FUPS is an easy to use jet powerfull script to make ai patrol and attack properly in your mission.
+FUPS is an easy to use yet powerfull script to make ai patrol and attack properly in your mission.
 It uses markers defining areas for ai to patrol.
 
 -------------------------
@@ -40,6 +40,9 @@ You can safely ignore and delete this file. I need this for a personal ArmA 3 mi
 Changelog
 -------------------------
 
-* v2.0.0
-Release
+v2.0.0
+* Release
 
+Next version
+* Various bugfixes
+* FUPS_fnc_spawn can be called from unscheduled enviroment setting sleepTime (param 5) to 0
