@@ -3,7 +3,7 @@
 	Orders groups of reinforcement to attack the given things. Only groups that have been added to a reinforcement array can be called as reinforcements.
 
 	PARAMS:
-		0 <(<OBJECT> ARRAY)/(<ARRAY FORMAT POSITION> ARRAY)/STRING> - data to describe the area to be sent in
+		0 <(<OBJECT> ARRAY)/(<ARRAY FORMAT POSITION> ARRAY)/STRING/OBJECT> - data to describe the area to be sent in
 		1 <SCALAR ARRAY> - IDs of the reinforcement groups to be sent
 		2 <SIDE> - the side of the reinforcement groups to be sent
 		@optional 3 <BOOLEAN> - true if the units should be send regardless of their current actions, default false
@@ -17,7 +17,7 @@
 
 */
 
-params ["_targets","_rIDs","_side",["_skipVars",false],["_stayInArea",false],["_combined",true]];
+params ["_targets","_rIDs","_side",["_force",false],["_stayInArea",false],["_combined",true]];
 
 if (isNil "_targets" || isNil "_rIDs" || isNil "_side") exitWith {
 	["Exiting, wrong params given",true,true] call FUPS_fnc_log;
@@ -36,6 +36,11 @@ _reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
 // Create the marker to seize
 private "_areaInfo";
 _areaInfo = [];
+
+if (typeName _targets == typeName objNull) then {
+	_targets = [_targets];
+};
+
 if (typeName _targets == typeName "") then {
 	_areaInfo = _targets call FUPS_fnc_markerData;
 	_targets = [];
@@ -69,5 +74,5 @@ _combined = if (_combined) then {_reinfGroups} else {[]};
 		};
 	} forEach _targets;
 	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,_combined,_targetsParam]];
-	[_grp,"FUPS_fnc_task_reinf",_skipVars] call FUPS_fnc_do;
+	[_grp,"FUPS_fnc_task_reinforcement",_force] call FUPS_fnc_do;
 } forEach _reinfGroups;

@@ -4,7 +4,6 @@ _params params ["_target"];
 switch _mode do {
 	case "init": {
 		_group setBehaviour "AWARE";
-		_group setBehaviour "NORMAL";
 
 		private ["_params","_areainfo","_combinedGroups","_targets"];
 		_params = _group getVariable "FUPS_reinfInfo";

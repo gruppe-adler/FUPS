@@ -46,3 +46,4 @@ v2.0.0
 Next version
 * Various bugfixes
 * FUPS_fnc_spawn can be called from unscheduled enviroment setting sleepTime (param 5) to 0
+* FUPS_fnc_reinforcement accepts an object as first parameter now
