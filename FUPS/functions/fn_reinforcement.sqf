@@ -74,5 +74,5 @@ _combined = if (_combined) then {_reinfGroups} else {[]};
 		};
 	} forEach _targets;
 	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,_combined,_targetsParam]];
-	[_grp,"FUPS_fnc_task_reinforcement",_force] call FUPS_fnc_do;
+	[_grp,"FUPS_fnc_task_reinf",_force] call FUPS_fnc_do;
 } forEach _reinfGroups;

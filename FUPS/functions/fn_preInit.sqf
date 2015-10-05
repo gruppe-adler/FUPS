@@ -108,7 +108,7 @@ FUPS_players = [];
     [_directions,_nearEnemies]
 }] call FUPS_fnc_registerTask;
 
-["FUPS_fnc_task_reinforcement",{ // priority
+["FUPS_fnc_task_reinf",{ // priority
     private "_prior";
     _prior = 0;
     if (_surrounded) then {_prior = _prior - 1};
