@@ -66,6 +66,6 @@ switch _mode do {
 	};
 	case "attack": {
 		// --- ToDo: force do and check function parameters
-		[_group,"FUPS_fnc_attack",_target] call FUPS_fnc_do;
+		[_group,"FUPS_fnc_task_attack",true] call FUPS_fnc_do;
 	};
 };

@@ -16,8 +16,8 @@
 */
 
 params ["_grp","_task",["_force",false]];
-if (isNil "_grp" || isNil "_task" || {isNil _task || !(missionNamespace getVariable [_task + "_isTask",false])}) exitWith {
-	["Error: wrong params given",false] call FUPS_fnc_log;
+if (isNil "_grp" || isNil "_task" || {!(missionNamespace getVariable [_task + "_isTask",false])}) exitWith {
+	[["Error: wrong params given ([%1,%2,%3])",_grp,_task,_force],true] call FUPS_fnc_log;
 };
 
 if (_force) then {
