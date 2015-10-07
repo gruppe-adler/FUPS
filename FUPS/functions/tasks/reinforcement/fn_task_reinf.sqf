@@ -3,6 +3,8 @@ _params params ["_target"];
 
 switch _mode do {
 	case "init": {
+        ["Reinforcing",false,1] call FUPS_fnc_log;
+
 		_group setBehaviour "AWARE";
 		_group setSpeedMode "NORMAL";
 
