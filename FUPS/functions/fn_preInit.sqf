@@ -17,6 +17,7 @@ FUPS_present = true;
 
 // Generall variables
 FUPS_log = true;
+FUPS_logLevel = -1;
 FUPS_simulation_dist = 3500;
 FUPS_timeOnTarget = 300;
 FUPS_shareDist = 900;

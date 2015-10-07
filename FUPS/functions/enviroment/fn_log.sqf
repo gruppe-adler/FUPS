@@ -7,8 +7,9 @@
     MESSAGE will be the given message
 
     PARAMS:
-    0 <ARRAY/ANY> - The message, if it is a array, it'll be interpreted as format array
-    1 <BOOLEAN> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged
+    0 <ARRAY/ANY> - The message, if it is a array, it'll be interpreted as format array.
+    1 <BOOLEAN> - True if param 0 is an array and should be formatted voa format [...].
+    2 <BOOLEAN/SCALAR> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged. If scalar message will only be logged if FUPS_logLevel == param 2 or FUPS_log is true.
 
     RETURN:
     -
@@ -17,9 +18,8 @@
 
 */
 
-
 params ["_str",["_format",true],["_log",false]];
-_log = FUPS_log || _log;
+_log = FUPS_log || (typeName _log == "BOOL" && {_log}) || (FUPS_logLevel > -1 && typeName _log == "SCALAR" && {_log == FUPS_logLevel});
 
 if (_str isEqualTo "" || !_log) exitWith {};
 

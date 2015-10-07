@@ -1,4 +1,4 @@
-# FUPS v2.0.03
+# FUPS v2.0.05
 
 -------------------------
 Introduction
@@ -47,3 +47,5 @@ Next version
 * Various bugfixes
 * FUPS_fnc_spawn can be called from unscheduled enviroment setting sleepTime (param 5) to 0
 * FUPS_fnc_reinforcement accepts an object as first parameter now
+* FUPS_fnc_do now works correctly
+* New function: FUPS_logLevel, if FUPS_logLevel is greater than -1, functions will only be logged, if their log parameter is set to true, or to FUPS_logLevel
