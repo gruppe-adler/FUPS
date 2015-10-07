@@ -35,7 +35,7 @@ switch _mode do {
 			_targetPos = (leader _group targetKnowledge leader _target) select 6;
 
 			private "_pos";
-			_pos = (selectbestPlaces [_currpos,50,"meadow + trees - forest + hill - houses",5,1]) select 0 select 0;
+			_pos = (selectbestPlaces [_currpos,50,"meadow + trees - forest + hills - houses",5,1]) select 0 select 0;
 
 			_group move _pos;
 
