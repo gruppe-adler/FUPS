@@ -18,7 +18,7 @@ switch _mode do {
 			_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
 			_dir = if (random 1 < 0.5) then {_dir + 90} else {_dir - 90};
 			_pos = [_targetPos,500,_dir] call FUPS_fnc_relPos;
-			_pos = (selectbestPlaces [_pos,50,"meadow + trees - forest + hill - houses",5,1]) select 0 select 0;
+			_pos = (selectbestPlaces [_pos,50,"meadow + trees - forest + hills - houses",5,1]) select 0 select 0;
 
 			_group move _pos;
 
