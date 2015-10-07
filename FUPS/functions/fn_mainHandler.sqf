@@ -308,7 +308,6 @@ switch (true) do {
 		// Exectuing given orders
 		private "_orders";
 		_orders = _group getVariable "FUPS_orders";
-		[_orders,false,1] call FUPS_fnc_log;
 		if (count _orders > 0) then {
 			(_orders select 0) params ["_order","_force"];
 			if (_force || _task == "FUPS_fnc_task_patrol") then {
@@ -320,7 +319,6 @@ switch (true) do {
 		_group setVariable ["FUPS_break",missionnamespace getVariable [(_task + "_break"),{true}]];
 
 		_group setVariable ["FUPS_task",_task];
-		[["Task is now: %1",_task],true,1] call FUPS_fnc_log;
 		_group setVariable ["FUPS_taskState","init"];
 
 		private ["_onTaskEhs","_disposedEhs"];

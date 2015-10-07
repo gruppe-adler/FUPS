@@ -14,7 +14,6 @@ class FUPS {
 	};
 	class features {
 		file = "FUPS\functions\features";
-		class generateWP {};
 		class randomSpawn {};
 		class solUseBuilding {};
 		class useBuilding {};
@@ -42,7 +41,9 @@ class FUPS {
 	class map {
 		file = "FUPS\functions\map";
 		class coverMarker {};
+		class createMarkerFromData {};
 		class escapeDirection {};
+		class generateWP {};
 		class getDir {};
 		class inForest {};
 		class inTown {};

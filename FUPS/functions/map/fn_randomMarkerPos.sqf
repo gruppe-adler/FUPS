@@ -1,22 +1,18 @@
-params ["_group","_freeRadius","_water"];
+params ["_group","_freeRadius","_water","_area"];
 // for _water: 0 - no water, 1 - force water, 2 - don't care
 private "_waterCondition";
 _waterCondition = [{!surfaceIsWater _pos},{surfaceIsWater _pos},{true}] select _water;
 
-private ["_markerdata","_markerpos","_markervector","_markervector_1"];
-_markerdata = _group getVariable "FUPS_marker";
-_markerpos = _markerdata select 0;
-_markervector = _markerdata select 2;
-_markervector_1 = _markerdata select 3;
+_area params ["_markerPos","_mindist","_markerVector","_markerVector_1","_markerDir"];
 
 private ["_tries","_randompos"];
 _tries = 0;
 _randompos = [];
 while {_tries < 25} do {
 	private "_pos";
-	_pos = _markerpos vectorAdd (_markervector vectorMultiply random 1) vectorAdd (_markervector_1 vectorMultiply random 1),
+	_pos = _markerPos vectorAdd (_markerVector vectorMultiply random 1) vectorAdd (_markerVector_1 vectorMultiply random 1),
 	_pos = _pos findEmptyPosition [_freeRadius,30];
-	if (!(_pos isEqualTo []) AND _waterCondition) then {
+	if (!(_pos isEqualTo []) && _waterCondition && leader _group distance _pos > _mindist) then {
 		_randompos = _pos;
 		_tries = 25;
 	};

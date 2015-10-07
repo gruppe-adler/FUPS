@@ -14,9 +14,10 @@
 
 */
 
-params ["_group","_marker",["_setOrg",false]];
+params ["_group","_marker"];
 
-_data = if (typename _marker == typename []) then { _marker } else { [_marker] call FUPS_fnc_markerData };
+if (typeName _marker == typeName "") then {
+	_marker = [_marker] call FUPS_fnc_markerData;
+};
 
-_group setVariable ["FUPS_marker",_data];
-if (_setOrg) then {_group setVariable ["FUPS_orgMarker",_data]};
+_group setVariable ["FUPS_marker",_marker];

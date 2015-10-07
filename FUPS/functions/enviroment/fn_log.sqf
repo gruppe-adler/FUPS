@@ -19,7 +19,7 @@
 */
 
 params ["_str",["_format",true],["_log",false]];
-_log = FUPS_log || (_log isEqualTo true) || (_log isEqualTo FUPS_logLevel);
+_log = FUPS_log || (_log isEqualTo true) || (FUPS_logLevel > -1 && _log isEqualTo FUPS_logLevel);
 
 if (_str isEqualTo "" || !_log) exitWith {};
 

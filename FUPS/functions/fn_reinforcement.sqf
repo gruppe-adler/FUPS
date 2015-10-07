@@ -23,7 +23,7 @@ if (isNil "_targets" || isNil "_rIDs" || isNil "_side") exitWith {
 	["Exiting, wrong params given",true,true] call FUPS_fnc_log;
 };
 
-[["Sending reinforcements to: %1",_targets]] call FUPS_fnc_log;
+[["Sending reinforcements to: %1",_targets],true] call FUPS_fnc_log;
 
 // create the reinforcements array
 private ["_reinfGroups","_reinfArray"];
@@ -49,7 +49,8 @@ if (typeName _targets == typeName "") then {
 };
 
 // Do the groups act combined?
-_combined = if (_combined) then {_reinfGroups} else {[]};
+// --- ToDo
+// _combined = if (_combined) then {_reinfGroups} else {[]};
 
 // Order the reinforcements to begin
 {
@@ -65,14 +66,6 @@ _combined = if (_combined) then {_reinfGroups} else {[]};
 	};
 
 	_grp setVariable ["FUPS_reinforcementReady",false];
-	private "_targetsParam";
-	_targetsParam = [];
-	{
-		if (typeName _x == typeName objNull) then {
-			_grp reveal _x;
-			_targetsParam pushBack _x;
-		};
-	} forEach _targets;
-	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,_combined,_targetsParam]];
+	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,[],+_targets]];
 	[_grp,"FUPS_fnc_task_reinf",_force] call FUPS_fnc_do;
 } forEach _reinfGroups;
