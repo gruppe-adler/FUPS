@@ -44,7 +44,7 @@ switch _mode do {
 	case "newwp": {
         ["Newwp",false,1] call FUPS_fnc_log;
 		private ["_areainfo","_wp"];
-		_areainfo = (_group getVariable "FUPS_reinfInfo") select 2;
+		_areainfo = (_group getVariable "FUPS_reinfInfo") select 0;
 		_wp = [_group,_areaInfo] call FUPS_fnc_generateWP;
 
 		_group move _wp;
