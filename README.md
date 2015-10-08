@@ -1,4 +1,4 @@
-# FUPS v2.0.07
+# FUPS v2.1.0
 
 -------------------------
 Introduction
@@ -43,9 +43,10 @@ Changelog
 v2.0.0
 * Release
 
-Next version
+v2.1.0
 * Various bugfixes
 * FUPS_fnc_spawn can be called from unscheduled enviroment setting sleepTime (param 5) to 0
+* FUPS_fnc_spawn sleeps now after each unit spawned instead of each group
 * FUPS_fnc_reinforcement accepts an object as first parameter now
 * FUPS_fnc_do now works correctly for most people this error lead to FUPS_fnc_reinforcement not working properly
 * Some errors in FUPS_fnc_reinforcement fixed, too

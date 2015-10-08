@@ -8,7 +8,7 @@
 		2 <SCALAR ARRAY> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
 		@optional 3 <ARRAY> - additional parameters for FUPS initialization
 		@optional 4 <BOOLEAN> - false to suppress FUPS initialization
-		@optional 5 <SCALAR> - duration to sleep between EACH spawn
+		@optional 5 <SCALAR> - duration to sleep between each unit spawn
 
 	RETURN:
 		<GROUP ARRAY> - array of spawned groups
@@ -17,7 +17,7 @@
 
 */
 
-params ["_spawnPos","_marker","_templates",["_params",[]],["_initFups",true],["_sleepTime",2]];
+params ["_spawnPos","_marker","_templates",["_params",[]],["_initFups",true],["_sleepTime",1]];
 
 if (isNil "_spawnPos" || isNil "_marker" || isNil "_templates") exitWith { ["Error: wrong params"] call FUPS_fnc_log; [] };
 
@@ -53,6 +53,7 @@ _spawned = []; // saves spawned leaders
 
 	_grp setBehaviour "SAFE";
 	_grp setSpeedMode "LIMITED";
+
 	{
 		_x params ["_type","_skill"];
 
@@ -70,6 +71,7 @@ _spawned = []; // saves spawned leaders
 			(commander _veh) setSkill _skill;
 			(crew _veh) joinSilent _grp;
 		};
+		if (_sleepTime > 0) then {sleep _sleepTime};
 	} forEach _units;
 
 	// init the new group
@@ -80,8 +82,6 @@ _spawned = []; // saves spawned leaders
 		_initParams append _params;
 		_initParams call FUPS_fnc_main;
 	};
-
-	if (_sleepTime > 0) then {sleep _sleepTime};
 } forEach _toSpawn;
 
 _spawned
