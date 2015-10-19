@@ -1,3 +1,4 @@
+
 /*
 
     Sets basic variables & tasks, called during preInit
@@ -14,16 +15,6 @@
 
 // Variable to check if FUPS is loaded
 FUPS_present = true;
-
-// Generall variables
-FUPS_log = true;
-FUPS_logLevel = -1;
-FUPS_simulation_dist = 3500;
-FUPS_timeOnTarget = 300;
-FUPS_shareDist = 900;
-FUPS_damageToRetreat = 0.4;
-
-// DO NOT EDIT BELOW THIS LINE
 
 // Save the side order for all arrays
 FUPS_sideOrder = [west,east,independent];

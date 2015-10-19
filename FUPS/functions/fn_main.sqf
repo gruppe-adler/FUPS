@@ -178,6 +178,7 @@ _group setVariable ["FUPS_task",""];
 _group setVariable ["FUPS_orders",[]];
 _group setVariable ["FUPS_clockPulse",-1];
 _group setVariable ["FUPS_lastDamage",0];
+_group setVariable ["FUPS_panic",0];
 _group setVariable ["FUPS_target",objNull];
 _group setVariable ["FUPS_askedForSupport",[]];
 if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
@@ -186,3 +187,30 @@ if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
 
 [["Adding %1",_group]] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;
+
+// Add panic eventhandlers
+if (FUPS_panic_enable) then {
+	{
+		_x addEventHandler ["Killed",{
+			params ["_unit"];
+			[_unit,FUPS_panic_killed] call FUPS_fnc_raisePanic;
+		}];
+
+		_x addEventHandler ["Explosion",{
+			params ["_unit"];
+			[_unit,FUPS_panic_explosion] call FUPS_fnc_raisePanic;
+		}];
+
+		_x addEventHandler ["FiredNear",{
+			params ["_unit","_firer"];
+			if (_unit == leader _unit && side _firer getFriend side _unit < 0.6) then {
+				[_unit,FUPS_panic_firedNear] call FUPS_fnc_raisePanic;
+			};
+		}];
+
+		_x addEventHandler ["Hit",{
+			params ["_unit"];
+			[_unit,FUPS_panic_hit] call FUPS_fnc_raisePanic;
+		}];
+	} forEach (units _group);
+};

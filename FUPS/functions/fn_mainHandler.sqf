@@ -1,3 +1,4 @@
+
 /*
 
 	Will be executed on each frame. Calculates all FUPS groups frame by frame.
@@ -77,8 +78,6 @@ if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
 	};
 };
 
-//if (count FUPS_oefGroups == 0) exitWith {};
-
 private ["_group","_side","_sideIndex","_leader","_members","_clockPulse"];
 _group = FUPS_oefGroups select FUPS_oefIndex;
 _side = side _group;
@@ -91,6 +90,7 @@ _clockPulse = _clockPulse + 1;
 _group setVariable ["FUPS_clockPulse",_clockPulse];
 
 // handle simulation
+// --- ToDo: better caching
 if !([_group] call (_group getVariable "FUPS_simulation")) exitWith {
 	if (simulationEnabled _leader) then {[_group,false,true] call FUPS_fnc_simulation};
 };
@@ -99,14 +99,15 @@ if !(simulationEnabled _leader) then {
 };
 
 // get moved distance
-private "_currpos";
+private ["_currpos","_centerpos"];
 _currpos = getPosATL _leader;
 _currpos set [2,0];
+_centerpos = [_group] call FUPS_fnc_g_centerPos;
 
 // get the group damage
 private ["_combatStrength","_groupdamage"];
-_combatStrength     = 1;
-_groupdamage        = 0;
+_combatStrength = 1;
+_groupdamage = 0;
 {
 	_groupdamage = _groupdamage + damage _x;
 } forEach _members;
@@ -120,7 +121,7 @@ _combatStrength = 1 - (_groupdamage / _membersCount);
 _gothit = _groupdamage > (_group getVariable "FUPS_lastDamage");
 
 // get the situation
-private ["_knowsAny","_targets","_directions","_enemies","_nearEnemies","_fears","_theyGotUs","_share"];
+private ["_knowsAny","_targets","_directions","_enemies","_nearEnemies","_fears","_theyGotUs","_shareNow","_panic"];
 _knowsAny = false;
 _targets = [];
 _directions = [];
@@ -130,6 +131,11 @@ _fears = [];
 _theyGotUs = false;
 _shareNow = FUPS_shareNow select _sideIndex;
 
+// Get the current panic level
+[_group] call FUPS_fnc_lowerPanic;
+_panic = _group getVariable ["FUPS_panic",0];
+
+// Reveal all shared enemies
 if (_group getVariable "FUPS_doSupport") then {
 	{
 		if (_leader distance leader _x < FUPS_shareDist) then {
@@ -143,16 +149,17 @@ _askedForSupport = _group getVariable "FUPS_askedForSupport";
 _shareNext = FUPS_share select _sideIndex;
 { // foreach
 	private "_knowsGroup";
-	_knowsGroup = false;
-	{ // foreach
-		_knowsGroup = (_leader targetKnowledge _x) select 1;
-		if (_knowsGroup) exitWith {};
+	_knowsGroup = { // foreach
+		//_knowsGroup = (_leader targetKnowledge _x) select 1;
+		if (_group knowsAbout _x > FUPS_knowsAboutThreshold) exitWith {true};
+		false
 	} forEach (units _x);
-	_knowsAny = _knowsAny || _knowsGroup;
-
-	if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
 
 	if (_knowsGroup) then {
+		_knowsAny = true;
+
+		if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
+
 		_x setVariable ["FUPS_revealedAt",time];
 		_enemies pushBack _x;
 		if (_group getVariable "FUPS_doShare") then {
