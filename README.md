@@ -63,4 +63,4 @@ v2.1.0
 Next Version
 * panic system added (doesn't have influence yet)
 * settings files added to FUPS folder
-* new system of target acquiring
+* new system of target acquiring (basic functions added, folder targeting)
