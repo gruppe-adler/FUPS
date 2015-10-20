@@ -65,6 +65,6 @@ Next Version
 * panic can make a group skip calculation cycles leading to a group acting more slowly
 * panic can make a group cancel their attack
 * panic will lead a group more likely into retreating
-* ai can now hear your shots
+* ai can now hear your shots (wip)
 * settings files added to FUPS folder
 * new system of target acquiring (basic functions added, folder targeting)
