@@ -29,6 +29,10 @@ class FUPS {
 		file = "FUPS\functions\tasks\getOutOfWater";
 		class task_getOutOfWater {};
 	};
+	class hearing {
+		file = "FUPS\functions\hearing";
+		class addAudioEventHandler {};
+	};
 	class hold {
 		file = "FUPS\functions\tasks\hold";
 		class task_hold_air {};
@@ -95,6 +99,7 @@ class FUPS {
 		class clearWP {};
 		class getParams {};
 		class getWaypoints {};
+		class mainHandlerOverhead {};
 	};
 	class panic {
 		file = "FUPS\functions\panic";

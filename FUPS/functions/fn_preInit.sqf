@@ -13,6 +13,10 @@
 
 */
 
+// Generall variables
+FUPS_speedOfSound = 340.29;
+FUPS_cycleTime = 0;
+
 // Variable to check if FUPS is loaded
 FUPS_present = true;
 

@@ -19,64 +19,8 @@
 // clock pulse tracking
 FUPS_oefIndex = FUPS_oefIndex + 1;
 // Will be executed after all groups have been calculated
-if (FUPS_oefIndex == count FUPS_oefGroups) exitWith {
-	FUPS_oefIndex = -1;
-	FUPS_oefClockPulse = FUPS_oefClockPulse + 1;
-
-	// delete groups
-	if (count FUPS_oefGroups_toDelete > 0) then {
-		FUPS_oefGroups_toDelete sort false;
-		{
-			FUPS_oefGroups deleteAt _x;
-		} foreach FUPS_oefGroups_toDelete;
-		FUPS_oefGroups_toDelete = [];
-	};
-
-	// re-calculate all groups
-	{
-		_x resize 0;
-		_x = +(FUPS_share select _forEachIndex);
-	} forEach FUPS_shareNow;
-
-	{
-		{
-			// clear array without resetting the pointer
-			_x resize 0;
-		} forEach _x;
-	} forEach [FUPS_enemies,FUPS_groups,FUPS_share];
-
-	{
-		private "_side";
-		_side = side _x;
-		// refill the enemie arrays
-		if (_side getFriend west < 0.6) then {FUPS_enemies_west pushBack _x};
-		if (_side getFriend east < 0.6) then {FUPS_enemies_east pushBack _x};
-		if (_side getFriend independent < 0.6) then {FUPS_enemies_guer pushBack _x};
-
-		if (_side != civilian) then {
-			(FUPS_groups select (FUPS_sideOrder find _side)) pushBack _x;
-		};
-	} forEach allGroups;
-
-	if (count FUPS_oefGroups_toAdd > 0) then {
-		FUPS_oefGroups append FUPS_oefGroups_toAdd;
-		FUPS_oefGroups_toAdd = [];
-	};
-
-	FUPS_players = [];
-	if (isMultiplayer) then {
-		private "_players";
-		_players = allPlayers;
-		{
-			if (!isNull (getConnectedUAV _x)) then {
-				_players pushBack (getConnectedUAV _x);
-			};
-		} forEach _players;
-		FUPS_players = _players;
-	} else {
-		FUPS_players = [player];
-	};
-};
+if (FUPS_oefIndex == count FUPS_oefGroups) exitWith
+	FUPS_fnc_mainHandlerOverhead;
 
 private ["_group","_side","_sideIndex","_leader","_members","_clockPulse"];
 _group = FUPS_oefGroups select FUPS_oefIndex;
@@ -148,6 +92,15 @@ private ["_askedForSupport","_shareNext"];
 _askedForSupport = _group getVariable "FUPS_askedForSupport";
 _shareNext = FUPS_share select _sideIndex;
 { // foreach
+	private "_dist";
+	_dist = _leader distance leader _x;
+
+	// Check whether this group has been heared
+	(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDuration"];
+	if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDuration * FUPS_speedOfSound <= _dist) then {
+		// --- ToDo: reveal
+	};
+
 	private "_knowsGroup";
 	_knowsGroup = { // foreach
 		//_knowsGroup = (_leader targetKnowledge _x) select 1;
@@ -158,7 +111,7 @@ _shareNext = FUPS_share select _sideIndex;
 	if (_knowsGroup) then {
 		_knowsAny = true;
 
-		if (_leader distance leader _x < 150) then {_nearEnemies pushBack _x};
+		if (_dist < 150) then {_nearEnemies pushBack _x};
 
 		_x setVariable ["FUPS_revealedAt",time];
 		_enemies pushBack _x;
