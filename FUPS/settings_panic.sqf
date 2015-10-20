@@ -17,3 +17,8 @@ FUPS_panic_lowerPanicPerSecond = 0.0015; // This will cause a kill to be "forgot
 FUPS_panic_isNervousThreshold = 0.7;
 // Threshold of panic level to consider the group being paniced
 FUPS_panic_isPanickedThreshold = 1.5;
+
+// Chance a group will skip an action, when it is nervous
+FUPS_panic_skipAction_nervous = 0.5;
+// Chance a group will skip an action, when it is panicked
+FUPS_panic_skipAction_panicked = 0.8;

@@ -69,7 +69,7 @@ FUPS_players = [];
     if (_surrounded && !_weakened) then {_prior = _prior + 0.3};
     _prior
 },{ // break condition
-    _surrounded || _headsdown || _weakened || _theyGotUs
+    _surrounded || _headsdown || _weakened || _theyGotUs || (_panic >= FUPS_panic_isPanickedThreshold && random 1 < 0.001)
 },{
     [leader _target]
 }] call FUPS_fnc_registerTask;
@@ -92,6 +92,8 @@ FUPS_players = [];
     private "_prior";
     _prior = 2;
     if (_headsdown) then {_prior = _prior + 0.5};
+    if (_panic >= FUPS_panic_skipAction_nervous) then {_prior = _prior + 0.05;
+    if (_panic >= FUPS_panic_skipAction_panicked) then {_prior = _prior + 0.5};
     _prior = if (_surrounded) then {_prior - 3} else {_prior + 0.3};
     _prior
 },{ // break condition
