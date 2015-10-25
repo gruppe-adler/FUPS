@@ -43,10 +43,9 @@ if !(simulationEnabled _leader) then {
 };
 
 // get moved distance
-private ["_currpos","_centerpos"];
+private ["_currpos"];
 _currpos = getPosATL _leader;
 _currpos set [2,0];
-_centerpos = [_group] call FUPS_fnc_g_centerPos;
 
 // get the group damage
 private ["_combatStrength","_groupdamage"];
@@ -55,7 +54,7 @@ _groupdamage = 0;
 {
 	_groupdamage = _groupdamage + damage _x;
 } forEach _members;
-_groupdamage = _groupdamage + ((_group getVariable ["FUPS_members",count _members]) - (count _members));
+_groupdamage = _groupdamage + (_group getVariable ["FUPS_members",count _members] - count _members);
 
 if (_groupdamage == _membersCount) exitWith {
 	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
@@ -83,7 +82,7 @@ _panic = _group getVariable ["FUPS_panic",0];
 if (_group getVariable "FUPS_doSupport") then {
 	{
 		if (_leader distance leader _x < FUPS_shareDist) then {
-			{_group reveal [_x,3]} forEach (units _x);
+			_group reveal [leader _x,3];
 		};
 	} forEach _shareNow;
 };
@@ -96,19 +95,62 @@ _shareNext = FUPS_share select _sideIndex;
 	_dist = _leader distance leader _x;
 
 	// Check whether this group has been heared
-	(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDuration"];
-	if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDuration * FUPS_speedOfSound <= _dist) then {
-		// --- ToDo: reveal
+	(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
+	if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
+		_group reveal [leader _x,FUPS_hearing_shotRevealMax];
+		// --- ToDo: apply to distance
 	};
 
-	private "_knowsGroup";
-	_knowsGroup = { // foreach
-		//_knowsGroup = (_leader targetKnowledge _x) select 1;
-		if (_group knowsAbout _x > FUPS_knowsAboutThreshold) exitWith {true};
-		false
+	// Check whether this group should be able to see the enemy group
+	// --- ToDo: check for smoke?
+	if (FUPS_targeting_enabled) then {
+		private ["_lookAt","_lookFrom"];
+		_lookAt = vehicle (units _x select floor random count units _x);
+		_lookFrom = vehicle (units _group select floor random count units _group);
+
+		if (_currpos distance _centerPos <= FUPS_targeting_maxRange && {lineIntersectsSurfaces [getPosASL _lookFrom,getPosASL _lookAt,_lookFrom,_lookAt] isEqualTo []}) then {
+			private "_revealChance";
+			_revealChance = FUPS_targeting_see;
+
+			if (_dist - FUPS_targeting_see_decreaseThreshold > 0) then {
+				_revealChance = linearConversion []; // --- ToDo
+			};
+
+			private "_stance";
+			_stance = [_lookAt] call FUPS_fnc_getUnitStace;
+			if (_stance >= 0) then {
+				_revealChance = _revealChance * ([FUPS_targeting_seeSwimming,FUPS_targeting_seeProne,FUPS_targeting_seeKneeling,FUPS_targeting_seeStanding] select _stance);
+			};
+
+			if ([_lookAt] call FUPS_fnc_inForest) then {
+				_revealChance = _revealChance * FUPS_targeting_seeInForest;
+			};
+
+			if ([_lookAt] call FUPS_fnc_inTown) then {
+				_revealChance = _revealChance * FUPS_targeting_seeInTown;
+			};
+
+			if (random 1 >= 1 - _revealChance) then {
+				_group reveal [_lookAt,3];
+			};
+		};
+	};
+
+	// How much does this group know the other?
+	private "_maxKnowledge";
+	_maxKnowledge = 0;
+	{ // foreach
+		private "_knows";
+		_knows = _group knowsAbout _x;
+		if (_knows > _maxKnowledge) then { _maxKnowledge = _knows };
 	} forEach (units _x);
 
-	if (_knowsGroup) then {
+	// Even the groups enenmy knowledge
+	{
+		_group reveal [_x,_maxKnowledge];
+	} forEach (units _x);
+
+	if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
 		_knowsAny = true;
 
 		if (_dist < 150) then {_nearEnemies pushBack _x};
@@ -146,7 +188,9 @@ _shareNext = FUPS_share select _sideIndex;
 				};
 			};
 		};
-	};
+	} else { if (_maxKnowledge >= 0) then {
+		// --- ToDo: reset patrol route
+	}};
 } forEach (FUPS_enemies select _sideIndex);
 
 {

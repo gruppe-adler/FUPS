@@ -24,6 +24,7 @@ FUPS_present = true;
 FUPS_sideOrder = [west,east,independent];
 
 FUPS_templates  = [];
+FUPS_routePlaningPatterns = [[],[]];
 
 FUPS_reinforcements_east = [];
 FUPS_reinforcements_west = [];

@@ -34,13 +34,16 @@
 
 */
 
-params ["_leader","_marker"];
+params [["_leader",objNull,[objNull,grpNull]],["_marker","",[""]]];
 
 private "_group";
-_group = group _leader;
+_group = if (typeName _leader == "OBJECT") then {group _leader} else {_leader};
 _leader = leader _group;
 
-if (!local _leader) exitWith {};
+if !(local _leader) exitWith {};
+if !(markerType _marker == "" || isNull _group) exitWith {
+	[["Fatal Error: one group could not be found or marker %1 is not existent",_marker],true,true,true] call FUPS_fnc_log;
+};
 
 // Start AI calculation if not allready done
 if (isNil "FUPS_oefHandler") then {
@@ -176,6 +179,7 @@ _group setVariable ["FUPS_allowWater",_allowWater];
 _group setVariable ["FUPS_break",{true}];
 _group setVariable ["FUPS_task",""];
 _group setVariable ["FUPS_orders",[]];
+_group setVariable ["FUPS_moveQueue",[]];
 _group setVariable ["FUPS_clockPulse",-1];
 _group setVariable ["FUPS_lastDamage",0];
 _group setVariable ["FUPS_panic",0];

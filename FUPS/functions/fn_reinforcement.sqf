@@ -20,10 +20,10 @@
 params ["_targets","_rIDs","_side",["_force",false],["_stayInArea",false],["_combined",true]];
 
 if (isNil "_targets" || isNil "_rIDs" || isNil "_side") exitWith {
-	["Exiting, wrong params given",true,true] call FUPS_fnc_log;
+	["Fatal Error: wrong params given",false,true,true] call FUPS_fnc_log;
 };
 
-[["Sending reinforcements to: %1",_targets],true] call FUPS_fnc_log;
+[["Sending reinforcements to: %1",_targets]] call FUPS_fnc_log;
 
 // create the reinforcements array
 private ["_reinfGroups","_reinfArray"];

@@ -1,5 +1,6 @@
 /*
 
+   -1 - target is no man
 	0 - swimming
 	1 - prone
 	2 - crouch

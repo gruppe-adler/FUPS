@@ -13,8 +13,9 @@
 
 */
 
-params ["_group","_marker"];
+params [["_group",grpNull,[grpNull]],["_marker","",[""]]];
+if (_group == grpNull || _marker == "") exitWith {};
 
-if (typename _marker == typename "") then { _marker = [_marker] call FUPS_fnc_markerData };
+_marker = [_marker] call FUPS_fnc_markerData;
 
 _group setVariable ["FUPS_marker",_marker];

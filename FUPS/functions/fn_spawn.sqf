@@ -19,7 +19,7 @@
 
 params ["_spawnPos","_marker","_templates",["_params",[]],["_initFups",true],["_sleepTime",1]];
 
-if (isNil "_spawnPos" || isNil "_marker" || isNil "_templates") exitWith { ["Error: wrong params"] call FUPS_fnc_log; [] };
+if (isNil "_spawnPos" || isNil "_marker" || isNil "_templates") exitWith { ["Fatal Error: wrong params given",false,true,true] call FUPS_fnc_log; [] };
 
 private ["_count","_toSpawn"];
 _count = count FUPS_templates;
@@ -31,7 +31,7 @@ switch (typeName _templates) do {
 				_toSpawn pushBack (FUPS_templates select _x);
 			}
 			else {
-				[["Error: Template %1 not found",_x],true,true] call FUPS_fnc_log;
+				[["Error: Template %1 not found",_x],true,true,true] call FUPS_fnc_log;
 			};
 		} forEach _templates;
 	};

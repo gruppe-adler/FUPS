@@ -1,4 +1,4 @@
-# FUPS v2.1.3
+# FUPS v2.1.4
 
 -------------------------
 Introduction
@@ -65,6 +65,10 @@ Next Version
 * panic can make a group skip calculation cycles leading to a group acting more slowly
 * panic can make a group cancel their attack
 * panic will lead a group more likely into retreating
-* ai can now hear your shots (wip)
+* ai can now hear your shots
+* ai can now target enemies much better, even over very long distances
 * settings files added to FUPS folder
 * new system of target acquiring (basic functions added, folder targeting)
+* FUPS_fnc_stop reworked
+* FUPS_fnc_reveal got reworked and now accepts object or group as first parameter
+* FUPS_fnc_log can now display an on-screen error notification

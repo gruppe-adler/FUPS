@@ -14,7 +14,9 @@
 
 */
 
-params ["_index","_side"];
+params [["_index",-1,[0]],["_side",sideUnknown,[sideUnknown]]];
+if (_index == -1 || _side == sideUnknown) exitWith {};
+
 private "_reinfArray";
 _reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
 

@@ -13,7 +13,7 @@
 
 */
 
-params ["_template"];
+params [["_template",count FUPS_templates,[0]]];
 _template = FUPS_templates param [_template,[]];
 
 count _template

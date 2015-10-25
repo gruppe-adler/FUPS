@@ -1,25 +1,26 @@
 /*
 
-    Description: Logs a message to the .rpt, format:
-    FUNCTION: GROUP, MESSAGE
-    FUNCTION will be the function in which FUPS_fnc_log was called (if present)
-    GROUP will be the FUPS group for which log was called (if present)
-    MESSAGE will be the given message
+	Description: Logs a message to the .rpt, format:
+	FUNCTION: GROUP, MESSAGE
+	FUNCTION will be the function in which FUPS_fnc_log was called (if present)
+	GROUP will be the FUPS group for which log was called (if present)
+	MESSAGE will be the given message
 
-    PARAMS:
-    0 <ARRAY/ANY> - The message
-    1 <BOOLEAN> - True if param 0 is an array and should be formatted voa format [...].
-    2 <BOOLEAN/SCALAR> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged. If scalar message will only be logged if FUPS_logLevel == param 2 or FUPS_log is true.
+	PARAMS:
+	0 <ARRAY/ANY> - The message
+	1 <BOOLEAN> - True if param 0 is an array and should be formatted voa format [...].
+	2 <BOOLEAN> - True if also a screen message shuld be displayed - default is false
+	2 <BOOLEAN/SCALAR> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged. If scalar message will only be logged if FUPS_logLevel == param 2 or FUPS_log is true.
 
-    RETURN:
-    -
+	RETURN:
+	-
 
-    Author: [W] Fett_Li
+	Author: [W] Fett_Li
 
 */
 
-params ["_str",["_format",true],["_log",false]];
-_log = FUPS_log || (_log isEqualTo true) || (FUPS_logLevel > -1 && _log isEqualTo FUPS_logLevel);
+params ["_str",["_format",true],["_notification",false],["_log",FUPS_log]];
+_log = (_log isEqualTo true) || {FUPS_logLevel > -1 && _log isEqualTo FUPS_logLevel};
 
 if (_str isEqualTo "" || !_log) exitWith {};
 
@@ -36,3 +37,6 @@ if (typename _str == "ARRAY" && _format) then {
 };
 
 diag_log _message;
+if (_notification) then {
+	[_message] call BIS_fnc_error;
+};
