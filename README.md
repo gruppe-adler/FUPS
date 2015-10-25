@@ -68,7 +68,7 @@ Next Version
 * ai can now hear your shots
 * ai can now target enemies much better, even over very long distances
 * settings files added to FUPS folder
-* new system of target acquiring (basic functions added, folder targeting)
+* new system of task acquiring (wip)
 * FUPS_fnc_stop reworked
 * FUPS_fnc_reveal got reworked and now accepts object or group as first parameter
 * FUPS_fnc_log can now display an on-screen error notification
