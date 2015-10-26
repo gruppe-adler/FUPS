@@ -15,7 +15,7 @@
 
 // Generall variables
 FUPS_cycleTime = 0;
-FUPS_hearing_enabled = getText (missionconfigfile >> "Extended_Fired_Eventhandlers" >> "AllVehicles" >> "fups_audio_fired") != "";
+//FUPS_hearing_enabled = getText (missionconfigfile >> "Extended_Fired_Eventhandlers" >> "AllVehicles" >> "fups_audio_fired") != "";
 
 // Variable to check if FUPS is loaded
 FUPS_present = true;
