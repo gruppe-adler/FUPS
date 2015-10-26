@@ -3,6 +3,9 @@ params ["_target"];
 if (typeName _target == "OBJECT") then { _target = typeOf _target };
 if (typeName _target != "STRING") then { _target = typename _target };
 
+if (isNil "FUPS_routePlaningPatterns") then {
+	FUPS_routePlaningPatterns = [[],[]];
+};
 FUPS_routePlaningPatterns params ["_types","_patterns"];
 
 private "_index";

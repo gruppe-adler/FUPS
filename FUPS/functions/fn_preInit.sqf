@@ -14,7 +14,6 @@
 */
 
 // Generall variables
-FUPS_speedOfSound = 340.29;
 FUPS_cycleTime = 0;
 
 // Variable to check if FUPS is loaded
@@ -24,7 +23,6 @@ FUPS_present = true;
 FUPS_sideOrder = [west,east,independent];
 
 FUPS_templates  = [];
-FUPS_routePlaningPatterns = [[],[]];
 
 FUPS_reinforcements_east = [];
 FUPS_reinforcements_west = [];

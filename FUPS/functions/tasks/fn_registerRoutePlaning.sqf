@@ -1,5 +1,8 @@
 params ["_targetType","_code",["_overwrite",false]];
 
+if (isNil "FUPS_routePlaningPatterns") then {
+	FUPS_routePlaningPatterns = [[],[]];
+};
 FUPS_routePlaningPatterns params ["_types","_patterns"];
 
 private "_index";
