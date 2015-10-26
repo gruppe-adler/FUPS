@@ -105,7 +105,7 @@ if (_randomSpawn) then {
 private "_simulation";
 _simulation = _settings select 9;
 _group setVariable ["FUPS_simulation",{true}];
-if ((typename _simulation == typename objNull AND {!isNull _simulation})) then {
+if ((typename _simulation == "OBJECT" && {!isNull _simulation})) then {
 	private "_fnc";
 	_fnc = {
 		triggerActivated ((_this select 0) getVariable "FUPS_simulation_trigger");
@@ -185,12 +185,10 @@ _group setVariable ["FUPS_lastDamage",0];
 _group setVariable ["FUPS_panic",0];
 _group setVariable ["FUPS_target",objNull];
 _group setVariable ["FUPS_askedForSupport",[]];
+// Check for existence because eh could have been added before initializing
 if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
 	_group setVariable ["FUPS_onTaskEhs",[]];
 };
-
-[["Adding %1",_group]] call FUPS_fnc_log;
-FUPS_oefGroups_toAdd pushBack _group;
 
 // Add panic eventhandlers
 if (FUPS_panic_enable) then {
@@ -218,3 +216,6 @@ if (FUPS_panic_enable) then {
 		}];
 	} forEach (units _group);
 };
+
+[["Adding %1",_group]] call FUPS_fnc_log;
+FUPS_oefGroups_toAdd pushBack _group;

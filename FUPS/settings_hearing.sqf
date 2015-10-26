@@ -1,5 +1,5 @@
 // Should hearing be disabled? Has small fired eventhandlers for _all_ units, so could be performance intensive
-FUPS_hearing_enabled = true;
+// If it should _not_ be enabled, just don't include the hearing_XEH.hpp in your description.ext
 
 // How much can a shot reveal the shooter?
 FUPS_hearing_shotRevealMax = 0.4;

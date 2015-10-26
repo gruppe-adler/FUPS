@@ -25,7 +25,7 @@ if (count FUPS_oefGroups_toDelete > 0) then {
 // re-calculate all groups
 {
 	_x resize 0;
-	_x = +(FUPS_share select _forEachIndex);
+	_x append (FUPS_share select _forEachIndex);
 } forEach FUPS_shareNow;
 
 {

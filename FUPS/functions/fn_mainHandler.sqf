@@ -95,10 +95,12 @@ _shareNext = FUPS_share select _sideIndex;
 	_dist = _leader distance leader _x;
 
 	// Check whether this group has been heared
-	(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
-	if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
-		_group reveal [leader _x,FUPS_hearing_shotRevealMax];
-		// --- ToDo: apply to distance
+	if (FUPS_hearing_enabled) then {
+		(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
+		if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
+			_group reveal [leader _x,FUPS_hearing_shotRevealMax];
+			// --- ToDo: apply to distance
+		};
 	};
 
 	// Check whether this group should be able to see the enemy group
