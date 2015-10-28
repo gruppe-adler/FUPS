@@ -1,4 +1,4 @@
-# FUPS v2.1.4
+# FUPS v2.1.5
 
 -------------------------
 Introduction
@@ -38,10 +38,12 @@ To personalize your overall FUPS experience you can modify variables in all sett
 Feel free to edit all the values, but don't delete any of them!
 
 -------------------------
-include.cfg
+Other files
 -------------------------
 
-You can safely ignore and delete this file. I need this for a personal ArmA 3 mission development enviroment.
+You can safely ignore and delete the include.cfg file. I need this for a personal ArmA 3 mission development enviroment.
+
+You can safely ignore and delete the other folder. This folder is just containing stuff that helps me flesh out FUPS.
 
 -------------------------
 Changelog
@@ -71,4 +73,4 @@ Next Version
 * FUPS_fnc_stop reworked
 * FUPS_fnc_reveal got reworked and now accepts object or group as first parameter
 * FUPS_fnc_log can now display an on-screen error notification
-* ai does know share known enemies
+* ai does now correctly share known enemies

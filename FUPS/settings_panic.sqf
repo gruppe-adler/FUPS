@@ -1,5 +1,5 @@
 // Should the panic system be enabled overall?
-FUPS_panic_enable = true;
+FUPS_panic_enabled = true;
 
 // Value the panic will be risen when a team member is killed
 FUPS_panic_killed = 0.5;

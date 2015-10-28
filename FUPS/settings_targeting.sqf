@@ -4,16 +4,20 @@ FUPS_targeting_enabled = true;
 // The maximum range advanced targeting will be applied to
 FUPS_targeting_maxRange = 2000;
 
-// The chance to see a soldier
-FUPS_targeting_see = 0.5;
-FUPS_targeting_see_decreaseThreshold = 1000;
+// The maximum time it will take a target to be revealed
+FUPS_targeting_maxTime = 480;
 
-// Reveal chance multipliers for a units stance
-FUPS_targeting_seeSwimming = 0.8;
-FUPS_targeting_seeProne = 0.3;
-FUPS_targeting_seeKneeling = 0.15;
-FUPS_targeting_seeStanding = 0.4;
+// How much will a group be revealed if it is seen during the advanced targeting system
+FUPS_targeting_revealValue = 3;
 
-// Reveal chance mutlipliers for a units surroundings
-FUPS_targeting_seeInForest = 0.4;
-FUPS_targeting_seeInTown = 0.3;
+FUPS_targeting_base = 1;
+FUPS_targeting_base_moving = 0.1;
+FUPS_targeting_hide_increaseThreshold = 1000;
+FUPS_targeting_hide_swimming = 0.1;
+FUPS_targeting_hide_prone = -1;
+FUPS_targeting_hide_kneeling = 1.8;
+FUPS_targeting_hide_standing = 1;
+FUPS_targeting_hide_forest = 10;
+FUPS_targeting_hide_town = 10;
+FUPS_targeting_time = 300;
+FUPS_targeting_forgetTime = 60;

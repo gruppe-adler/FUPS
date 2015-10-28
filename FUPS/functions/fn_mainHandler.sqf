@@ -94,50 +94,6 @@ _shareNext = FUPS_share select _sideIndex;
 	private "_dist";
 	_dist = _leader distance leader _x;
 
-	// Check whether this group has been heared
-	if (FUPS_hearing_enabled) then {
-		(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
-		if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
-			_group reveal [leader _x,FUPS_hearing_shotRevealMax];
-			// --- ToDo: apply to distance
-		};
-	};
-
-	// Check whether this group should be able to see the enemy group
-	// --- ToDo: check for smoke?
-	if (FUPS_targeting_enabled) then {
-		private ["_lookAt","_lookFrom"];
-		_lookAt = vehicle (units _x select floor random count units _x);
-		_lookFrom = vehicle (units _group select floor random count units _group);
-
-		if (_currpos distance _centerPos <= FUPS_targeting_maxRange && {lineIntersectsSurfaces [getPosASL _lookFrom,getPosASL _lookAt,_lookFrom,_lookAt] isEqualTo []}) then {
-			private "_revealChance";
-			_revealChance = FUPS_targeting_see;
-
-			if (_dist - FUPS_targeting_see_decreaseThreshold > 0) then {
-				_revealChance = linearConversion []; // --- ToDo
-			};
-
-			private "_stance";
-			_stance = [_lookAt] call FUPS_fnc_getUnitStace;
-			if (_stance >= 0) then {
-				_revealChance = _revealChance * ([FUPS_targeting_seeSwimming,FUPS_targeting_seeProne,FUPS_targeting_seeKneeling,FUPS_targeting_seeStanding] select _stance);
-			};
-
-			if ([_lookAt] call FUPS_fnc_inForest) then {
-				_revealChance = _revealChance * FUPS_targeting_seeInForest;
-			};
-
-			if ([_lookAt] call FUPS_fnc_inTown) then {
-				_revealChance = _revealChance * FUPS_targeting_seeInTown;
-			};
-
-			if (random 1 >= 1 - _revealChance) then {
-				_group reveal [_lookAt,3];
-			};
-		};
-	};
-
 	// How much does this group know the other?
 	private "_maxKnowledge";
 	_maxKnowledge = 0;
@@ -147,11 +103,41 @@ _shareNext = FUPS_share select _sideIndex;
 		if (_knows > _maxKnowledge) then { _maxKnowledge = _knows };
 	} forEach (units _x);
 
+	// Check whether this group has been heared
+	if (FUPS_hearing_enabled && _maxKnowledge <= 0) then {
+		(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
+		if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
+			private "_reveal";
+			_reveal = linearConversion [_soundDistance / 2,_soundDistance,_dist,FUPS_hearing_shotRevealMax,FUPS_hearing_shotRevealMin,true];
+			_group reveal [leader _x,_reveal];
+			_maxKnowledge = _reveal;
+
+			if (FUPS_targeting_enabled) then {
+				[_group,_x,0.90] call FUPS_fnc_targeting_increaseThreshold;
+			};
+		};
+	};
+
+	// Check whether this group should be able to see the enemy group
+	if (FUPS_targeting_enabled && _maxKnowledge < FUPS_knowsAboutThreshold) then {
+		private ["_lookAt","_lookFrom"];
+		_lookAt = vehicle (units _x select floor random count units _x);
+		_lookFrom = vehicle (units _group select floor random count units _group);
+
+		private "_chance";
+		_chance = [_lookAt,_lookFrom] call FUPS_fnc_targeting_getChance;
+		if (random 1 < _chance) then {
+			_group reveal [_lookAt,FUPS_targeting_revealValue];
+			_maxKnowledge = FUPS_targeting_revealValue;
+		};
+	};
+
 	// Even the groups enenmy knowledge
 	{
 		_group reveal [_x,_maxKnowledge];
 	} forEach (units _x);
 
+	// Do the actual "this group was spotted"-stuff
 	if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
 		_knowsAny = true;
 
@@ -190,9 +176,11 @@ _shareNext = FUPS_share select _sideIndex;
 				};
 			};
 		};
-	} else { if (_maxKnowledge >= 0) then {
+	};
+	// --- ToDo: implement with new task system
+	/* else { if (_maxKnowledge >= 0) then {
 		// --- ToDo: reset patrol route
-	}};
+	}};*/
 } forEach (FUPS_enemies select _sideIndex);
 
 {

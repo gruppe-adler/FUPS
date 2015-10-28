@@ -71,7 +71,7 @@ class FUPS {
 		// class globalParameter {}; --- ToDo
 		class main {};
 		class mainHandler {};
-		class preInit { preInit = 1; };
+		class preInit { postInit = 1; };
 		class registerTask {};
 		class reinforcement {};
 		class saveTemplate {};
@@ -120,7 +120,7 @@ class FUPS {
 	};
 	class settings {
 		class settings { file = "FUPS\settings.sqf"; preInit = 1; };
-		class settings_audio { file = "FUPS\settings_audio.sqf"; preInit = 1; };
+		class settings_hearing { file = "FUPS\settings_hearing.sqf"; preInit = 1; };
 		class settings_debug { file = "FUPS\settings_debug.sqf"; preInit = 1; };
 		class settings_panic { file = "FUPS\settings_panic.sqf"; preInit = 1; };
 		class settings_targeting { file = "FUPS\settings_targeting.sqf"; preInit = 1; };

@@ -185,13 +185,14 @@ _group setVariable ["FUPS_lastDamage",0];
 _group setVariable ["FUPS_panic",0];
 _group setVariable ["FUPS_target",objNull];
 _group setVariable ["FUPS_askedForSupport",[]];
+_group setVariable ["FUPS_revealMap",[[],[]]];
 // Check for existence because eh could have been added before initializing
 if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
 	_group setVariable ["FUPS_onTaskEhs",[]];
 };
 
 // Add panic eventhandlers
-if (FUPS_panic_enable) then {
+if (FUPS_panic_enabled) then {
 	{
 		_x addEventHandler ["Killed",{
 			params ["_unit"];
