@@ -71,7 +71,7 @@ class FUPS {
 		// class globalParameter {}; --- ToDo
 		class main {};
 		class mainHandler {};
-		class preInit { postInit = 1; };
+		class preInit { preInit = 1; };
 		class registerTask {};
 		class reinforcement {};
 		class saveTemplate {};
