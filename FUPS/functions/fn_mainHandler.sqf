@@ -24,6 +24,10 @@ if (FUPS_oefIndex == count FUPS_oefGroups) exitWith
 
 private ["_group","_side","_sideIndex","_leader","_members","_clockPulse"];
 _group = FUPS_oefGroups select FUPS_oefIndex;
+if (isNull _group) exitWith {
+	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
+};
+
 _side = side _group;
 _sideIndex = FUPS_sideOrder find _side;
 _leader = leader _group;
