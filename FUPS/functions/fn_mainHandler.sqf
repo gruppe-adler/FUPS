@@ -22,7 +22,7 @@ FUPS_oefIndex = FUPS_oefIndex + 1;
 if (FUPS_oefIndex == count FUPS_oefGroups) exitWith
 	FUPS_fnc_mainHandlerOverhead;
 
-private ["_group","_side","_sideIndex","_leader","_members","_clockPulse"];
+private ["_group","_side","_sideIndex","_leader","_members","_membersCount","_clockPulse"];
 _group = FUPS_oefGroups select FUPS_oefIndex;
 if (isNull _group) exitWith {
 	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
@@ -58,7 +58,7 @@ _groupdamage = 0;
 {
 	_groupdamage = _groupdamage + damage _x;
 } forEach _members;
-_groupdamage = _groupdamage + (_group getVariable ["FUPS_members",count _members] - count _members);
+_groupdamage = _groupdamage + (_group getVariable "FUPS_members" - _membersCount);
 
 if (_groupdamage == _membersCount) exitWith {
 	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
@@ -167,7 +167,7 @@ _shareNext = FUPS_share select _sideIndex;
 				{ // foreach
 					private "_v";
 					_v = vehicle _x;
-					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
+					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} _membersCount > 0);
 				} forEach (units _x);
 
 				if (isNil {_x getVariable "FUPS_supportFor"}) then {
@@ -340,7 +340,7 @@ switch (true) do {
 
 private "_params";
 _params = [_group,_group getVariable "FUPS_taskState"];
-_params pushBack (0 call (missionnamespace getVariable (_task + "_params")));
+_params pushBack (missionnamespace getVariable (_task + "_params"));
 
 // get the "right" task for the groups type, if it is defined
 private "_typeName";
