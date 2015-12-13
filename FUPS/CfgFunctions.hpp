@@ -31,7 +31,7 @@ class FUPS {
 	};
 	class hearing {
 		file = "FUPS\functions\hearing";
-		class addAudioEventHandler {};
+		class hearing_eh {};
 	};
 	class hold {
 		file = "FUPS\functions\tasks\hold";
@@ -44,8 +44,6 @@ class FUPS {
 		file = "FUPS\functions\information";
 		class ai_type {};
 		class ai_type_init {};
-		class fears {};
-		class getUnitStance {};
 		class g_centerPos {};
 		class g_centerPos_get {};
 		class g_centerPos_init {};
@@ -55,7 +53,6 @@ class FUPS {
 		class g_weapons {};
 		class g_weapons_init {};
 		class groupVehicles {};
-		class isEffective {};
 		class isPlayerGroup {};
 		class isPlayerGroup_init {};
 		class isSurrounded {};
@@ -125,4 +122,14 @@ class FUPS {
 		class settings_panic { file = "FUPS\settings_panic.sqf"; preInit = 1; };
 		class settings_targeting { file = "FUPS\settings_targeting.sqf"; preInit = 1; };
 	};
+	class targeting {
+		class fears {};
+		class getUniformCamo {};
+		class getUnitStance {};
+		class isEffective {};
+		class targeting_getChance {};
+		class targeting_getMapValue {};
+		class targeting_getThreshold {};
+		class targeting_increaseThreshold {};
+	}
 };

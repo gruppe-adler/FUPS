@@ -176,6 +176,7 @@ _group setVariable ["FUPS_typeName",_typeName];
 _group setVariable ["FUPS_allowWater",_allowWater];
 
 // Initializing generic varaibles
+_group setVariable ["FUPS_members",count units _group];
 _group setVariable ["FUPS_break",{true}];
 _group setVariable ["FUPS_task",""];
 _group setVariable ["FUPS_orders",[]];
