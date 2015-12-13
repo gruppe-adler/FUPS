@@ -1,3 +1,16 @@
+/*
+
+    Description: Generates a new waypoint for the given group
+
+    PARAMS:
+    0 <GROUP> - the group to generate for
+
+    RETURN:
+    <ARRAY ForMAT POSITION> - the new waypoint
+
+    Author: [W] Fett_Li
+*/
+
 params ["_group","_area"];
 
 if (isNil "_area") then {

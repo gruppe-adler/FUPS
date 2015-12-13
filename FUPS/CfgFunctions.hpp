@@ -97,6 +97,7 @@ class FUPS {
 		class getParams {};
 		class getWaypoints {};
 		class mainHandlerOverhead {};
+		class slice {};
 	};
 	class panic {
 		file = "FUPS\functions\panic";
@@ -117,12 +118,13 @@ class FUPS {
 	};
 	class settings {
 		class settings { file = "FUPS\settings.sqf"; preInit = 1; };
-		class settings_hearing { file = "FUPS\settings_hearing.sqf"; preInit = 1; };
 		class settings_debug { file = "FUPS\settings_debug.sqf"; preInit = 1; };
+		class settings_hearing { file = "FUPS\settings_hearing.sqf"; preInit = 1; };
 		class settings_panic { file = "FUPS\settings_panic.sqf"; preInit = 1; };
 		class settings_targeting { file = "FUPS\settings_targeting.sqf"; preInit = 1; };
 	};
 	class targeting {
+		file = "FUPS\functions\targeting";
 		class fears {};
 		class getUniformCamo {};
 		class getUnitStance {};

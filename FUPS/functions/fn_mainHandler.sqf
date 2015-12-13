@@ -167,7 +167,7 @@ _shareNext = FUPS_share select _sideIndex;
 				{ // foreach
 					private "_v";
 					_v = vehicle _x;
-					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} _membersCount > 0);
+					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
 				} forEach (units _x);
 
 				if (isNil {_x getVariable "FUPS_supportFor"}) then {
