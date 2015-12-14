@@ -24,7 +24,7 @@
 
 params [["_grp",grpNull,[grpNull]],["_eh","",[""]],["_onAct",{},[{},""]],["_isDisposable",false,[false]],["_taskParams",[],[[]]],"_params"];
 
-if (typeName _onAct == typeName "") then { _onAct = compile _onAct };
+if (_onAct isEqualType "") then { _onAct = compile _onAct };
 
 _eh = toLower _eh;
 switch _eh do {
@@ -38,8 +38,7 @@ switch _eh do {
 			_grp setVariable ["FUPS_onTaskEhs",[]];
 		};
 
-		private "_ehs";
-		_ehs = _group getVariable "FUPS_onTaskEhs";
+		private _ehs = _group getVariable "FUPS_onTaskEhs";
 		_ehs pushBack [_task,_onAct,_isDisposable,_params];
 	};
 };

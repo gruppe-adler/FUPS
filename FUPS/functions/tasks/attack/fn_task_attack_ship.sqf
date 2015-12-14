@@ -8,7 +8,7 @@ switch _mode do {
         {_x doWatch leader _target} forEach (units _group);
 
         _wp = _group addWaypoint [getPosATL leader _target,0];
-        _wp setWaypointType "DESTROY";
+        _wp setWaypointType "SAD";
         _wp waypointAttachVehicle (vehicle leader _target);
 
         _group setVariable ["FUPS_taskState","fight"];

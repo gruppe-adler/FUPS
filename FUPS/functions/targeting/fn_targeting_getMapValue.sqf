@@ -1,8 +1,7 @@
 params ["_viewer","_target"];
 
 (_viewer getVariable "FUPS_revealMap") params ["_indexes","_values"];
-private "_index";
-_index = _indexes find _target;
+private _index = _indexes find _target;
 if (_index == -1) then {
 	_index = _indexes find grpNull;
 	if (_index == -1) then {

@@ -67,8 +67,7 @@ FUPS_players = [];
 
 // register attack task
 ["FUPS_fnc_task_attack",{ // priority
-	private "_prior";
-	_prior = 1;
+	private _prior = 1;
 	if (_weakened) then {_prior = _prior - 0.3};
 	if (_surrounded && !_weakened) then {_prior = _prior + 0.3};
 	_prior
@@ -80,8 +79,7 @@ FUPS_players = [];
 
 // register hold task
 ["FUPS_fnc_task_hold",{ // priority
-	private "_prior";
-	_prior = 0;
+	private _prior = 0;
 	if ((_surrounded && _weakened) || (_headsdown && !_weakened)) then {_prior = _prior + 2};
 	if (!_surrounded && _weakened) then {_prior = _prior - 0.5};
 	_prior
@@ -93,8 +91,7 @@ FUPS_players = [];
 
 // register retreat task
 ["FUPS_fnc_task_retreat",{ // priority
-	private "_prior";
-	_prior = 2;
+	private _prior = 2;
 	if (_headsdown) then {_prior = _prior + 0.5};
 	if (_panic >= FUPS_panic_skipAction_nervous) then {_prior = _prior + 0.05};
 	if (_panic >= FUPS_panic_skipAction_panicked) then {_prior = _prior + 0.5};
@@ -107,8 +104,7 @@ FUPS_players = [];
 }] call FUPS_fnc_registerTask;
 
 ["FUPS_fnc_task_reinf",{ // priority
-	private "_prior";
-	_prior = 0;
+	private _prior = 0;
 	if (_surrounded) then {_prior = _prior - 1};
 	_prior = if (_gothit) then {_prior - 0.1} else {_prior + 0.5};
 	_prior = if (_weakened) then {_prior - 0.3} else {_prior + 0.5};

@@ -1,7 +1,6 @@
 params ["_group"];
-private ["_units","_centerPos"];
-_units = units _group;
-_centerPos = [0,0];
+private _units = units _group;
+private _centerPos = [0,0];
 {
 	(getPosATL _x) params ["_xCord","_yCord"];
 	_centerPos params ["_xCenter","_yCenter"];

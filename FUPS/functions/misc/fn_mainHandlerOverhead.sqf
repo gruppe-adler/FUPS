@@ -36,8 +36,7 @@ if (count FUPS_oefGroups_toDelete > 0) then {
 } forEach [FUPS_enemies,FUPS_groups,FUPS_share];
 
 {
-	private "_side";
-	_side = side _x;
+	private _side = side _x;
 	// refill the enemie arrays
 	if (_side getFriend west < 0.6) then {FUPS_enemies_west pushBack _x};
 	if (_side getFriend east < 0.6) then {FUPS_enemies_east pushBack _x};
@@ -55,8 +54,7 @@ if (count FUPS_oefGroups_toAdd > 0) then {
 
 FUPS_players = [];
 if (isMultiplayer) then {
-	private "_players";
-	_players = allPlayers;
+	private _players = allPlayers;
 	{
 		if (!isNull (getConnectedUAV _x)) then {
 			_players pushBack (getConnectedUAV _x);

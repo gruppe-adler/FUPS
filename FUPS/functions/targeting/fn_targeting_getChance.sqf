@@ -1,6 +1,5 @@
 params ["_lookAt","_lookFrom"];
-private "_dist";
-_dist = _lookAt distance _lookFrom;
+private _dist = _lookAt distance _lookFrom;
 
 // Exit conditions
 // Out of sight distance
@@ -10,18 +9,15 @@ if !(lineIntersectsSurfaces [getPosASL _lookFrom,getPosASL _lookAt] isEqualTo []
 // Is diving
 if (getPosASL _lookAt select 2 < 0) exitWith {0};
 
-private "_reveal";
-_reveal = linearConversion [FUPS_targeting_hide_increaseThreshold,FUPS_targeting_maxRange,_dist,FUPS_targeting_base,FUPS_targeting_base * 1.66,true];
+private _reveal = linearConversion [FUPS_targeting_hide_increaseThreshold,FUPS_targeting_maxRange,_dist,FUPS_targeting_base,FUPS_targeting_base * 1.66,true];
 
 // Multiply revealchance in relation to moving angle and speed
-private "_speed";
-_speed = vectorMagnitude velocity _lookAt;
+private _speed = vectorMagnitude velocity _lookAt;
 if (_speed > 1.4) then { // Speed has to be more than walking
 	_reveal = FUPS_targeting_time_moving * linearConversion [1,4,_speed,1,1/3,true];
 };
 
-private "_stance";
-_stance = [_lookAt] call FUPS_fnc_getUnitStace;
+private _stance = [_lookAt] call FUPS_fnc_getUnitStace;
 if (_stance >= 0) then {
 	_reveal = _reveal * ([FUPS_targeting_hide_swimming,FUPS_targeting_hide_prone,FUPS_targeting_hide_kneeling,FUPS_targeting_hide_standing] select _stance);
 };

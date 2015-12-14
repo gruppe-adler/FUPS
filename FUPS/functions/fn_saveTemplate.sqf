@@ -18,13 +18,12 @@ params ["_group","_template",["_doDelete",false]];
 
 if (isNil "_group" || isNil "_template") exitWith {};
 
-if (typeName _group == typeName objNull) then {
+if (_group isEqualType objNull) then {
     _group = group _group;
 };
 
-private ["_units","_checked"];
-_units = [[vehicle leader _group,skill commander leader _group]];
-_checked = [vehicle leader _group];
+private _units = [[vehicle leader _group,skill commander leader _group]];
+private _checked = [vehicle leader _group];
 {
     if !(vehicle _x in _checked) then {
         _units pushBack [vehicle _x,skill commander _x];
@@ -36,8 +35,7 @@ _checked = [vehicle leader _group];
     (_units select _forEachIndex) set [0,typeOf (_x select 0)];
 } forEach _units;
 
-private "_saved";
-_saved = [side _group,_units];
+private _saved = [side _group,_units];
 
 if (_template > -1 && {count (FUPS_templates param [_template,[]]) == 0}) then {
     FUPS_templates set [_template,_saved];

@@ -12,8 +12,7 @@ params ["_unit"];
 if !(_unit isKindOf "Man") exitWith {-1};
 if (surfaceIsWater getPosATL _unit) exitWith {0};
 
-private "_eyeHeight";
-_eyeHeight = (ASLtoATL eyePos _unit) select 2;
+private _eyeHeight = (ASLtoATL eyePos _unit) select 2;
 
 if (_eyeHeight < 1) exitWith {1};
 if (_eyeHeight < 1.5) exitWith {2};

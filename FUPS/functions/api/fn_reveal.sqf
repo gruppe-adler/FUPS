@@ -15,8 +15,7 @@
 */
 
 #define DOREVEAL(X) \
-	private "_target";\
-	_target = if (typeName X == "OBJECT") then {group X} else {X}; \
+	private _target = if (X isEqualType objNull) then {group X} else {X}; \
 	if !(_target in _share) then { \
 		_target setVariable ["FUPS_revealedAt",time]; \
 		_share pushBack _target; \
@@ -26,10 +25,9 @@
 params [["_toReveal",[],[[],objNull,grpNull]],["_side",sideUnknown,[sideUnknown]]];
 if (_side == sideUnknown) exitWith {};
 
-private "_share";
-_share = FUPS_share select (FUPS_sideOrder find _side);
+private _share = FUPS_share select (FUPS_sideOrder find _side);
 
-if (typeName _toReveal != "ARRAY") exitWith {DOREVEAL(_toReveal)};
+if !(_toReveal isEqualType []) exitWith {DOREVEAL(_toReveal)};
 
 { DOREVEAL(_x) } forEach _toReveal;
 

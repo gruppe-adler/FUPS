@@ -17,7 +17,6 @@
 params [["_index",-1,[0]],["_side",sideUnknown,[sideUnknown]]];
 if (_index == -1 || _side == sideUnknown) exitWith {};
 
-private "_reinfArray";
-_reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
+private _reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
 
 !(_reinfArray param [_index,[]] isEqualTo [])

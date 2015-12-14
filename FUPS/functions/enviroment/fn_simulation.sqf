@@ -19,8 +19,7 @@ params ["_grp","_simulate",["_allowEH",true]];
 [["enableSimulationGlobal %1 for %2",_simulate,_grp]] call FUPS_fnc_log;
 
 if (isServer) then {
-	private "_vs";
-	_vs = [];
+	private _vs = [];
 	{
 		_v = vehicle _x;
 		if ([_v] isEqualTo crew _v) then {
@@ -39,8 +38,7 @@ if (isServer) then {
 };
 
 if (local _grp) then {
-	private "_added";
-	_added = [];
+	private _added = [];
 	if (_simulate) then {
 		{
 			vehicle _x removeEventhandler ["Hit",(vehicle _x getVariable ["FUPS_hitHandler",-1])];

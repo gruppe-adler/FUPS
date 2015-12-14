@@ -19,11 +19,10 @@ switch _mode do {
 			_group reveal [_x,3];
 		} forEach _targets;
 
-		private ["_center","_movePos","_dir","_relDist"];
-		_center = (_areainfo select 0) vectorAdd ((_areainfo select 2) vectorMultiply 0.5) vectorAdd ((_areainfo select 3) vectorMultiply 0.5);
-		_movePos = getPosATL leader _group;
-		_dir = [_center,_movePos] call FUPS_fnc_getDir;
-		_relDist = [_areainfo,_dir] call FUPS_fnc_recMarkerRad;
+		private _center = (_areainfo select 0) vectorAdd ((_areainfo select 2) vectorMultiply 0.5) vectorAdd ((_areainfo select 3) vectorMultiply 0.5);
+		private _movePos = getPosATL leader _group;
+		private _dir = [_center,_movePos] call FUPS_fnc_getDir;
+		private _relDist = [_areainfo,_dir] call FUPS_fnc_recMarkerRad;
 		if (_center distance _movePos > _relDist + 350) then {
 			_movePos = [_center,_dir,_relDist + 300] call FUPS_fnc_relPos;
 		};
@@ -43,9 +42,8 @@ switch _mode do {
 	};
 	case "newwp": {
         ["Newwp",false,1] call FUPS_fnc_log;
-		private ["_areainfo","_wp"];
-		_areainfo = (_group getVariable "FUPS_reinfInfo") select 0;
-		_wp = [_group,_areaInfo] call FUPS_fnc_generateWP;
+		private _areainfo = (_group getVariable "FUPS_reinfInfo") select 0;
+		private _wp = [_group,_areaInfo] call FUPS_fnc_generateWP;
 
 		_group move _wp;
 		_group setVariable ["FUPS_movePos",_wp];

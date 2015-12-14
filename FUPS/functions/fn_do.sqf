@@ -21,8 +21,7 @@ if (isNil "_grp" || isNil "_task" || {!(missionNamespace getVariable [_task + "_
 };
 
 if (_force) then {
-	private "_orders";
-	_orders = [[_task,_force]];
+	private _orders = [[_task,_force]];
     _orders append (_grp getVariable "FUPS_orders");
 	_grp setVariable ["FUPS_orders",_orders];
 

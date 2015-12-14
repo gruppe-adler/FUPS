@@ -10,7 +10,7 @@
 	0 <ARRAY/ANY> - The message
 	1 <BOOLEAN> - True if param 0 is an array and should be formatted voa format [...].
 	2 <BOOLEAN> - True if also a screen message shuld be displayed - default is false
-	2 <BOOLEAN/SCALAR> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged. If scalar message will only be logged if FUPS_logLevel == param 2 or FUPS_log is true.
+	3 <BOOLEAN/SCALAR> - if true message will always be logged, otherwise FUPS_log will be used to decide whether this message will be logged. If scalar message will only be logged if FUPS_logLevel == param 2 or FUPS_log is true.
 
 	RETURN:
 	-
@@ -24,13 +24,12 @@ _log = (_log isEqualTo true) || {FUPS_logLevel > -1 && _log isEqualTo FUPS_logLe
 
 if (_str isEqualTo "" || !_log) exitWith {};
 
-private "_message";
-_message = "FUPS_log: ";
+private _message = "FUPS_log: ";
 //--- Insert function name where available
 if !(isnil "_fnc_scriptNameParent") then { _message = "FUPS_log in " + _fnc_scriptNameParent + ": " };
 
 if (!isNil "_group") then { _message = _message + str _group + ", " };
-if (typename _str == "ARRAY" && _format) then {
+if (_str isEqualType [] && _format) then {
 	_message = _message + format _str;
 } else {
 	_message = _message +  str _str;

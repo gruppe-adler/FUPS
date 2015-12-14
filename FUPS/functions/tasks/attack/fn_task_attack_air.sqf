@@ -12,20 +12,18 @@ switch _mode do {
 			_group setSpeedMode "FULL";
 
 			if (_fears isEqualTo []) then { // no one near to harm the helicopter
-				private ["_wp","_pos"];
-				_pos = getPosATL leader _target;
+				private _pos = getPosATL leader _target;
 				if (_nofollow) then {_pos = [_group,_pos] call FUPS_fnc_stayInside};
 
-				_wp = _group addWaypoint [_pos,0];
+				private _wp = _group addWaypoint [_pos,0];
 				_wp setWaypointType "LOITER";
 				_wp setWaypointLoiterRadius 150;
 			} else {
-				private "_pos";
-				_pos = getPosATL leader _target;
+				private _pos = getPosATL leader _target;
 				if (_nofollow) then {_pos = [_group,_pos] call FUPS_fnc_stayInside};
 
 				_wp = _group addWaypoint [getPosATL leader _target,0];
-				_wp setWaypointType "DESTROY";
+				_wp setWaypointType "SAD";
 				_wp waypointAttachVehicle (vehicle leader _target);
 			};
 		} else {
@@ -35,8 +33,8 @@ switch _mode do {
 				} forEach _targets;
 			};
 
-			_wp = _group addWaypoint [getPosATL leader _target,0];
-			_wp setWaypointType "DESTROY";
+			private _wp = _group addWaypoint [getPosATL leader _target,0];
+			_wp setWaypointType "SAD";
 			_wp waypointAttachVehicle (vehicle leader _target);
 		};
 

@@ -1,12 +1,10 @@
 scopeName _fnc_scriptName;
 params ["_group"];
 _group = _this select 0;
-private "_wps";
-_wps = waypoints _group;
+private _wps = waypoints _group;
 
 {
-	private "_nextIndex";
-	_nextIndex = if (waypointType _x == "CYCLE") then {
+	private _nextIndex = if (waypointType _x == "CYCLE") then {
 		_wps set [_forEachIndex,[waypointPosition _x,-1]];
 		breakTo _fnc_scriptName;
 	}
@@ -15,13 +13,11 @@ _wps = waypoints _group;
 	};
 } forEach _wps;
 
-private "_lastWp";
-_lastWp = _wps select (count _wps - 1);
+private _lastWp = _wps select (count _wps - 1);
 if (_lastWp select 1 == -1) then {
-	private ["_pos","_nearest","_index"];
-	_pos = _lastWp select 0;
-	_nearest = [0,0,0];
-	_index = -1;
+	private _pos = _lastWp select 0;
+	private _nearest = [0,0,0];
+	private _index = -1;
 	{
 		if (_pos distance (_x select 0) < _pos distance _nearest) then {
 			_nearest = _x select 0;

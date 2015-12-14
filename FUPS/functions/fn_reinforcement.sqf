@@ -26,22 +26,20 @@ if (isNil "_targets" || isNil "_rIDs" || isNil "_side") exitWith {
 [["Sending reinforcements to: %1",_targets]] call FUPS_fnc_log;
 
 // create the reinforcements array
-private ["_reinfGroups","_reinfArray"];
-_reinfGroups = [];
-_reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
+private _reinfGroups = [];
+private _reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
 {
 	_reinfGroups append (_reinfArray param [_x,[]]);
 } forEach _rIDs;
 
 // Create the marker to seize
-private "_areaInfo";
-_areaInfo = [];
+private _areaInfo = [];
 
-if (typeName _targets == typeName objNull) then {
+if (_targets isEqualType objNull) then {
 	_targets = [_targets];
 };
 
-if (typeName _targets == typeName "") then {
+if (_targets isEqualType "") then {
 	_areaInfo = _targets call FUPS_fnc_markerData;
 	_targets = [];
 } else {
@@ -54,8 +52,7 @@ if (typeName _targets == typeName "") then {
 
 // Order the reinforcements to begin
 {
-	private "_grp";
-	_grp = _x;
+	private _grp = _x;
 
 	// Handle disabled simulation
 	if (!isNil {_grp getVariable "FUPS_simulation"}) then {
