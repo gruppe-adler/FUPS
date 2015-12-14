@@ -8,17 +8,15 @@ switch _mode do {
 		_group setBehaviour "COMBAT";
 		_group setSpeedMode "FULL";
 
-		private "_targetPos";
-		_targetPos = (leader _group targetKnowledge leader _target) select 6;
+		private _targetPos = (leader _group targetKnowledge leader _target) select 6;
 
 		// let all units watch into the enemy direction
 		{ _x doWatch _targetPos } forEach (units _group);
 
 		// get safepos in the vicinity, if hit
-		private ["_pos","_build","_inBuilding"];
-		_pos = [];
-		_build = [_currpos,20] call FUPS_fnc_nearestBuilding;
-		_inBuilding = false;
+		private _pos = [];
+		private _build = [_currpos,20] call FUPS_fnc_nearestBuilding;
+		private _inBuilding = false;
 		if !(isNull _build) then {
 			_inBuilding = [_group,_build] call FUPS_fnc_useBuilding;
 		};
@@ -45,14 +43,12 @@ switch _mode do {
 			// only sortie if not to far away
 			if (leader _group distance leader _target < 800) then {
 				// position calculation
-				private "_targetPos";
-				_targetPos = (leader _group targetKnowledge leader _target) select 6;
+				private _targetPos = (leader _group targetKnowledge leader _target) select 6;
 
-				private ["_dir","_dist","_pos"];
-				_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
+				private _dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
 				_dir = if (random 1 < .5) then {_dir + 90} else {_dir - 90};
-				_dist = ((_currpos distance _targetPos) * 2 / 3) min 200;
-				_pos = [_currpos,_dist * 2 / 3,_dir] call FUPS_fnc_relPos;
+				private _dist = ((_currpos distance _targetPos) * 2 / 3) min 200;
+				private _pos = [_currpos,_dist * 2 / 3,_dir] call FUPS_fnc_relPos;
 
 				_group move _pos;
 
@@ -65,12 +61,10 @@ switch _mode do {
 		// evasing finished?
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			// go to flanking position
-			private "_targetPos";
-			_targetPos = (leader _group targetKnowledge leader _target) select 6;
+			private _targetPos = (leader _group targetKnowledge leader _target) select 6;
 
-			_dist = if ([_targetPos] call FUPS_fnc_inTown) then {100} else {200};
-			private "_dir";
-			_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
+			private _dist = if ([_targetPos] call FUPS_fnc_inTown) then {100} else {200};
+			private _dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
 
 			_pos = [_targetPos,_dist,_dir] call FUPS_fnc_relPos;
 			if (_nofollow) then {_pos = [_group,_pos] call FUPS_fnc_stayInside};
@@ -86,8 +80,7 @@ switch _mode do {
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			{ _x doWatch (leader _target) } forEach (units _group);
 
-			private "_build";
-			_build = [getPosATL leader _group,20] call FUPS_fnc_nearestBuilding;
+			private _build = [getPosATL leader _group,20] call FUPS_fnc_nearestBuilding;
 			if !(isNull _build) then {[_group,_build] call FUPS_fnc_useBuilding};
 
 			_group setVariable ["FUPS_movePos",nil];

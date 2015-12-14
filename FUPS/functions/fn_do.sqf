@@ -17,12 +17,11 @@
 
 params ["_grp","_task",["_force",false]];
 if (isNil "_grp" || isNil "_task" || {!(missionNamespace getVariable [_task + "_isTask",false])}) exitWith {
-	[["Error: wrong params given ([%1,%2,%3])",_grp,_task,_force],true] call FUPS_fnc_log;
+	[["Error: wrong params given ([%1,%2,%3])",_grp,_task,_force],true,true,true] call FUPS_fnc_log;
 };
 
 if (_force) then {
-	private "_orders";
-	_orders = [[_task,_force]];
+	private _orders = [[_task,_force]];
     _orders append (_grp getVariable "FUPS_orders");
 	_grp setVariable ["FUPS_orders",_orders];
 

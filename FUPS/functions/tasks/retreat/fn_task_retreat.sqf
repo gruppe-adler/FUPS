@@ -5,12 +5,10 @@ switch _mode do {
 	case ("init"): {
 		["Retreating"] call FUPS_fnc_log;
 
-		private "_currpos";
-		_currpos = getPosATL leader _group;
+		private _currpos = getPosATL leader _group;
 
-		private ["_escapeDir","_escapePos"];
-		_escapeDir = _directions call FUPS_fnc_escapeDirection;
-		_escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
+		private _escapeDir = _directions call FUPS_fnc_escapeDirection;
+		private _escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
 		_group setVariable ["FUPS_movePos",_escapePos];
 
 		_group setVariable ["FUPS_taskState","flee"];
@@ -25,9 +23,8 @@ switch _mode do {
 		};
 	};
 	case ("loop") : {
-		private ["_escapeDir","_escapePos"];
-		_escapeDir = _directions call FUPS_fnc_escapeDirection;
-		_escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
+		private _escapeDir = _directions call FUPS_fnc_escapeDirection;
+		private _escapePos = [_currpos,300,_escapeDir] call FUPS_fnc_relPos;
 		_group setVariable ["FUPS_movePos",_escapePos];
 
 		_group setVariable ["FUPS_taskState","flee"];

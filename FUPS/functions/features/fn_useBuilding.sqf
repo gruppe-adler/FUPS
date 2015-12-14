@@ -17,9 +17,8 @@
 
 params ["_group","_building"];
 
-private ["_index","_posArray"];
-_index = 0;
-_posArray = [];
+private _index = 0;
+private _posArray = [];
 while {!(_build buildingPos _index isEqualTo [0,0,0])} do {
 	_posArray pushBack (_build buildingPos _index);
 	_index = _index + 1;

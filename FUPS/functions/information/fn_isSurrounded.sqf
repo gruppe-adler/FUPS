@@ -1,13 +1,12 @@
 scopeName _fnc_scriptname;
-private ["_directions","_lastindex","_element","_surrounded"];
 
-_directions = _this;
+private _directions = _this;
 if (_directions isEqualTo []) exitWith { false };
 
 _directions sort true;
-_lastindex = count _directions - 1;
+private _lastindex = count _directions - 1;
 
-_surrounded = true;
+private _surrounded = true;
 for "_i" from 0 to (_lastindex - 1) do {
     if ((_directions select (_i + 1)) - (_directions select _i) >= 120) then {
         false breakOut _fnc_scriptname;

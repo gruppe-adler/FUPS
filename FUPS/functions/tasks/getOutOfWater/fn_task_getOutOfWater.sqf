@@ -4,10 +4,9 @@ switch _mode do {
     case ("init"): {
         ["Getting out of water"] call FUPS_fnc_log;
 
-        private ["_pos","_angle","_dist"];
-        _pos	= _currpos;
-        _angle	= 0;
-        _dist	= 10;
+        private _pos	= _currpos;
+        private _angle	= 0;
+        private _dist	= 10;
         while {surfaceIsWater _pos} do {
         	if (_angle == 360) then {
         		_angle = 0;

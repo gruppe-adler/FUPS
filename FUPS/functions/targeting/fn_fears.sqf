@@ -13,10 +13,10 @@
 
 */
 
-params ["_ai"];
-private ["_ai_type","_g_weapons"];
-_ai_type = [_ai] call FUPS_fnc_ai_type;
-_group = _this select 1;
-_g_weapons = [_group] call FUPS_fnc_g_weapons;
+params ["_ai","_group"];
+private _ai_type = [_ai] call FUPS_fnc_ai_type;
+if (_ai_type == -1) exitWith {false};
+
+private _g_weapons = [_group] call FUPS_fnc_g_weapons;
 
 _g_weapons select _ai_type

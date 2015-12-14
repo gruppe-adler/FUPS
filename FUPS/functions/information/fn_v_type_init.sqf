@@ -1,6 +1,5 @@
 params ["_v"];
-private "_type";
-_type = -1;
+private _type = -1;
 
 switch (true) do {
 	case (_v isKindOf "Man"): { _type = 0 };

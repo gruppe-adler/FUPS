@@ -1,3 +1,3 @@
 // --- ToDo
-if (typeName _this != typeName []) exitWith {};
+if !(_this isEqualType []) exitWith {};
 FUPS_globalParams append _this;

@@ -34,13 +34,15 @@
 
 */
 
-params ["_leader","_marker"];
+params [["_leader",objNull,[objNull,grpNull]],["_marker","",[""]]];
 
-private "_group";
-_group = group _leader;
+private _group = if (_leader isEqualType objNull) then {group _leader} else {_leader};
 _leader = leader _group;
 
-if (!local _leader) exitWith {};
+if !(local _leader) exitWith {};
+if (markerType _marker == "" || isNull _group) exitWith {
+	[["Fatal Error: one group could not be found or marker %1 is not existent",_marker],true,true,true] call FUPS_fnc_log;
+};
 
 // Start AI calculation if not allready done
 if (isNil "FUPS_oefHandler") then {
@@ -49,72 +51,58 @@ if (isNil "FUPS_oefHandler") then {
 
 _group setVariable ["FUPS_marker",([_marker] call FUPS_fnc_markerData)];
 
-private "_settings";
-_settings = [_group,+_this] call FUPS_fnc_getParams;
+private _settings = [_group,+_this] call FUPS_fnc_getParams;
 
-private "_behaviour";
-_behaviour = _settings select 0;
+private _behaviour = _settings select 0;
 _group setBehaviour _behaviour;
 _group setVariable ["FUPS_orgMode",_behaviour];
 
-private "_speed";
-_speed = _settings select 1;
+private _speed = _settings select 1;
 _group setSpeedMode _speed;
 _group setVariable ["FUPS_orgSpeed",_speed];
 
 // -- ToDo
 /*
-private "_nofollow";
-_nofollow = _settings select 2;
+private _nofollow = _settings select 2;
 _group setVariable ["FUPS_nofollow",_nofollow];
 */
 
-private "_noshare";
-_noshare = _settings select 3;
+private _noshare = _settings select 3;
 _group setVariable ["FUPS_doShare",!_noshare];
 
-private "_nosupport";
-_nosupport = _settings select 4;
+private _nosupport = _settings select 4;
 _group setVariable ["FUPS_doSupport",!_nosupport];
 
-private "_nowait";
-_nowait = _settings select 5;
+private _nowait = _settings select 5;
 _group setVariable ["FUPS_wait",!_nowait];
 
-private "_route";
-_route = _settings select 6;
+private _route = _settings select 6;
 _group setVariable ["FUPS_route",_route];
 _group setVariable ["FUPS_routeIndex",0];
 
 // --- ToDo
 /*
-private "_vehicle";
-_vehicle = _settings select 7;
+private _vehicle = _settings select 7;
 _group setVariable ["FUPS_vehicle",_vehicle];
 */
 
-private "_randomSpawn";
-_randomSpawn = _settings select 8;
+private _randomSpawn = _settings select 8;
 if (_randomSpawn) then {
 	[_group,_vehicles] call FUPS_fnc_randomSpawn;
 };
 
-private "_simulation";
-_simulation = _settings select 9;
+private _simulation = _settings select 9;
 _group setVariable ["FUPS_simulation",{true}];
-if ((typename _simulation == typename objNull AND {!isNull _simulation})) then {
-	private "_fnc";
-	_fnc = {
+if ((_simulation isEqualType objNull && {!isNull _simulation})) then {
+	private _fnc = {
 		triggerActivated ((_this select 0) getVariable "FUPS_simulation_trigger");
 	};
 	_group setVariable ["FUPS_simulation",_fnc];
 };
-if (typename _simulation == typename 0) then {
-	private "_fnc";
-	_fnc = {
-		private ["_leader","_dist"];
-		_leader = leader (_this select 0);
-		_dist = _group getVariable "FUPS_simulation_dist";
+if (_simulation isEqualType 0) then {
+	private _fnc = {
+		private _leader = leader (_this select 0);
+		private _dist = _group getVariable "FUPS_simulation_dist";
 		{_leader distance _x < _dist} count FUPS_players > 0;
 	};
 
@@ -128,15 +116,13 @@ if (typename _simulation == typename 0) then {
 	_group setVariable ["FUPS_simulation",_fnc];
 };
 
-private "_reinforcement";
-_reinforcement = _settings select 10;
+private _reinforcement = _settings select 10;
 if (count _reinforcement > 0) then {
 	// Remove duplicates
 	_reinforcement = _reinforcement arrayIntersect _reinforcement;
 
-	private ["_sideIndex","_reinfArray"];
-	_sideIndex = FUPS_sideOrder find (side _group);
-	_reinfArray = FUPS_reinforcements select _sideIndex;
+	private _sideIndex = FUPS_sideOrder find (side _group);
+	private _reinfArray = FUPS_reinforcements select _sideIndex;
 
 	{
 		// If this array isn't initialized
@@ -148,10 +134,9 @@ if (count _reinforcement > 0) then {
 	} forEach _reinforcement;
 };
 
-private ["_closeenough","_typeName","_allowWater"];
-_closeenough = 7;
-_typeName = "_man";
-_allowWater = false;
+private _closeenough = 7;
+private _typeName = "_man";
+private _allowWater = false;
 switch ([_group] call FUPS_fnc_ai_type) do {
 	case 1: {
 		_closeenough = 20;
@@ -173,15 +158,47 @@ _group setVariable ["FUPS_typeName",_typeName];
 _group setVariable ["FUPS_allowWater",_allowWater];
 
 // Initializing generic varaibles
+_group setVariable ["FUPS_members",count units _group];
 _group setVariable ["FUPS_break",{true}];
 _group setVariable ["FUPS_task",""];
 _group setVariable ["FUPS_orders",[]];
+_group setVariable ["FUPS_moveQueue",[]];
 _group setVariable ["FUPS_clockPulse",-1];
 _group setVariable ["FUPS_lastDamage",0];
+_group setVariable ["FUPS_panic",0];
 _group setVariable ["FUPS_target",objNull];
 _group setVariable ["FUPS_askedForSupport",[]];
+_group setVariable ["FUPS_revealMap",[[],[]]];
+// Check for existence because eh could have been added before initializing
 if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
 	_group setVariable ["FUPS_onTaskEhs",[]];
+};
+
+// Add panic eventhandlers
+if (FUPS_panic_enabled) then {
+	{
+		_x addEventHandler ["Killed",{
+			params ["_unit"];
+			[_unit,FUPS_panic_killed] call FUPS_fnc_raisePanic;
+		}];
+
+		_x addEventHandler ["Explosion",{
+			params ["_unit"];
+			[_unit,FUPS_panic_explosion] call FUPS_fnc_raisePanic;
+		}];
+
+		_x addEventHandler ["FiredNear",{
+			params ["_unit","_firer"];
+			if (_unit == leader _unit && side _firer getFriend side _unit < 0.6) then {
+				[_unit,FUPS_panic_firedNear] call FUPS_fnc_raisePanic;
+			};
+		}];
+
+		_x addEventHandler ["Hit",{
+			params ["_unit"];
+			[_unit,FUPS_panic_hit] call FUPS_fnc_raisePanic;
+		}];
+	} forEach (units _group);
 };
 
 [["Adding %1",_group]] call FUPS_fnc_log;

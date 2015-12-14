@@ -24,22 +24,21 @@
 
 params [["_grp",grpNull,[grpNull]],["_eh","",[""]],["_onAct",{},[{},""]],["_isDisposable",false,[false]],["_taskParams",[],[[]]],"_params"];
 
-if (typeName _onAct == typeName "") then { _onAct = compile _onAct };
+if (_onAct isEqualType "") then { _onAct = compile _onAct };
 
 _eh = toLower _eh;
 switch _eh do {
 	case "ontask": {
 		_taskParams params ["_task"];
-		if (isNil "_task" || {!missionNamespace getVariable [_task + "_isTask",false]}) exitWith {
-			["Error: task is not initialized"] call FUPS_fnc_log;
+		if (!missionNamespace getVariable [_task + "_isTask",false]) exitWith {
+			[["Fatal Error: task %1 is not initialized, eventhandler could not be added",_task],true,true,true] call FUPS_fnc_log;
 		};
 
 		if (isNil {_grp getVariable "FUPS_onTaskEhs"}) then {
 			_grp setVariable ["FUPS_onTaskEhs",[]];
 		};
 
-		private "_ehs";
-		_ehs = _group getVariable "FUPS_onTaskEhs";
+		private _ehs = _group getVariable "FUPS_onTaskEhs";
 		_ehs pushBack [_task,_onAct,_isDisposable,_params];
 	};
 };

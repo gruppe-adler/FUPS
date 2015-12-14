@@ -16,7 +16,7 @@
 
 params ["_group","_marker"];
 
-if (typeName _marker == typeName "") then {
+if (_marker isEqualType "") then {
 	_marker = [_marker] call FUPS_fnc_markerData;
 };
 

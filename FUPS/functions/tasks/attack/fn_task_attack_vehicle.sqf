@@ -8,16 +8,14 @@ switch _mode do {
 		_group setBehaviour "COMBAT";
 		_group setSpeedMode "FULL";
 
-		private "_targetPos";
-		_targetPos = (leader _group targetKnowledge leader _target) select 6;
+		private _targetPos = (leader _group targetKnowledge leader _target) select 6;
 
 		{_x doWatch _targetPos} forEach (units _group);
 
 		if (_currpos distance leader _target > 500) then { // enemy far enough away to flank
-			private ["_dir","_pos"];
-			_dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
+			private _dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
 			_dir = if (random 1 < 0.5) then {_dir + 90} else {_dir - 90};
-			_pos = [_targetPos,500,_dir] call FUPS_fnc_relPos;
+			private _pos = [_targetPos,500,_dir] call FUPS_fnc_relPos;
 			_pos = (selectbestPlaces [_pos,50,"meadow + trees - forest + hills - houses",5,1]) select 0 select 0;
 
 			_group move _pos;
@@ -31,11 +29,9 @@ switch _mode do {
 	};
 	case ("flank"): {
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
-			private "_targetPos";
-			_targetPos = (leader _group targetKnowledge leader _target) select 6;
+			private _targetPos = (leader _group targetKnowledge leader _target) select 6;
 
-			private "_pos";
-			_pos = (selectbestPlaces [_currpos,50,"meadow + trees - forest + hills - houses",5,1]) select 0 select 0;
+			private _pos = (selectbestPlaces [_currpos,50,"meadow + trees - forest + hills - houses",5,1]) select 0 select 0;
 
 			_group move _pos;
 
