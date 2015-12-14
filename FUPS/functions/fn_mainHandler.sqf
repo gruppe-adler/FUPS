@@ -55,7 +55,7 @@ private _groupdamage = 0;
 {
 	_groupdamage = _groupdamage + damage _x;
 } forEach _members;
-_groupdamage = _groupdamage + (_group getVariable "FUPS_members" - _membersCount);
+_groupdamage = _groupdamage + ((_group getVariable "FUPS_members") - _membersCount);
 
 if (_groupdamage == _membersCount) exitWith {
 	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
