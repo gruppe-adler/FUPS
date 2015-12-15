@@ -41,7 +41,7 @@ switch _mode do {
 		};
 	};
 	case "newwp": {
-        ["Newwp",false,1] call FUPS_fnc_log;
+        ["Newwp",false,false,1] call FUPS_fnc_log;
 		private _areainfo = (_group getVariable "FUPS_reinfInfo") select 0;
 		private _wp = [_group,_areaInfo] call FUPS_fnc_generateWP;
 

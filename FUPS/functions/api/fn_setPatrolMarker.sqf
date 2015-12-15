@@ -13,9 +13,11 @@
 
 */
 
-params [["_group",grpNull,[grpNull]],["_marker","",[""]]];
-if (_group == grpNull || _marker == "") exitWith {};
+params [["_group",grpNull,[grpNull]],["_marker","",["",[]],5]];
+if (_group == grpNull || _marker == "" || (_marker isEqualType [] && !(_marker isEqualTypeParams [[],0,[],[],0]))) exitWith {};
 
-_marker = [_marker] call FUPS_fnc_markerData;
+if (_marker isEqualType "") then {
+	_marker = [_marker] call FUPS_fnc_markerData;
+};
 
 _group setVariable ["FUPS_marker",_marker];
