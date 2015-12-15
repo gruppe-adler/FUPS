@@ -7,7 +7,7 @@
 FUPS_oefIndex = -1;
 FUPS_oefClockPulse = FUPS_oefClockPulse + 1;
 FUPS_cycleTime = (count FUPS_oefGroups + 1) / diag_fps;
-[["FUPS needs %1s to cycle through all groups",FUPS_cycleTime]] call FUPS_fnc_log;
+// [["FUPS needs %1s to cycle through all groups",FUPS_cycleTime]] call FUPS_fnc_log;
 
 // delete groups
 if (count FUPS_oefGroups_toDelete > 0) then {
