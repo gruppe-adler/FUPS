@@ -20,7 +20,7 @@
     AUTHOR: [W] Fett_Li
 */
 
-params ["_task","_taskPriority","_taskBreak",["_taskParams",[]]];
+params ["_task","_taskPriority","_taskBreak",["_taskParams",{[]}]];
 _task = toUpper _task;
 
 missionNamespace setVariable [_task + "_prior",_taskPriority];

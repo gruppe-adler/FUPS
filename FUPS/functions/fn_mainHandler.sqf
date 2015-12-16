@@ -315,7 +315,7 @@ switch (true) do {
 };
 
 private _params = [_group,_group getVariable "FUPS_taskState"];
-_params pushBack (missionnamespace getVariable (_task + "_params"));
+_params pushBack call (missionnamespace getVariable (_task + "_params"));
 
 // get the "right" task for the groups type, if it is defined
 private _typeName = _group getVariable ["FUPS_typeName",""];
