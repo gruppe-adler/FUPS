@@ -1,0 +1,1 @@
+#define selectRandom(X) ((X) select floor random count (X))

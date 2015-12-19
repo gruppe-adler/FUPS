@@ -16,6 +16,8 @@
 
 */
 
+#include "header\macros.hpp"
+
 // clock pulse tracking
 FUPS_oefIndex = FUPS_oefIndex + 1;
 // Will be executed after all groups have been calculated
@@ -90,89 +92,93 @@ if (_group getVariable "FUPS_doSupport") then {
 private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 private _shareNext = FUPS_share select _sideIndex;
 { // foreach
-	private _dist = _leader distance leader _x;
+	if !(isNull _x || units _x isEqualTo []) {
+		private _dist = _leader distance leader _x;
 
-	// How much does this group know the other?
-	private _maxKnowledge = 0;
-	{ // foreach
-		private _knows = _group knowsAbout _x;
-		if (_knows > _maxKnowledge) then { _maxKnowledge = _knows };
-	} forEach (units _x);
+		// How much does this group know the other?
+		private _maxKnowledge = 0;
+		{ // foreach
+			private _knows = _group knowsAbout _x;
+			_maxKnowledge = _knows max _maxKnowledge;
+		} forEach (units _x);
 
-	// Check whether this group has been heared
-	if (FUPS_hearing_enabled && _maxKnowledge <= 0) then {
-		(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
-		if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
-			private _reveal = linearConversion [_soundDistance / 2,_soundDistance,_dist,FUPS_hearing_shotRevealMax,FUPS_hearing_shotRevealMin,true];
-			_group reveal [leader _x,_reveal];
-			_maxKnowledge = _reveal;
+		// Check whether this group has been heared
+		if (FUPS_hearing_enabled && _maxKnowledge <= 0) then {
+			(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
+			if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
+				private _reveal = linearConversion [_soundDistance / 2,_soundDistance,_dist,FUPS_hearing_shotRevealMax,FUPS_hearing_shotRevealMin,true];
+				_group reveal [leader _x,_reveal];
+				_maxKnowledge = _reveal;
 
-			if (FUPS_targeting_enabled) then {
-				[_group,_x,0.90] call FUPS_fnc_targeting_increaseThreshold;
-			};
-		};
-	};
-
-	// Check whether this group should be able to see the enemy group
-	if (FUPS_targeting_enabled && _maxKnowledge < FUPS_knowsAboutThreshold) then {
-		private _lookAt = vehicle (units _x select floor random count units _x);
-		private _lookFrom = vehicle (units _group select floor random count units _group);
-
-		private _chance = [_lookAt,_lookFrom] call FUPS_fnc_targeting_getChance;
-		if (random 1 < _chance) then {
-			_group reveal [_lookAt,FUPS_targeting_revealValue];
-			_maxKnowledge = FUPS_targeting_revealValue;
-		};
-	};
-
-	// Even the groups enenmy knowledge
-	{
-		_group reveal [_x,_maxKnowledge];
-	} forEach (units _x);
-
-	// Do the actual "this group was spotted"-stuff
-	if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
-		_knowsAny = true;
-
-		if (_dist < 150) then {_nearEnemies pushBack _x};
-
-		_x setVariable ["FUPS_revealedAt",time];
-		_enemies pushBack _x;
-		if (_group getVariable "FUPS_doShare") then {
-			_shareNext pushBack _x;
-		};
-
-		if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
-			_directions pushBack ([_currpos,getPosATL leader _x] call FUPS_fnc_getDir);
-		};
-
-		if ([_group,_x] call FUPS_fnc_isEffective) then {
-			_targets pushBack _x;
-		} else {
-			if ([_group,_x] call FUPS_fnc_fears) then {
-				_fears pushBack _x;
-
-				// is this vehicle aimed at the group?
-				{ // foreach
-					private _v = vehicle _x;
-					_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
-				} forEach (units _x);
-
-				if (isNil {_x getVariable "FUPS_supportFor"}) then {
-					_x setVariable ["FUPS_supportFor",[]];
-				};
-
-				if !(_x in _askedForSupport) then {
-					(_x getVariable "FUPS_supportFor") pushBack _group;
-					_askedForSupport pushBack _x;
+				if (FUPS_targeting_enabled) then {
+					[_group,_x,0.90] call FUPS_fnc_targeting_increaseThreshold;
 				};
 			};
 		};
+
+		// Check whether this group should be able to see the enemy group
+		if (FUPS_targeting_enabled && _maxKnowledge < FUPS_knowsAboutThreshold) then {
+			private _lookAt = vehicle selectRandom (units _x);
+			private _lookFrom = vehicle selectRandom(units _group);
+
+			private _chance = [_lookAt,_lookFrom] call FUPS_fnc_targeting_getChance;
+			if (random 1 < _chance) then {
+				_group reveal [_lookAt,FUPS_targeting_revealValue];
+				_maxKnowledge = _maxKnowledge max FUPS_targeting_revealValue;
+			};
+		};
+
+		// Even the groups enenmy knowledge
+		{
+			_group reveal [_x,_maxKnowledge];
+		} forEach (units _x);
+
+		// Do the actual "this group was spotted"-stuff
+		if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
+			_knowsAny = true;
+
+			if (_dist < 150) then {_nearEnemies pushBack _x};
+
+			_x setVariable ["FUPS_revealedAt",time];
+			_enemies pushBack _x;
+			if (_group getVariable "FUPS_doShare") then {
+				_shareNext pushBack _x;
+			};
+
+			if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
+				_directions pushBack ([_currpos,getPosATL leader _x] call FUPS_fnc_getDir);
+			};
+
+			if ([_group,_x] call FUPS_fnc_isEffective) then {
+				_targets pushBack _x;
+			} else {
+				if ([_group,_x] call FUPS_fnc_fears) then {
+					_fears pushBack _x;
+
+					// is this vehicle aimed at the group?
+					{ // foreach
+						private _v = vehicle _x;
+						_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
+					} forEach (units _x);
+
+					if (isNil {_x getVariable "FUPS_supportFor"}) then {
+						_x setVariable ["FUPS_supportFor",[]];
+					};
+
+					if !(_x in _askedForSupport) then {
+						(_x getVariable "FUPS_supportFor") pushBack _group;
+						_askedForSupport pushBack _x;
+					};
+				};
+			};
+		};
+		// --- ToDo: implement with new task system
+		/* else { if (_maxKnowledge >= 0) then {
+			// --- ToDo: reset patrol route
+		}};*/
+	} else {
+		[["Error: group %1 is null or empty",_x],true,false,true] call FUPS_fnc_log;
 	};
-	// --- ToDo: implement with new task system
-	/* else { if (_maxKnowledge >= 0) then {
-		// --- ToDo: reset patrol route
-	}};*/
 } forEach (FUPS_enemies select _sideIndex);
 
 {
