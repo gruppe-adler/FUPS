@@ -92,7 +92,7 @@ if (_group getVariable "FUPS_doSupport") then {
 private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 private _shareNext = FUPS_share select _sideIndex;
 { // foreach
-	if !(isNull _x || units _x isEqualTo []) {
+	if !(isNull _x || units _x isEqualTo []) then {
 		private _dist = _leader distance leader _x;
 
 		// How much does this group know the other?
@@ -118,7 +118,7 @@ private _shareNext = FUPS_share select _sideIndex;
 
 		// Check whether this group should be able to see the enemy group
 		if (FUPS_targeting_enabled && _maxKnowledge < FUPS_knowsAboutThreshold) then {
-			private _lookAt = vehicle selectRandom (units _x);
+			private _lookAt = vehicle selectRandom(units _x);
 			private _lookFrom = vehicle selectRandom(units _group);
 
 			private _chance = [_lookAt,_lookFrom] call FUPS_fnc_targeting_getChance;
