@@ -19,7 +19,7 @@
 
 #include "..\header\header.hpp"
 
-params [["_spawnPos",[],[[]]],["_marker",""[""]],["_templates",[],[[]]],["_params",[]],["_initFups",true],["_sleepTime",1]];
+params [["_spawnPos",[],[[]]],["_marker","",[""]],["_templates",[],[[]]],["_params",[]],["_initFups",true],["_sleepTime",1]];
 
 if (_spawnPos isEqualTo [] || !([0,0,0] isEqualTypeParams _spawnPos) || _marker == "" || _templates isEqualTo []) then {
 	throw ILLEGALARGUMENTSEXECPTION;
