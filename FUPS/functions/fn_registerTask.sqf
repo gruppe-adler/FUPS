@@ -22,7 +22,12 @@
 
 #include "..\header\header.hpp"
 
-params ["_task","_taskPriority","_taskBreak",["_taskParams",{[]}]];
+params [["_task","",[""]],["_taskPriority",{},[{}]],["_taskBreak",{},[{}]],["_taskParams",{[]}]];
+
+if (_task == "" || _taskPriority isEqualTo {} ||_taskBreak isEqualTo {}) then {
+    throw ILLEGALARGUMENTSEXCEPTION;
+};
+
 _task = toUpper _task;
 
 missionNamespace setVariable [_task + "_prior",_taskPriority];

@@ -24,7 +24,11 @@
 
 #include "..\header\header.hpp"
 
-params [["_grp",grpNull,[grpNull]],["_eh","",[""]],["_onAct",{},[{},""]],["_isDisposable",false,[false]],["_taskParams",[],[[]]],"_params"];
+params [["_group",grpNull,[grpNull]],["_eh","",[""]],["_onAct",{},[{},""]],["_isDisposable",false,[false]],["_taskParams",[],[[]]],"_params"];
+
+if (isNull _group || _eh == "" || _onAct isEqualTo {}) then {
+	throw ILLEGALARGUMENTSEXCEPTION;
+};
 
 if (_onAct isEqualType "") then { _onAct = compile _onAct };
 
@@ -36,8 +40,8 @@ switch _eh do {
 			[["Fatal Error: task %1 is not initialized, eventhandler could not be added",_task],true,true,true] call FUPS_fnc_log;
 		};
 
-		if (isNil {_grp getVariable "FUPS_onTaskEhs"}) then {
-			_grp setVariable ["FUPS_onTaskEhs",[]];
+		if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
+			_group setVariable ["FUPS_onTaskEhs",[]];
 		};
 
 		private _ehs = _group getVariable "FUPS_onTaskEhs";

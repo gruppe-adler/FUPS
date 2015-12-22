@@ -19,9 +19,11 @@
 
 #include "..\header\header.hpp"
 
-params ["_spawnPos","_marker","_templates",["_params",[]],["_initFups",true],["_sleepTime",1]];
+params [["_spawnPos",[],[[]]],["_marker",""[""]],["_templates",[],[[]]],["_params",[]],["_initFups",true],["_sleepTime",1]];
 
-if (isNil "_spawnPos" || isNil "_marker" || isNil "_templates") exitWith { ["Fatal Error: wrong params given",false,true,true] call FUPS_fnc_log; [] };
+if (_spawnPos isEqualTo [] || !([0,0,0] isEqualTypeParams _spawnPos) || _marker == "" || _templates isEqualTo []) then {
+	throw ILLEGALARGUMENTSEXECPTION;
+};
 
 private _count = count FUPS_templates;
 private _toSpawn = [];

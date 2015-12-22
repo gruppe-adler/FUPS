@@ -38,13 +38,18 @@
 
 params [["_leader",objNull,[objNull,grpNull]],["_marker","",[""]]];
 
+if (isNull _leader ||_marker == "") then {
+	throw ILLEGALARGUMENTSEXCEPTION;
+};
+
+if (markerType _marker == "") then {
+	throw NOSUCHMARKEREXCEPTION(_marker);
+};
+
 private _group = if (_leader isEqualType objNull) then {group _leader} else {_leader};
 _leader = leader _group;
 
 if !(local _leader) exitWith {};
-if (markerType _marker == "" || isNull _group) exitWith {
-	[["Fatal Error: one group could not be found or marker %1 is not existent",_marker],true,true,true] call FUPS_fnc_log;
-};
 
 // Start AI calculation if not allready done
 if (isNil "FUPS_oefHandler") then {
