@@ -19,10 +19,10 @@
 
 #include "..\header\header.hpp"
 
-params ["_targets","_rIDs","_side",["_force",false],["_stayInArea",false],["_combined",true]];
+params [["_targets",[],["",objNull,[]]],["_rIDs",[],[[]]],["_side",sideUnknown,[sideUnknown]],["_force",false,[true]],["_stayInArea",false,[true]],["_combined",true,[true]]];
 
-if (isNil "_targets" || isNil "_rIDs" || isNil "_side") exitWith {
-	["Fatal Error: wrong params given",false,true,true] call FUPS_fnc_log;
+if (_targets isEqualTo [] || _targets isEqualTo objNull || _targets isEqualTo "" || _rIDs isEqualTo [] || _side isEqualTo sideUnknown) then {
+	throw ILLEGALARGUMENTSEXCEPTION;
 };
 
 [["Sending reinforcements to: %1",_targets],true,false,ACTIONS_LOG] call FUPS_fnc_log;
@@ -48,8 +48,8 @@ if (_targets isEqualType "") then {
 	_areaInfo = [_targets,50] call FUPS_fnc_coverMarker;
 };
 
-// Do the groups act combined?
 // --- ToDo
+// Do the groups act combined?
 // _combined = if (_combined) then {_reinfGroups} else {[]};
 
 // Order the reinforcements to begin

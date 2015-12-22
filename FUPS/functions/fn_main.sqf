@@ -123,7 +123,7 @@ if (count _reinforcement > 0) then {
 	// Remove duplicates
 	_reinforcement = _reinforcement arrayIntersect _reinforcement;
 
-	private _sideIndex = FUPS_sideOrder find (side _group);
+	private _sideIndex = sideIndex(_group);
 	private _reinfArray = FUPS_reinforcements select _sideIndex;
 
 	{
