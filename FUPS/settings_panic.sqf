@@ -8,7 +8,7 @@
 // Value the panic will be risen when a team member is damaged by an explosion (adds up to FUPS_panic_hit)
 #define FUPS_panic_explosion 0.05
 // Value the panic will be risen when a team member is hit
-#define FUPS_panic_hit = 0.05
+#define FUPS_panic_hit 0.05
 
 // Value the panic will be lowered per second
 #define FUPS_panic_lowerPanicPerSecond 0.0015 // This will cause a kill to be "forgotten" after approximatley 5 minutes
