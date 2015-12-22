@@ -12,8 +12,10 @@
     Author: [W] Fett_Li
 
 */
+#include "..\..\header\header.hpp"
 
 params ["_ai","_group"];
+
 private _ai_type = [_ai] call FUPS_fnc_ai_type;
 if (_ai_type == -1) exitWith {false};
 

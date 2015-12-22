@@ -1,5 +1,9 @@
+#include "..\..\header\header.hpp"
+
 scopeName _fnc_scriptName;
+
 params ["_group"];
+
 _group = _this select 0;
 private _wps = waypoints _group;
 

@@ -8,7 +8,10 @@
 
  */
 
+#include "..\..\header\header.hpp"
+
 params ["_unit"];
+
 if !(_unit isKindOf "Man") exitWith {-1};
 if (surfaceIsWater getPosATL _unit) exitWith {0};
 

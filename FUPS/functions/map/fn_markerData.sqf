@@ -1,4 +1,7 @@
+#include "..\..\header\header.hpp"
+
 params ["_marker"];
+
 private _markerpos		= getMarkerPos _marker;
 private _markerdir		= markerDir _marker;
 private _markersize		= getmarkerSize _marker;

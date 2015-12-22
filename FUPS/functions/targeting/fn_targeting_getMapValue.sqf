@@ -1,3 +1,5 @@
+#include "..\..\header\header.hpp"
+
 params ["_viewer","_target"];
 
 (_viewer getVariable "FUPS_revealMap") params ["_indexes","_values"];

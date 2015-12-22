@@ -14,6 +14,8 @@
 
 */
 
+#include "..\header\header.hpp"
+
 params ["_group","_template",["_doDelete",false]];
 
 if (isNil "_group" || isNil "_template") exitWith {};

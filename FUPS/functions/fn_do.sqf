@@ -15,9 +15,11 @@
 
 */
 
+#include "..\header\header.hpp"
+
 params ["_grp","_task",["_force",false]];
 if (isNil "_grp" || isNil "_task" || {!(missionNamespace getVariable [_task + "_isTask",false])}) exitWith {
-	[["Error: wrong params given ([%1,%2,%3])",_grp,_task,_force],true,true,true] call FUPS_fnc_log;
+	[["Fatal Error: wrong params given ([%1,%2,%3])",_grp,_task,_force],true,true,true] call FUPS_fnc_log;
 };
 
 if (_force) then {

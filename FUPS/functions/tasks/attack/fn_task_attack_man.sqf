@@ -1,9 +1,11 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode","_params"];
 _params params ["_target"];
 
 switch _mode do {
 	case ("init"): {
-		["Attacking"] call FUPS_fnc_log;
+		["Attacking",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
 		_group setBehaviour "COMBAT";
 		_group setSpeedMode "FULL";

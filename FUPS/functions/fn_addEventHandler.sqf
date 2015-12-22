@@ -22,6 +22,8 @@
 
  */
 
+#include "..\header\header.hpp"
+
 params [["_grp",grpNull,[grpNull]],["_eh","",[""]],["_onAct",{},[{},""]],["_isDisposable",false,[false]],["_taskParams",[],[[]]],"_params"];
 
 if (_onAct isEqualType "") then { _onAct = compile _onAct };

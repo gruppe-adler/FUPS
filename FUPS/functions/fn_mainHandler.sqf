@@ -16,7 +16,7 @@
 
 */
 
-#include "header\macros.hpp"
+#include "..\header\header.hpp"
 
 // clock pulse tracking
 FUPS_oefIndex = FUPS_oefIndex + 1;
@@ -177,7 +177,7 @@ private _shareNext = FUPS_share select _sideIndex;
 			// --- ToDo: reset patrol route
 		}};*/
 	} else {
-		[["Error: group %1 is null or empty",_x],true,false,true] call FUPS_fnc_log;
+		[["Error: group %1 is null or empty - looping enemies",_x],true,false,ERROR_LOG] call FUPS_fnc_log;
 	};
 } forEach (FUPS_enemies select _sideIndex);
 
@@ -258,7 +258,7 @@ switch (true) do {
 			_headsdown := %4
 			_unknowIncident := %5
 			_theyGotUs := %6
-			_knowsAny := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_knowsAny]] call FUPS_fnc_log;
+			_knowsAny := %7",_gothit,_weakened,_surrounded,_headsdown,_unknowIncident,_theyGotUs,_knowsAny],true,false,STATS_LOG] call FUPS_fnc_log;
 
 		// get current task
 		private _tasks = [];
@@ -271,7 +271,7 @@ switch (true) do {
 		if (!(_fears isEqualTo []) || _weakened || (_groupdamage > (2 * _lastdamage)) || ((_groupdamage - _lastdamage) > 1.5)) then {
 			_tasks pushBack "FUPS_fnc_task_retreat";
 		};
-		[_tasks,false] call FUPS_fnc_log;
+		[_tasks,false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
 		private _highestPriority = 0;
 		_task = "FUPS_fnc_task_patrol";
@@ -279,10 +279,10 @@ switch (true) do {
 		{
 			private _taskName = _x;
 			private _prior = call (missionnamespace getVariable [(_taskName + "_prior"),{-10}]);
-			[["%1 has the priority %2, %3",_taskName,_prior,_prior > _highestPriority]] call FUPS_fnc_log;
+			[["%1 has the priority %2, %3",_taskName,_prior,_prior > _highestPriority],true,false,STATS_LOG] call FUPS_fnc_log;
 			if (_prior > _highestPriority) then {
 				_task = _taskName;
-				[["Task is now %1",_task]] call FUPS_fnc_log;
+				[["Task is now %1",_task],true,false,STATS_LOG] call FUPS_fnc_log;
 				_highestPriority = _prior;
 			};
 		} forEach _tasks;
@@ -326,7 +326,7 @@ _params pushBack call (missionnamespace getVariable (_task + "_params"));
 // get the "right" task for the groups type, if it is defined
 private _typeName = _group getVariable ["FUPS_typeName",""];
 if (!(_typeName isEqualType "") || {_typeName == ""}) then {
-	["Error: FUPS_typeName was nil or of wrong type",false,true,true] call FUPS_fnc_log;
+	["Error: FUPS_typeName was nil or of wrong type",false,true,ERROR_LOG] call FUPS_fnc_log;
 } else {
 	if !(isNil {missionnamespace getVariable (_task + _typeName)}) then {
 		_task = _task + _typeName;

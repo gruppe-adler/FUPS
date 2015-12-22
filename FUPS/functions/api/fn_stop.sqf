@@ -13,6 +13,8 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 params [["_group",grpNull,[grpNull,objNull]]];
 if (_group isEqualType objNull) then {_group = group _group};
 

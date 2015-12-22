@@ -1,3 +1,5 @@
+#include "..\..\header\header.hpp"
+
 params ["_searchPos","_searchDistance"];
 
 private _building = objNull;

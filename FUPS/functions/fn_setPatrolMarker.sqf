@@ -14,6 +14,8 @@
 
 */
 
+#include "..\header\header.hpp"
+
 params ["_group","_marker"];
 
 if (_marker isEqualType "") then {

@@ -1,8 +1,10 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode"];
 
 switch _mode do {
     case ("init"): {
-        ["Getting out of water"] call FUPS_fnc_log;
+        ["Getting out of water",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
         private _pos	= _currpos;
         private _angle	= 0;

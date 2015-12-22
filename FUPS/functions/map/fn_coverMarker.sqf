@@ -1,4 +1,7 @@
+#include "..\..\header\header.hpp"
+
 params ["_targets"];
+
 private _positions = [];
 {
 	switch (typeName _x) do {

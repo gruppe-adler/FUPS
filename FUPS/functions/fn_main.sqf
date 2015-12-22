@@ -34,6 +34,8 @@
 
 */
 
+#include "..\header\header.hpp"
+
 params [["_leader",objNull,[objNull,grpNull]],["_marker","",[""]]];
 
 private _group = if (_leader isEqualType objNull) then {group _leader} else {_leader};
@@ -201,5 +203,5 @@ if (FUPS_panic_enabled) then {
 	} forEach (units _group);
 };
 
-[["Adding %1",_group]] call FUPS_fnc_log;
+["Adding",false,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;

@@ -1,8 +1,10 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode"];
 
 switch _mode do {
     case ("init"): {
-        ["Holding"] call FUPS_fnc_log;
+        ["Holding",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
         private _holdPos = (selectBestPlaces [_currpos,50,"hills - forest + trees + meadow",5,1]) select 0 select 0;
         _group move _holdPos;

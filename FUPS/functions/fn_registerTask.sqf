@@ -20,6 +20,8 @@
     AUTHOR: [W] Fett_Li
 */
 
+#include "..\header\header.hpp"
+
 params ["_task","_taskPriority","_taskBreak",["_taskParams",{[]}]];
 _task = toUpper _task;
 

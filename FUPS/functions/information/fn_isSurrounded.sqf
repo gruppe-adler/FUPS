@@ -1,3 +1,5 @@
+#include "..\..\header\header.hpp"
+
 scopeName _fnc_scriptname;
 
 private _directions = _this;
