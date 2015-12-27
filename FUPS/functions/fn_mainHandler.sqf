@@ -25,7 +25,7 @@ if (FUPS_oefIndex == count FUPS_oefGroups) exitWith
 	FUPS_fnc_mainHandlerOverhead;
 
 private _group = FUPS_oefGroups select FUPS_oefIndex;
-if (isNull _group) exitWith {
+if (isNull _group || units _group isEqualTo []) exitWith {
 	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
 };
 
