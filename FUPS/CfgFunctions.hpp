@@ -133,5 +133,5 @@ class FUPS {
 		class targeting_getMapValue {};
 		class targeting_getThreshold {};
 		class targeting_increaseThreshold {};
-	}
+	};
 };
