@@ -7,7 +7,7 @@ switch (true) do {
 	case (_obj isEqualType objNull && {_obj isKindOf "isKindOf"}): {
 		_data = [_obj] call FUPS_fnc_triggerArea;
 	};
-	case (_obj isEqualType "") {
+	case (_obj isEqualType ""): {
 		_data = [_obj] call FUPS_fnc_markerArea;
 	};
 };
