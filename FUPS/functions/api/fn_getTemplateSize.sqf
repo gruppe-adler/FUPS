@@ -13,6 +13,8 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 params [["_template",count FUPS_templates,[0]]];
 _template = FUPS_templates param [_template,[]];
 

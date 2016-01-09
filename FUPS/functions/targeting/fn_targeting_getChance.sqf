@@ -1,4 +1,9 @@
-params ["_lookAt","_lookFrom"];
+#include "..\..\header\header.hpp"
+
+params [["_lookAt",objNull,[objNull]],["_lookFrom",objNull,[objNull]]];
+
+if (isNull _lookAt || isNull _lookFrom) exitWith {0};
+
 private _dist = _lookAt distance _lookFrom;
 
 // Exit conditions

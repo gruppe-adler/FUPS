@@ -1,8 +1,10 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode"];
 
 switch _mode do {
     case ("init"): {
-        ["Holding"] call FUPS_fnc_log;
+        ["Holding",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
         [_group] call FUPS_fnc_clearWP;
         private _wp = _group addWaypoint [_currpos,0];

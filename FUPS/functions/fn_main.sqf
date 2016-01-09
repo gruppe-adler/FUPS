@@ -34,15 +34,22 @@
 
 */
 
+#include "..\header\header.hpp"
+
 params [["_leader",objNull,[objNull,grpNull]],["_marker","",[""]]];
+
+if (isNull _leader ||_marker == "") then {
+	throw ILLEGALARGUMENTSEXCEPTION;
+};
+
+if (markerType _marker == "") then {
+	throw NOSUCHMARKEREXCEPTION(_marker);
+};
 
 private _group = if (_leader isEqualType objNull) then {group _leader} else {_leader};
 _leader = leader _group;
 
 if !(local _leader) exitWith {};
-if (markerType _marker == "" || isNull _group) exitWith {
-	[["Fatal Error: one group could not be found or marker %1 is not existent",_marker],true,true,true] call FUPS_fnc_log;
-};
 
 // Start AI calculation if not allready done
 if (isNil "FUPS_oefHandler") then {
@@ -121,7 +128,7 @@ if (count _reinforcement > 0) then {
 	// Remove duplicates
 	_reinforcement = _reinforcement arrayIntersect _reinforcement;
 
-	private _sideIndex = FUPS_sideOrder find (side _group);
+	private _sideIndex = sideIndex(_group);
 	private _reinfArray = FUPS_reinforcements select _sideIndex;
 
 	{
@@ -201,5 +208,5 @@ if (FUPS_panic_enabled) then {
 	} forEach (units _group);
 };
 
-[["Adding %1",_group]] call FUPS_fnc_log;
+["Adding",false,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;

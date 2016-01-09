@@ -1,4 +1,7 @@
+#include "..\..\header\header.hpp"
+
 params ["_ai","_group"];
+
 private _ai_weapons = [_ai] call FUPS_fnc_g_weapons;
 private _g_type = [_group] call FUPS_fnc_g_type;
 

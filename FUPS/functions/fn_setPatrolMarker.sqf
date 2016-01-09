@@ -14,7 +14,13 @@
 
 */
 
-params ["_group","_marker"];
+#include "..\header\header.hpp"
+
+params [["_group",grpNull,[grpNull]],["_marker","",["",[]]]];
+
+if (isNull _group || _marker == "") then {
+	throw ILLEGALARGUMENTSECEPTION;
+};
 
 if (_marker isEqualType "") then {
 	_marker = [_marker] call FUPS_fnc_markerData;

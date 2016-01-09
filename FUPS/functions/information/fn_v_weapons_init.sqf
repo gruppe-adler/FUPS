@@ -1,4 +1,7 @@
+#include "..\..\header\header.hpp"
+
 params ["_v"];
+
 private _weapons = weapons _v;
 private _magazines = magazines _v;
 {

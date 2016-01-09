@@ -13,6 +13,8 @@
 
 */
 
+#include "..\header\header.hpp"
+
 // Generall variables
 FUPS_cycleTime = 0;
 FUPS_hearing_enabled = getText (missionconfigfile >> "Extended_Fired_Eventhandlers" >> "AllVehicles" >> "fups_audio_fired") != "";
@@ -59,6 +61,8 @@ FUPS_shareNow_guer = [];
 FUPS_shareNow = [FUPS_shareNow_west,FUPS_shareNow_east,FUPS_shareNow_guer];
 
 FUPS_players = [];
+
+FUPS_logLevels = [];
 
 // register patrol task
 ["FUPS_fnc_task_patrol",{0},{

@@ -14,6 +14,8 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 params [["_index",-1,[0]],["_side",sideUnknown,[sideUnknown]]];
 if (_index == -1 || _side == sideUnknown) exitWith {};
 

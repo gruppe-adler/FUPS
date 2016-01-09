@@ -1,4 +1,7 @@
+#include "..\..\header\header.hpp"
+
 params ["_group","_freeRadius","_water","_area"];
+
 // for _water: 0 - no water, 1 - force water, 2 - don't care
 private _waterCondition = [{!surfaceIsWater _pos},{surfaceIsWater _pos},{true}] select _water;
 

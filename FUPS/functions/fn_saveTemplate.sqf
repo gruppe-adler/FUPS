@@ -14,9 +14,13 @@
 
 */
 
-params ["_group","_template",["_doDelete",false]];
+#include "..\header\header.hpp"
 
-if (isNil "_group" || isNil "_template") exitWith {};
+params [["_group",grpNull,[grpNull,objNull]],["_template",-1,[0]],["_doDelete",false]];
+
+if (isNull _group || _template < 0) then {
+    throw ILLEGALARGUMENTSEXCEPTION;
+};
 
 if (_group isEqualType objNull) then {
     _group = group _group;

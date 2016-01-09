@@ -11,5 +11,7 @@
     Author: [W] Fett_Li
 */
 
+#include "..\..\header\header.hpp"
+
 params ["_v"];
 _v getVariable ["FUPS_ai_type",([_v] call FUPS_fnc_ai_type_init)];

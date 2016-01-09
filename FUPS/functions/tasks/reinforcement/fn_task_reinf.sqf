@@ -1,9 +1,11 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode","_params"];
 _params params ["_target"];
 
 switch _mode do {
 	case "init": {
-        ["Reinforcing"] call FUPS_fnc_log;
+        ["Reinforcing",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
 		_group setBehaviour "AWARE";
 		_group setSpeedMode "NORMAL";
@@ -41,7 +43,7 @@ switch _mode do {
 		};
 	};
 	case "newwp": {
-        ["Newwp",false,false,1] call FUPS_fnc_log;
+        ["Newwp",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 		private _areainfo = (_group getVariable "FUPS_reinfInfo") select 0;
 		private _wp = [_group,_areaInfo] call FUPS_fnc_generateWP;
 

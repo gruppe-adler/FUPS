@@ -1,5 +1,11 @@
+#include "..\..\header\header.hpp"
+
 scopeName _fnc_scriptname;
 params [["_pos",objNull,[objNull,[]]]];
+if (_pos isEqualType [] && {count _pos > 3 || count _pos < 2}) exitWith {
+	["Error: Bad formatted position",false,false,ERROR_LOG] call FUPS_fnc_log;
+	false;
+};
 
 private _trees = 0;
 {
@@ -9,6 +15,6 @@ private _trees = 0;
 			true breakOut _fnc_scriptname;
 		};
 	};
-} count nearestObjects [_pos,[],20];
+} forEach nearestObjects [_pos,[],20];
 
 false

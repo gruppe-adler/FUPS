@@ -20,7 +20,14 @@
     AUTHOR: [W] Fett_Li
 */
 
-params ["_task","_taskPriority","_taskBreak",["_taskParams",{[]}]];
+#include "..\header\header.hpp"
+
+params [["_task","",[""]],["_taskPriority",{},[{}]],["_taskBreak",{},[{}]],["_taskParams",{[]}]];
+
+if (_task == "" || _taskPriority isEqualTo {} ||_taskBreak isEqualTo {}) then {
+    throw ILLEGALARGUMENTSEXCEPTION;
+};
+
 _task = toUpper _task;
 
 missionNamespace setVariable [_task + "_prior",_taskPriority];

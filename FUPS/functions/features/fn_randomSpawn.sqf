@@ -13,6 +13,8 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 params ["_group","_vehicles"];
 
 private _type = [_group] call FUPS_fnc_ai_type;

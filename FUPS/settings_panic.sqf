@@ -1,24 +1,24 @@
 // Should the panic system be enabled overall?
-FUPS_panic_enabled = true;
+#define FUPS_panic_enabled true
 
 // Value the panic will be risen when a team member is killed
-FUPS_panic_killed = 0.5;
+#define FUPS_panic_killed 0.5
 // Value the panic will be risen when an enemy shot is fired in the vicinity
-FUPS_panic_firedNear = 0.01;
+#define FUPS_panic_firedNear 0.01
 // Value the panic will be risen when a team member is damaged by an explosion (adds up to FUPS_panic_hit)
-FUPS_panic_explosion = 0.05;
+#define FUPS_panic_explosion 0.05
 // Value the panic will be risen when a team member is hit
-FUPS_panic_hit = 0.05;
+#define FUPS_panic_hit 0.05
 
 // Value the panic will be lowered per second
-FUPS_panic_lowerPanicPerSecond = 0.0015; // This will cause a kill to be "forgotten" after approximatley 5 minutes
+#define FUPS_panic_lowerPanicPerSecond 0.0015 // This will cause a kill to be "forgotten" after approximatley 5 minutes
 
 // Threshold of panic level to consider the group being paniced
-FUPS_panic_isNervousThreshold = 0.7;
+#define FUPS_panic_isNervousThreshold 0.7
 // Threshold of panic level to consider the group being paniced
-FUPS_panic_isPanickedThreshold = 1.5;
+#define FUPS_panic_isPanickedThreshold 1.5
 
 // Chance a group will skip an action, when it is nervous
-FUPS_panic_skipAction_nervous = 0.5;
+#define FUPS_panic_skipAction_nervous 0.5
 // Chance a group will skip an action, when it is panicked
-FUPS_panic_skipAction_panicked = 0.8;
+#define FUPS_panic_skipAction_panicked 0.8

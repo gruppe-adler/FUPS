@@ -13,6 +13,8 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 params [["_group",grpNull,[grpNull]],["_marker","",["",[]],5]];
 if (_group == grpNull || _marker isEqualTo "" || (_marker isEqualType [] && {!(_marker isEqualTypeParams [[],0,[],[],0])})) exitWith {};
 

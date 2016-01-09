@@ -1,9 +1,11 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode","_params"];
 _params params ["_directions","_nearEnemies"];
 
 switch _mode do {
 	case ("init"): {
-		["Retreating"] call FUPS_fnc_log;
+		["Retreating",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
 		private _currpos = getPosATL leader _group;
 

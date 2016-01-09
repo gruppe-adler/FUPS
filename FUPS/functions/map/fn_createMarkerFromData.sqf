@@ -1,4 +1,7 @@
+#include "..\..\header\header.hpp"
+
 params ["_data",["_invisible",true]];
+
 _data params ["_markerPos","_mindist","_markerVector","_markerVector_1","_markerDir"];
 
 _markerPos = _markerPos vectorAdd (_markerVector vectorMultiply 0.5) vectorAdd (_markerVector_1 vectorMultiply 0.5);

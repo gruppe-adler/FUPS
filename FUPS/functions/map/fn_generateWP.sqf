@@ -11,6 +11,8 @@
     Author: [W] Fett_Li
 */
 
+#include "..\..\header\header.hpp"
+
 params ["_group","_area"];
 
 if (isNil "_area") then {

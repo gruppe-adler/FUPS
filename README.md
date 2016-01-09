@@ -1,4 +1,4 @@
-# FUPS v2.2.05
+# FUPS v2.2.12
 
 -------------------------
 Introduction
@@ -76,3 +76,8 @@ v2.2.0
 * [Added] ai can now target enemies much better, even over very long distances
 * [Added] settings files added to FUPS folder
 * [Added] FUPS_fnc_log can now display an on-screen error notification
+
+v2.2.10
+* [Added] Usage of Exception for wrong parameters on user side
+* [Fixed] FUPS_fnc_do now works correctly
++ [Fixed] Various scripting errors

@@ -17,9 +17,13 @@
 
 */
 
-params ["_spawnPos","_marker","_templates",["_params",[]],["_initFups",true],["_sleepTime",1]];
+#include "..\header\header.hpp"
 
-if (isNil "_spawnPos" || isNil "_marker" || isNil "_templates") exitWith { ["Fatal Error: wrong params given",false,true,true] call FUPS_fnc_log; [] };
+params [["_spawnPos",[],[[]]],["_marker","",[""]],["_templates",[],[[]]],["_params",[]],["_initFups",true],["_sleepTime",1]];
+
+if (_spawnPos isEqualTo [] || !([0,0,0] isEqualTypeParams _spawnPos) || _marker == "" || _templates isEqualTo []) then {
+	throw ILLEGALARGUMENTSEXECPTION;
+};
 
 private _count = count FUPS_templates;
 private _toSpawn = [];
@@ -30,7 +34,7 @@ switch (typeName _templates) do {
 				_toSpawn pushBack (FUPS_templates select _x);
 			}
 			else {
-				[["Error: Template %1 not found",_x],true,true,true] call FUPS_fnc_log;
+				[["Fatal Error: Template %1 not found",_x],true,true,true] call FUPS_fnc_log;
 			};
 		} forEach _templates;
 	};
@@ -47,7 +51,7 @@ private _spawned = []; // saves spawned leaders
 	// create new group
 	_grp = createGroup _side;
 
-	[["Spawning group: %1",_grp]] call FUPS_fnc_log;
+	[["Spawning group: %1",_grp],true,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 
 	_grp setBehaviour "SAFE";
 	_grp setSpeedMode "LIMITED";

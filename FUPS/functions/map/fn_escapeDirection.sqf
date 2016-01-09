@@ -1,3 +1,5 @@
+#include "..\..\header\header.hpp"
+
 if (_this isEqualTo []) exitWith { random 360 };
 
 private _directions = _this;

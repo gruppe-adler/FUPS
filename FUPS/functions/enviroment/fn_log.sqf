@@ -19,8 +19,10 @@
 
 */
 
-params ["_str",["_format",true],["_notification",false],["_log",FUPS_log]];
-_log = (_log isEqualTo true) || {FUPS_logLevel > -1 && _log isEqualTo FUPS_logLevel};
+#include "..\..\header\header.hpp"
+
+params ["_str",["_format",true],["_notification",false],["_log",FUPS_log,[true,0]]];
+_log = FUPS_log || (_log isEqualTo true) || (_log isEqualType 0 && {_log >= 0 && FUPS_logLevels param [_log,false]});
 
 if (_str isEqualTo "" || !_log) exitWith {};
 

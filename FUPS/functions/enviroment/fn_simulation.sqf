@@ -14,9 +14,11 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 params ["_grp","_simulate",["_allowEH",true]];
 
-[["enableSimulationGlobal %1 for %2",_simulate,_grp]] call FUPS_fnc_log;
+[["enableSimulationGlobal %1 for %2",_simulate,_grp],true,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 
 if (isServer) then {
 	private _vs = [];
@@ -51,14 +53,14 @@ if (local _grp) then {
 			{
 				if !(vehicle _x in _added) then {
 					_eh = (vehicle _x) addEventHandler ["Hit",{
-						["Got hit while not simulated"] call FUPS_fnc_log;
+						["Got hit while not simulated",false,false,ERROR_LOG] call FUPS_fnc_log;
 						[(group (_this select 0)),true] call FUPS_fnc_simulation;
 						_group setVariable ["FUPS_simulation",{true}];
 					}];
 					(vehicle _x) setVariable ["FUPS_hitHandler",_eh];
 
 					_eh = (vehicle _x) addEventHandler ["Killed",{
-						["Got hit while not simulated"] call FUPS_fnc_log;
+						["Got hit while not simulated",false,false,ERROR_LOG] call FUPS_fnc_log;
 						[(group (_this select 0)),true] call FUPS_fnc_simulation;
 						_group setVariable ["FUPS_simulation",{true}];
 					}];

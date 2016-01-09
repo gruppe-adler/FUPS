@@ -1,8 +1,10 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode"];
 
 switch _mode do {
     case ("init"): {
-		["Holding"] call FUPS_fnc_log;
+		["Holding",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
 		private _build = [_currpos,50] call FUPS_fnc_nearestBuilding;
 		if !(isNull _build) then {

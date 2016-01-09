@@ -14,6 +14,8 @@
 
 */
 
+#include "..\..\header\header.hpp"
+
 #define DOREVEAL(X) \
 	private _target = if (X isEqualType objNull) then {group X} else {X}; \
 	if !(_target in _share) then { \

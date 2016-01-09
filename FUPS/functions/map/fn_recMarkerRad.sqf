@@ -1,3 +1,5 @@
+#include "..\..\header\header.hpp"
+
 params ["_data","_angle"];
 
 private _yVec = (_data select 2) vectorMultiply 0.5;

@@ -1,8 +1,10 @@
+#include "..\..\..\header\header.hpp"
+
 params ["_group","_mode"];
 
 switch _mode do {
 	case ("init"): {
-		["Patroling"] call FUPS_fnc_log;
+		["Patroling",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
 		_group setBehaviour (_group getVariable "FUPS_orgMode");
 		_group setSpeedMode (_group getVariable "FUPS_orgSpeed");

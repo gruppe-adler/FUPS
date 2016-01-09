@@ -84,12 +84,14 @@ class FUPS {
 		class inForest {};
 		class inTown {};
 		class markerData {};
+		class markerArea {};
 		class nearestBuilding {};
 		class posInMarker {};
 		class randomMarkerPos {};
 		class recMarkerRad {};
 		class relpos {};
 		class stayInside {};
+		class triggerArea {};
 	};
 	class misc {
 		file = "FUPS\functions\misc";
