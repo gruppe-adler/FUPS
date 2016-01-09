@@ -49,6 +49,10 @@ if (_targets isEqualType "") then {
 	_areaInfo = [_targets] call FUPS_fnc_markerData;
 };
 
+if (_targets isEqualType []) then {
+	_areaInfo = [_targets,50] call FUPS_fnc_coverMarker;
+};
+
 // --- ToDo
 // Do the groups act combined?
 // _combined = if (_combined) then {_reinfGroups} else {[]};
