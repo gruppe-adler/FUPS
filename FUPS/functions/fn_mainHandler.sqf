@@ -262,13 +262,13 @@ if ((surfaceIsWater _currpos) && !(_group getVariable "FUPS_allowWater")) then {
 	} forEach _orders;
 
 // An order was queued
-} else { if (_task == "" && {_patrolling && !(_orders isEqualTo [])}) then {
+} else { if (_patrolling && {!(_orders isEqualTo [])}) then {
 	(_orders select 0) params ["_order",""];
 	_task = _order;
 	_orders deleteAt 0;
 
 // The current task gets canceled
-} else { if (_task == "" && {call (_group getVariable "FUPS_break")}) then {
+} else { if (call (_group getVariable "FUPS_break")) then {
 	// New task
 	[["Breaking the task with:
 		_gothit := %1
@@ -327,6 +327,10 @@ if (_task != "") then {
 	{
 		_onTaskEhs deleteAt _x;
 	} forEach _disposedEhs;
+
+// Tha task wasn't changed, stick to the old one
+} else {
+	_task = _curTask;
 };
 
 private _params = [_group,_group getVariable "FUPS_taskState"];

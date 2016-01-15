@@ -36,8 +36,7 @@ switch _mode do {
 			if (_group getVariable "FUPS_wait") then {
 				_group setVariable ["FUPS_patrolWait",time + 60];
 				_group setVariable ["FUPS_taskState","wait"];
-			}
-			else {
+			} else {
 				_group setVariable ["FUPS_taskState","init"];
 			};
 		};

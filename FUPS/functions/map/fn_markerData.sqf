@@ -14,16 +14,16 @@ switch (true) do {
 
 _data params ["_pos","_dir","_size","_relpos"];
 
-private _markervector	= _pos vectorFromTo _relpos;
-_markervector	= _markervector vectorMultiply 2*(_size select 1);
+private _vector	= _pos vectorFromTo _relpos;
+_vector	= _vector vectorMultiply 2*(_size select 1);
 
-private _markervector_1	= [(_markervector select 1),-(_markervector select 0),0];
-_markervector_1	= vectorNormalized _markervector_1;
-_markervector_1	= _markervector_1 vectorMultiply 2*(_size select 0);
+private _vector_1	= [(_vector select 1),-(_vector select 0),0];
+_vector_1	= vectorNormalized _vector_1;
+_vector_1	= _vector_1 vectorMultiply 2*(_size select 0);
 
 // set all to the lower right corner of the marker
-private _pos = _pos vectorAdd ((_markervector vectorMultiply -0.5) vectorAdd (_markervector_1 vectorMultiply -0.5));
+private _pos = _pos vectorAdd ((_vector vectorMultiply -0.5) vectorAdd (_vector_1 vectorMultiply -0.5));
 
-private _mindist = (vectorMagnitude (_markervector vectorAdd _markervector_1)) / 4;
+private _mindist = (vectorMagnitude (_vector vectorAdd _vector_1)) / 4;
 
-[_pos,_mindist,_markervector,_markervector_1,_dir]
+[_pos,_mindist,_vector,_vector_1,_dir]
