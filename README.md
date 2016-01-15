@@ -1,4 +1,4 @@
-# FUPS v2.2.12
+# FUPS v2.2.20
 
 -------------------------
 Introduction
@@ -80,4 +80,9 @@ v2.2.0
 v2.2.10
 * [Added] Usage of Exception for wrong parameters on user side
 * [Fixed] FUPS_fnc_do now works correctly
-+ [Fixed] Various scripting errors
+* [Fixed] Various scripting errors
+
+v2.2.20
+* [Added] FUPS_fnc_reinforcement now accepts a trigger as area
+* [Fixed] Civilians won't be taken as enemies anymore
+* [Fixed] Task acquiring
