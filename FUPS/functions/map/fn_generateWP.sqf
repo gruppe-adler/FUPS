@@ -13,6 +13,8 @@
 
 #include "..\..\header\header.hpp"
 
+// --- ToDo: resolve boat problems
+
 params ["_group","_area"];
 
 if (isNil "_area") then {
@@ -24,7 +26,7 @@ private _allowWater = [0,0,2,1] select _type;
 private _pos = [_group,0,_allowWater,_area] call FUPS_fnc_randomMarkerPos;
 
 if (_type == 1) then {
-	private _roads = _pos nearRoads 100;
+	private _roads = _pos nearRoads 250;
 	if !(_roads isEqualTo []) then {_pos = getPosATL (_roads select 0)};
 };
 

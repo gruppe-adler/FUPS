@@ -53,8 +53,6 @@ class FUPS {
 		class g_weapons {};
 		class g_weapons_init {};
 		class groupVehicles {};
-		class isPlayerGroup {};
-		class isPlayerGroup_init {};
 		class isSurrounded {};
 		class v_type {};
 		class v_type_init {};

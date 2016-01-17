@@ -13,4 +13,4 @@ private _marker = createMarker [_name,_markerPos];
 if (_invisible) then {_marker setMarkerAlpha 0};
 _marker setMarkerShape "RECTANGLE";
 _marker setMarkerDir _markerDir;
-_marker setMarkerSize [vectorMagnitude _markerVector_1 / 2,vectorMagnitude _markerVector / 2];
+_marker setMarkerSize [vectorMagnitude _markerVector / 2,vectorMagnitude _markerVector_1 / 2];

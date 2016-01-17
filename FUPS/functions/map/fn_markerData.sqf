@@ -1,6 +1,6 @@
 #include "..\..\header\header.hpp"
 
-params ["_obj"];
+params [["_obj","",[objNull,""]]];
 
 private _data = [];
 switch (true) do {
@@ -24,6 +24,6 @@ _vector_1	= _vector_1 vectorMultiply 2*(_size select 0);
 // set all to the lower right corner of the marker
 private _pos = _pos vectorAdd ((_vector vectorMultiply -0.5) vectorAdd (_vector_1 vectorMultiply -0.5));
 
-private _mindist = (vectorMagnitude (_vector vectorAdd _vector_1)) / 4;
+private _mindist = ((vectorMagnitude (_vector vectorAdd _vector_1)) / 4) min 200;
 
 [_pos,_mindist,_vector,_vector_1,_dir]

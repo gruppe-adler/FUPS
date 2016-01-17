@@ -1,6 +1,6 @@
 #include "..\..\header\header.hpp"
 
-params ["_targets"];
+params [["_targets",[],[[]]],["_minSize",0,[0]]];
 
 private _positions = [];
 {
@@ -28,7 +28,6 @@ _xCord = _xCord / _targetsCount;
 _yCord = _yCord / _targetsCount;
 
 private _centerpos = [_xCord,_yCord,0];
-private _minSize = param [1,0,[0]];
 private _sizeA = _minSize;
 private _sizeB = _minSize;
 {

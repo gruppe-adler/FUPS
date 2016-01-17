@@ -2,4 +2,4 @@
 
 params ["_obj"];
 
-!((_obj nearObjects ["Building",10]) isEqualTo [])
+count (_obj nearObjects ["Building",25]) > 1

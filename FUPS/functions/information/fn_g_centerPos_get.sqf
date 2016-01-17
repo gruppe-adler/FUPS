@@ -1,9 +1,10 @@
 #include "..\..\header\header.hpp"
 
 params ["_group"];
+if (isNull _group) exitWith {};
 
 private _units = units _group;
-private _centerPos = [0,0];
+private _centerPos = [0,0,0];
 {
 	(getPosATL _x) params ["_xCord","_yCord"];
 	_centerPos params ["_xCenter","_yCenter"];

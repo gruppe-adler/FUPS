@@ -1,6 +1,7 @@
 #include "..\..\header\header.hpp"
 
 params ["_group"];
+if (isNull _group) exitWith {};
 
 private _centerPos = [_group] call FUPS_fnc_g_centerPos_get;
 

@@ -1,6 +1,7 @@
 #include "..\..\header\header.hpp"
 
 params ["_group"];
+if (isNull _group) exitWith {};
 
 private _units = units _group;
 private _types = [];

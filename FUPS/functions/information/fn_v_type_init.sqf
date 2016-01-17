@@ -1,6 +1,7 @@
 #include "..\..\header\header.hpp"
 
 params ["_v"];
+if (isNull _v) exitWith {};
 
 private _type = -1;
 
