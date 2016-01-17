@@ -11,11 +11,15 @@ private _tries = 0;
 private _randompos = [];
 while {_tries < 25} do {
 	private _pos = _markerPos vectorAdd (_markerVector vectorMultiply random 1) vectorAdd (_markerVector_1 vectorMultiply random 1),
-	_pos = _pos findEmptyPosition [_freeRadius,30];
+	if !(surfaceIsWater _pos) then {
+		_pos = _pos findEmptyPosition [_freeRadius,30];
+	};
+
 	if (!(_pos isEqualTo []) && _waterCondition && {leader _group distance _pos > _mindist}) then {
 		_randompos = _pos;
 		_tries = 25;
 	};
+	_tries = _tries + 1;
 };
 
 if (_randompos isEqualTo []) then {
