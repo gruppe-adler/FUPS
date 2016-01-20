@@ -36,11 +36,3 @@ Personalization
 
 To personalize your overall FUPS experience you can modify variables in all settings... files in the FUPS folder.
 Feel free to edit all the values, but don't delete any of them!
-
--------------------------
-Changelog
--------------------------
-
-### Next version
-* _[Fixed]_ Scripting fixes
-* [Changed] Scripting improved
