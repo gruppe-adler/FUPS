@@ -1,4 +1,4 @@
-# FUPS v2.2.20
+# FUPS v2
 
 -------------------------
 Introduction
@@ -87,6 +87,6 @@ Changelog
 * _[Fixed]_ Civilians won't be taken as enemies anymore
 * _[Fixed]_ Task acquiring
 
-### Next version v2.2.21
+### Next version
 * _[Fixed]_ Scripting fixes
 * [Changed] Scripting improved
