@@ -13,5 +13,3 @@ Changelog
 -------------------------
 
 ### Next version
-* _[Fixed]_ Scripting fixes
-* [Changed] Scripting improved
