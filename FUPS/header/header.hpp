@@ -7,3 +7,4 @@
 #include "exceptions.hpp"
 #include "logTypes.hpp"
 #include "macros.hpp"
+#include "getters_setters.hpp"
