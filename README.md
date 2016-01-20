@@ -86,3 +86,7 @@ Changelog
 * **[Added]** FUPS_fnc_reinforcement now accepts a trigger as area
 * _[Fixed]_ Civilians won't be taken as enemies anymore
 * _[Fixed]_ Task acquiring
+
+### Next version v2.2.21
+* _[Fixed]_ Scripting fixes
+* [Changed] Scripting improved
