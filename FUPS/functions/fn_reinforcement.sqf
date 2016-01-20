@@ -34,12 +34,14 @@ private _reinfArray = FUPS_reinforcements select (FUPS_sideOrder find _side);
 
 // Create the marker to seize
 private _areaInfo = [];
+private _revealTargets = [];
 
 if (_targets isEqualType objNull) then {
 	if (_targets isKindOf "EmptyDetector") then {
 		_areaInfo = [_targets] call FUPS_fnc_markerData;
 	} else {
 		_areaInfo = [[_targets],50] call FUPS_fnc_coverMarker;
+		_revealTargets = [_targets];
 	};
 };
 
@@ -49,6 +51,7 @@ if (_targets isEqualType "") then {
 
 if (_targets isEqualType []) then {
 	_areaInfo = [_targets,50] call FUPS_fnc_coverMarker;
+	_revealTargets = _targets;
 };
 
 // --- ToDo
@@ -68,6 +71,6 @@ if (_targets isEqualType []) then {
 	};
 
 	_grp setVariable ["FUPS_reinforcementReady",false];
-	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,[],+_targets]];
+	_grp setVariable ["FUPS_reinfInfo",[_areaInfo,_stayInArea,[],_revealTargets]];
 	[_grp,"FUPS_fnc_task_reinf",_force] call FUPS_fnc_do;
 } forEach _reinfGroups;
