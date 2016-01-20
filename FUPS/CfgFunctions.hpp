@@ -86,7 +86,6 @@ class FUPS {
 		class nearestBuilding {};
 		class posInMarker {};
 		class randomMarkerPos {};
-		class recMarkerRad {};
 		class relpos {};
 		class stayInside {};
 		class triggerArea {};
