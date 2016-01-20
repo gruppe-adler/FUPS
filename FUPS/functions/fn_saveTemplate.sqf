@@ -18,9 +18,7 @@
 
 params [["_group",grpNull,[grpNull,objNull]],["_template",-1,[0]],["_doDelete",false]];
 
-if (isNull _group || _template < 0) then {
-    throw ILLEGALARGUMENTSEXCEPTION;
-};
+if (isNull _group || _template < 0) throw ILLEGALARGUMENTSEXCEPTION;
 
 if (_group isEqualType objNull) then {
     _group = group _group;

@@ -26,9 +26,7 @@
 
 params [["_group",grpNull,[grpNull]],["_eh","",[""]],["_onAct",{},[{},""]],["_isDisposable",false,[false]],["_taskParams",[],[[]]],"_params"];
 
-if (isNull _group || _eh == "" || _onAct isEqualTo {}) then {
-	throw ILLEGALARGUMENTSEXCEPTION;
-};
+if (isNull _group || _eh == "" || _onAct isEqualTo {}) throw ILLEGALARGUMENTSEXCEPTION;
 
 if (_onAct isEqualType "") then { _onAct = compile _onAct };
 

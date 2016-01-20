@@ -21,9 +21,7 @@
 
 params [["_targets",[],["",objNull,[]]],["_rIDs",[],[[]]],["_side",sideUnknown,[sideUnknown]],["_force",false,[true]],["_stayInArea",false,[true]],["_combined",true,[true]]];
 
-if (_targets isEqualTo [] || _targets isEqualTo objNull || _targets isEqualTo "" || _rIDs isEqualTo [] || _side isEqualTo sideUnknown) then {
-	throw ILLEGALARGUMENTSEXCEPTION;
-};
+if (_targets isEqualTo [] || _targets isEqualTo objNull || _targets isEqualTo "" || _rIDs isEqualTo [] || _side isEqualTo sideUnknown) throw ILLEGALARGUMENTSEXCEPTION;
 
 [["Sending reinforcements to: %1",_targets],true,false,ACTIONS_LOG] call FUPS_fnc_log;
 

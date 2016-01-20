@@ -38,13 +38,8 @@
 
 params [["_leader",objNull,[objNull,grpNull]],["_marker","",[""]]];
 
-if (isNull _leader ||_marker == "") then {
-	throw ILLEGALARGUMENTSEXCEPTION;
-};
-
-if (markerType _marker == "") then {
-	throw NOSUCHMARKEREXCEPTION(_marker);
-};
+if (isNull _leader ||_marker == "") throw ILLEGALARGUMENTSEXCEPTION;
+if (markerType _marker == "") throw NOSUCHMARKEREXCEPTION(_marker);
 
 private _group = if (_leader isEqualType objNull) then {group _leader} else {_leader};
 _leader = leader _group;
