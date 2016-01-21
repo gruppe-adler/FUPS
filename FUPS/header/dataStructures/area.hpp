@@ -34,7 +34,7 @@
  	_struct \
 }
 
-#define AREA_VALID(X) 		((X isEqualTypeParams AREA_NEW()) && {X select AREA_IDENT_INDEX == AREA_IDENTIFIER})
+#define AREA_VALID(X) 		((X isEqualTypeParams AREA_NEW()) && {X select AREA_IDENT_INDEX == AREA_IDENT_VAL})
 
 #define AREA_IDENT_INDEX	0
 #define AREA_ORIGIN_INDEX	1
