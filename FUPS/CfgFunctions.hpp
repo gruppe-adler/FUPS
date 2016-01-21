@@ -54,8 +54,6 @@ class FUPS {
 		class g_type_init {};
 		class g_weapons {};
 		class g_weapons_init {};
-		class groupVehicles {};
-		class isSurrounded {};
 		class v_type {};
 		class v_type_init {};
 		class v_weapons {};
@@ -83,6 +81,7 @@ class FUPS {
 		class getDir {};
 		class inForest {};
 		class inTown {};
+		class isSurrounded {};
 		class markerData {};
 		class markerArea {};
 		class nearestBuilding {};
@@ -97,6 +96,7 @@ class FUPS {
 		class clearWP {};
 		class getParams {};
 		class getWaypoints {};
+		class groupVehicles {};
 		class mainHandlerOverhead {};
 		class slice {};
 	};
