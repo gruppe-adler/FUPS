@@ -1,6 +1,6 @@
 #include "..\..\header\header.hpp"
 
-params ["_searchPos","_searchDistance"];
+params [["_searchPos",objNull,[objNull,[]],[2,3]],["_searchDistance",0,[0]]];
 
 private _building = objNull;
 private _minDist = _searchDistance;

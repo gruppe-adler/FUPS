@@ -1,7 +1,7 @@
 #include "..\..\header\header.hpp"
 
-params ["_group"];
-if (isNull _group) exitWith {};
+params [["_group",grpNull,[grpNull]]];
+if (isNull _group) throw NULLPOINTEREXCEPTION;
 
 private _units = units _group;
 

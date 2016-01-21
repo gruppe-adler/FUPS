@@ -1,16 +1,16 @@
 #include "..\..\header\header.hpp"
 
-params ["_group","_freeRadius","_water","_area"];
+params [["_group",grpNull,[grpNull]],["_freeRadius",0,[0]],["_water",0,[0]],["_area",AREA_VAL,[AREA_VAL]]];
+if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
+AREA_PARAMS(_area); // _origin, _mindist, _xAxis, _yAxis, _dir
 
 // for _water: 0 - no water, 1 - force water, 2 - don't care
 private _waterCondition = [{!surfaceIsWater _pos},{surfaceIsWater _pos},{true}] select _water;
 
-_area params ["_markerPos","_mindist","_markerVector","_markerVector_1","_markerDir"];
-
 private _tries = 0;
 private _randompos = [];
 while {_tries < 25} do {
-	private _pos = _markerPos vectorAdd (_markerVector vectorMultiply random 1) vectorAdd (_markerVector_1 vectorMultiply random 1),
+	private _pos = _origin vectorAdd (_xAxis vectorMultiply random 1) vectorAdd (_yAxis vectorMultiply random 1),
 	if !(surfaceIsWater _pos) then {
 		_pos = _pos findEmptyPosition [_freeRadius,30];
 	};

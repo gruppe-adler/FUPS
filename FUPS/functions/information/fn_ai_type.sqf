@@ -13,5 +13,7 @@
 
 #include "..\..\header\header.hpp"
 
-params ["_v"];
-_v getVariable ["FUPS_ai_type",([_v] call FUPS_fnc_ai_type_init)];
+params [["_group",grpNull,[grpNull]]];
+if (isNull _group) throw NULLPOINTEREXCEPTION;
+
+_group getVariable ["FUPS_ai_type",([_group] call FUPS_fnc_ai_type_init)];

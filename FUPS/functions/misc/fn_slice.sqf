@@ -1,6 +1,6 @@
 #include "..\..\header\header.hpp"
 
-params ["_array",["_from",0],["_to",count _array]];
+params [["_array",[],[[]]],["_from",0,[0]],["_to",count _array,[0]]];
 if (_from < 0 || _to > count _array) throw INDEXOUTOFBOUNDEXCEPTION;
 
 private _count = count _array - _from;

@@ -1,6 +1,7 @@
 #include "..\..\header\header.hpp"
 
-params ["_group"];
+params [["_group",grpNull,[grpNull]]];
+if (isNull _group) throw NULLPOINTEREXCEPTION;
 
 private _centerData = _group getVariable ["FUPS_g_centerPos",([_group] call FUPS_fnc_g_centerPos_init)];
 

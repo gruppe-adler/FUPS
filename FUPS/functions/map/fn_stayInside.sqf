@@ -1,6 +1,6 @@
 #include "..\..\header\header.hpp"
 
-params ["_group","_pos"];
+params [["_group",grpNull,[grpNull]],["_pos",[0,0,0],[[]],[2,3]]];
 
 private _data = _group getVariable "FUPS_marker";
 private _markerOrigin = AREA_ORIGIN(_data);

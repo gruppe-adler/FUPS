@@ -3,8 +3,8 @@
 params [["_group",grpNull,[grpNull]]];
 if (isNull _group) throw NULLPOINTEREXCEPTION;
 
-private _types = [_group] call FUPS_fnc_g_type_get;
+private _vs = [];
 
-_group setVariable ["FUPS_g_type",_types];
+{ if !(vehicle _x in _vs) then { _vs pushBack vehicle _x } } forEach (units _group);
 
-_types
+_vs

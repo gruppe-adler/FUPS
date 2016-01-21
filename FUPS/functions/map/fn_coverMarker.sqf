@@ -1,6 +1,22 @@
+/*
+
+	This function will create a marker covering all targets.
+	Marker will have a minimum size.
+
+	PARAMS:
+		0 <<OBJECT/STRING/ARRAY format POSITION> ARRAY> - targets
+		@optional 1 <SCALAR> default 50 - minimum size
+
+	RETURN:
+		ARRAY format AREA
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
-params [["_targets",[],[[]]],["_minSize",0,[0]]];
+params [["_targets",[],[[]]],["_minSize",50,[0]]];
 
 private _positions = [];
 {
@@ -39,9 +55,15 @@ private _sizeB = _minSize;
 } forEach _targets;
 
 // create imaginery marker
-private _markervector	= [1,0,0] vectorMultiply (2*_sizeA);
-private _markervector_1	= [0,1,0] vectorMultiply (2*_sizeB);
-private _markerPos		= (_centerpos vectorAdd (_markervector vectorMultiply -0.5)) vectorAdd (_markervector_1 vectorMultiply -0.5);
-_mindist		= (vectorMagnitude (_markervector vectorAdd _markervector_1)) / 4;
+private _yAxis	= [1,0,0] vectorMultiply (2*_sizeA);
+private _xAxis	= [0,1,0] vectorMultiply (2*_sizeB);
+private _origin		= (_centerpos vectorAdd (_yAxis vectorMultiply -0.5)) vectorAdd (_xAxis vectorMultiply -0.5);
+_mindist		= (vectorMagnitude (_yAxis vectorAdd _xAxis)) / 4;
 
-[_markerPos,_mindist,_markervector,_markervector_1,0]
+private _area = AREA_NEW();
+AREA_SET_ORIGIN(_area,_origin);
+AREA_SET_MINDIST(_area,_mindist);
+AREA_SET_XAXIS(_area,_xAxis);
+AREA_SET_YAXIS(_area´,_yAxis);
+
+_area

@@ -83,13 +83,11 @@ class FUPS {
 		class inTown {};
 		class isSurrounded {};
 		class markerData {};
-		class markerArea {};
 		class nearestBuilding {};
 		class posInMarker {};
 		class randomMarkerPos {};
 		class relpos {};
 		class stayInside {};
-		class triggerArea {};
 	};
 	class misc {
 		file = "FUPS\functions\misc";

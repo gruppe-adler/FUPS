@@ -1,13 +1,15 @@
 #include "..\..\header\header.hpp"
 
-params ["_data","_pos"];
+params [["_area",AREA_VAL,[AREA_VAL]],["_pos",[0,0,0],[[]],[2,3]]];
+if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
+AREA_PARAMS(_area); // _origin, _mindist, _xAxis, _yAxis, _dir
 
-private _relPos = _pos vectorDiff AREA_ORIGIN(_data);
+private _relPos = _pos vectorDiff _origin;
 private _relPosMagnitude = vectorMagnitude _relPos;
-private _xMagnitude = vectorMagnitude(AREA_XAXIS(_data));
-private _yMagnitude = vectorMagnitude(AREA_YAXIS(_data));
-private _cosY = AREA_YAXIS(_data) vectorCos _relPos;
-private _cosX = AREA_XAXIS(_data) vectorCos _relPos;
+private _xMagnitude = vectorMagnitude _xAxis;
+private _yMagnitude = vectorMagnitude _yAxis;
+private _cosY = _yAxis vectorCos _relPos;
+private _cosX = _xAxis vectorCos _relPos;
 
 _projectionMagnitudeY = (_cosY * _relPosMagnitude);
 _projectionMagnitudeX = (_cosX * _relPosMagnitude);

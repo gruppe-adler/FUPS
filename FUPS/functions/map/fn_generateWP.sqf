@@ -3,23 +3,21 @@
     Description: Generates a new waypoint for the given group
 
     PARAMS:
-    0 <GROUP> - the group to generate for
+    	0 <GROUP> - the group to generate for
+    	@optinal 1 <ARRAY format AREA> default "FUPS_marker" - area to generate the waypoint in
 
     RETURN:
-    <ARRAY ForMAT POSITION> - the new waypoint
+    	<ARRAY format POSITION> - the new waypoint
 
     Author: [W] Fett_Li
+
 */
 
 #include "..\..\header\header.hpp"
 
-// --- ToDo: resolve boat problems
-
-params ["_group","_area"];
-
-if (isNil "_area") then {
-	_area = _group getVariable "FUPS_marker";
-};
+params [["_group",grpNull,[grpNull]],["_area",AREA_VAL,[AREA_VAL]]];
+if (_area isEqualTo AREA_VAL) then { _area = _group getVariable "FUPS_marker" };
+if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
 
 private _type = [_group] call FUPS_fnc_ai_type;
 private _allowWater = [0,0,2,1] select _type;

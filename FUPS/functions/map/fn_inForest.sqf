@@ -1,3 +1,18 @@
+/*
+
+	This function returns whether given position or object is in a forest.
+	Position will be counted as in forest when there are at least two trees within a 20 metres radius.
+
+	PARAMS:
+		0 <ARRAY format POSITION/OBJECT> - position to check
+
+	RETURN:
+		<BOOL> - true if in forest
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 scopeName _fnc_scriptname;

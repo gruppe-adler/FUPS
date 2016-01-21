@@ -1,7 +1,7 @@
 #include "..\..\header\header.hpp"
 
-params ["_v"];
-if (isNull _v) exitWith {};
+params [["_v",objNull,[objNull]]];
+if (isNull _group) throw NULLPOINTEREXCEPTION;
 
 private _type = -1;
 
