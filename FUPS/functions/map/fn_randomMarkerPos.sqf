@@ -1,3 +1,23 @@
+/*
+
+	This function returns a random position inside an area.
+
+	PARAMS:
+		0 <GROUP> - group to generate the position for
+		1 <SCALAR> - radius around the random position that has to be free
+		2 <SCALAR> - water condition:
+			0 - no water allowed
+			1 - water forced
+			2 - water doesn't matter
+		3 <ARRAY format AREA> - area to generate the waypoint in
+
+	RETURN:
+		<ARRAY format POSITION> - random position
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]],["_freeRadius",0,[0]],["_water",0,[0]],["_area",AREA_VAL,[AREA_VAL]]];

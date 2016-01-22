@@ -1,3 +1,17 @@
+/*
+
+	This function returns the area data of given marker/trigger.
+
+	PARAMS:
+		0 <OBJECT/STRING> - trigger or marker
+
+	RETURN:
+		<ARRAY format AREA> - area of the trigger/marker
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_obj","",[objNull,""]]];

@@ -1,3 +1,18 @@
+/*
+
+	This function returns whtether given position is in given area.
+
+	PARAMS:
+		0 <ARRAY format AREA> - area to check
+		1 <ARRAY format POSITION> - position
+
+	RETURN:
+		<BOOL> - true if position is in area to check
+
+	AUTHOR: [W] Exolas
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_area",AREA_VAL,[AREA_VAL]],["_pos",[0,0,0],[[]],[2,3]]];

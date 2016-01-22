@@ -1,3 +1,17 @@
+/*
+
+	This function checks whether a position is surrounded.
+
+	PARAMS:
+		_this <<SCALAR> ARRAY> - directions of enemies
+
+	RETURN:
+		<BOOL> - true if position is surrounded
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 scopeName _fnc_scriptname;
