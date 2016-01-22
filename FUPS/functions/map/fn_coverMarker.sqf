@@ -64,6 +64,6 @@ private _area = AREA_NEW();
 AREA_SET_ORIGIN(_area,_origin);
 AREA_SET_MINDIST(_area,_mindist);
 AREA_SET_XAXIS(_area,_xAxis);
-AREA_SET_YAXIS(_area´,_yAxis);
+AREA_SET_YAXIS(_area,_yAxis);
 
 _area

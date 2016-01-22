@@ -23,16 +23,16 @@
 #define AREA_DIR_VAL		0
 
 // AREA DATA
-#define AREA_NEW()			0 call { \
+#define AREA_NEW()			(0 call { \
  	private _struct = AREA_VAL; \
- 	_struct set [ARRAY_IDENT_INDEX,AREA_IDENT_VAL]; \
+ 	_struct set [AREA_IDENT_INDEX,AREA_IDENT_VAL]; \
  	_struct set [AREA_ORIGIN_INDEX,AREA_ORIGIN_VAL]; \
  	_struct set [AREA_MINDIST_INDEX,AREA_MINDIST_VAL]; \
  	_struct set [AREA_YAXIS_INDEX,AREA_YAXIS_VAL]; \
  	_struct set [AREA_XAXIS_INDEX,AREA_XAXIS_VAL]; \
  	_struct set [AREA_DIR_INDEX,AREA_DIR_VAL]; \
  	_struct \
-}
+})
 
 #define AREA_VALID(X) 		((X isEqualTypeParams AREA_NEW()) && {X select AREA_IDENT_INDEX == AREA_IDENT_VAL})
 
@@ -51,8 +51,8 @@
 
 #define AREA_PARAMS(X)		X params ["","_origin","_mindist","_yAxis","_xAxis","_dir"]
 
-#define AREA_SET_ORIGIN(X,ORG)		TYPEMATCH_ARR(ORG,AREA_ORIGIN_VAL); (X set [AREA_ORIGIN_INDEX,ORG])
+#define AREA_SET_ORIGIN(X,ORG)		private _check = AREA_ORIGIN_VAL; TYPEMATCH_ARR(ORG,_check); (X set [AREA_ORIGIN_INDEX,ORG])
 #define AREA_SET_MINDIST(X,DIST)	TYPEMATCH(DIST,AREA_MINDIST_VAL); (X set [AREA_MINDIST_INDEX,DIST])
-#define AREA_SET_YAXIS(X,AXIS)		TYPEMATCH_ARR(AXIS,AREA_YAXIS_VAL); (X set [AREA_YAXIS_INDEX,AXIS])
-#define AREA_SET_XAXIS(X,AXIS)		TYPEMATCH_ARR(AXIS,AREA_XAXIS_VAL); (X set [AREA_XAXIS_INDEX,AXIS])
+#define AREA_SET_YAXIS(X,AXIS)		private _check = AREA_YAXIS_VAL; TYPEMATCH_ARR(AXIS,_check); (X set [AREA_YAXIS_INDEX,AXIS])
+#define AREA_SET_XAXIS(X,AXIS)		private _check = AREA_XAXIS_VAL; TYPEMATCH_ARR(AXIS,_check); (X set [AREA_XAXIS_INDEX,AXIS])
 #define AREA_SET_DIR(X,DIR)			TYPEMATCH(DIR,AREA_DIR_VAL); (X set [AREA_DIR_INDEX,DIR])
