@@ -63,7 +63,6 @@ class FUPS {
 		file = "FUPS\functions";
 		class addEventHandler {};
 		class do {};
-		// class globalParameter {}; --- ToDo
 		class main {};
 		class mainHandler {};
 		class preInit { preInit = 1; };
