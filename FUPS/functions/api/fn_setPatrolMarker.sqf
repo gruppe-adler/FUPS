@@ -1,15 +1,15 @@
 /*
 
-    Sets the patrol marker for a FUPS group
+	Sets the patrol marker for a FUPS group
 
-    PARAMS:
-    0 <GROUP> - the group whose marker should be changed
-    1 <STRING> - name of the new marker
+	PARAMS:
+		0 <GROUP> - the group whose marker should be changed
+		1 <STRING> - name of the new marker
 
-    RETURN:
-    -
+	RETURN:
+		nil
 
-    Author: [W] Fett_Li
+	Author: [W] Fett_Li
 
 */
 

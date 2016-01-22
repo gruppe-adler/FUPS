@@ -1,4 +1,3 @@
-
 /*
 
 	Reveals all given units or groups to the side in FUPS.

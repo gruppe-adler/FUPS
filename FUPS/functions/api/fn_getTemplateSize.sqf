@@ -1,4 +1,3 @@
-
 /*
 
 	Gets the amount of units in the template

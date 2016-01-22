@@ -1,4 +1,3 @@
-
 /*
 
 	Checks for the reinforcement group if it has any groups.

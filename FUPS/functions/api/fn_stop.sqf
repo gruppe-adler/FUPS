@@ -1,4 +1,3 @@
-
 /*
 
 	Stops the calculation of an ai group with FUPS.
