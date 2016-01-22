@@ -1,15 +1,15 @@
 /*
 
-	Description: Spawns the group randomly in its marker
+	Spawns the group randomly in its marker
 
 	PARAMS:
-	0 <GROUP> - the group to spawn
-	1 <OBJECT ARRAY> - vehicles of the group
+		0 <GROUP> - the group to spawn
+		1 <<OBJECT> ARRAY> - vehicles of the group
 
 	RETURN:
-	-
+		nil
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 

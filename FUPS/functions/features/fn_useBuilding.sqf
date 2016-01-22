@@ -1,15 +1,15 @@
 /*
 
-	Description: Let's the group use the building
+	Let's the group use the building
 
 	PARAMS:
-	0 <GROUP> - group
-	1 <OBJECT> - building
+		0 <GROUP> - group
+		1 <OBJECT> - building
 
 	RETURN:
-	<BOOLEAN> - success or not
+		<BOOLEAN> - success or not
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 

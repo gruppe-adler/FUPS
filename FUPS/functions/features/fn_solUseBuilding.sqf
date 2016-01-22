@@ -1,15 +1,15 @@
 /*
 
-    Description: Let's the soldier use the building
+	Let's the soldier use the building
 
-    PARAMS:
-    0 <OBJECT> - soldier
-    1 <OBJECT> - building to use
+	PARAMS:
+		0 <OBJECT> - soldier
+		1 <OBJECT> - building to use
 
-    RETURN:
-    <BOOLEAN> - success or not
+	RETURN:
+		<BOOLEAN> - success or not
 
-    Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 
