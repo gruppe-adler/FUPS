@@ -3,9 +3,9 @@
 	Takes care of the simulation of a group
 
 	PARAMS:
-	0 <GROUP> - group that should be simulated
-	1 <BOOLEAN> - true for simulation turned on, otherwise false
-	2 <BOOLEAN> - true to attach hit eventhandlers to turn simulation on
+		0 <GROUP> - group that should be simulated
+		1 <BOOLEAN> - true for simulation turned on, otherwise false
+		@optional 2 <BOOLEAN> default true - true to attach hit eventhandlers to turn simulation on
 
 	RETURN:
 		nil
@@ -16,7 +16,7 @@
 
 #include "..\..\header\header.hpp"
 
-params ["_grp","_simulate",["_allowEH",true]];
+params [["_grp",grpNull,[grpNull]],["_simulate",true,[true]],["_allowEH",true,[true]]];
 
 [["enableSimulationGlobal %1 for %2",_simulate,_grp],true,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 
