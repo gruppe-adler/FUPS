@@ -96,7 +96,6 @@ class FUPS {
 		class getWaypoints {};
 		class groupVehicles {};
 		class mainHandlerOverhead {};
-		class slice {};
 	};
 	class panic {
 		file = "FUPS\functions\panic";
