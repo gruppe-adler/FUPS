@@ -1,3 +1,17 @@
+/*
+
+	This function gets the types of a group inside an array.
+
+	PARAMS:
+		0 <GROUP> - group to get the types from
+
+	RETURN:
+		<<SCALAR> ARRAY> - all type indexes
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];

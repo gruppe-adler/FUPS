@@ -1,14 +1,14 @@
 /*
 
-    Description: Initializes the type for an ai group
+    Initializes the type for an ai group.
 
     PARAMS:
-    0 <GROUP> - group to get the type of
+   		0 <GROUP> - group to get the type of
 
     RETURN:
-    <SCALAR> - type of the group
+    	<SCALAR> - type of the group
 
-    Author: [W] Fett_Li
+    AUTHOR: [W] Fett_Li
 
 */
 

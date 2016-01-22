@@ -1,3 +1,16 @@
+/*
+
+    Calculates the weapons of an object.
+
+    PARAMS:
+        0 <OBJECT> - object to calcluate from
+
+    RETURN:
+        <<BOOL> ARRAY> - array of bool, matching type indexes
+
+    AUTHOR: [W] Fett_Li
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_v",objNull,[objNull]]];

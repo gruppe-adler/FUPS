@@ -1,3 +1,17 @@
+/*
+
+	This function sets the center position to a group.
+
+	PARAMS:
+		0 <GROUP> - group to set the position to
+
+	RETURN:
+		<ARRAY> - containes center position and clockpulse when the pos was calculated
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];

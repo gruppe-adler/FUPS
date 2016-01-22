@@ -1,3 +1,17 @@
+/*
+
+	This function sets the groups types.
+
+	PARAMS:
+		0 <GROUP> - group to set to
+
+	RETURN:
+		<<SCALAR> ARRAY> - groups type indexes
+
+	ATUHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];

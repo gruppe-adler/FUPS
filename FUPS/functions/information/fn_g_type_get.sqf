@@ -1,3 +1,17 @@
+/*
+
+	This function calculates all types of a group.
+
+	PARAMS:
+		0 <GROUP> - group to calculate from
+
+	RETURN:
+		<<SCALAR> ARRAY> - group type indexes
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];

@@ -1,3 +1,17 @@
+/*
+
+	Calculates the type index of a vehicle.
+
+	PARAMS:
+		0 <OBJECT> - object to calc from
+
+	RETURN:
+		<SCALAR> - type index
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_v",objNull,[objNull]]];

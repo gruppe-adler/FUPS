@@ -1,3 +1,17 @@
+/*
+
+	This function calculates a groups center position.
+
+	PARAMS:
+		0 <GROUP> - group to calculate from
+
+	RETURN:
+		<ARRAY format POSITION> - center position
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];

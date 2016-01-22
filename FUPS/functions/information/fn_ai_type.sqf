@@ -1,14 +1,15 @@
 /*
 
-    Description: Returns a scalar representing the units type, ai groups can only have one type
+    Returns a scalar representing the units type, ai groups can only have one type.
 
     PARAMS:
-    0 <GROUP> - group to get the the type of
+    	0 <GROUP> - group to get the the type of
 
-    RETURNS:
-    <SCALAR> - type of the ai group
+    RETURN:
+    	<SCALAR> - type of the ai group
 
-    Author: [W] Fett_Li
+    AUTHOR: [W] Fett_Li
+
 */
 
 #include "..\..\header\header.hpp"

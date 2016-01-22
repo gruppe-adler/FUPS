@@ -1,3 +1,17 @@
+/*
+
+	Returns the groups center position. Will be calculated only one time per FUPS_oefClockPulse for performance reasons.
+
+	PARAMS:
+		0 <GROUP> - group to get the center position from
+
+	RETURN:
+		<ARRAY format POSITION> - center position
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];

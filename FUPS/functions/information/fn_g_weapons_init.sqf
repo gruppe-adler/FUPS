@@ -1,3 +1,17 @@
+/*
+
+	Calculates the efficiency of the group-
+
+	PARAMS:
+		0 <GROUP> - group to calculate from
+
+	RETURN:
+		<<BOOL> ARRAY> - groups weapons
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];
