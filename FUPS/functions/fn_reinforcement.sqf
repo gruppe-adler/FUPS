@@ -13,7 +13,7 @@
 	RETURN:
 		nil
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 

@@ -1,4 +1,3 @@
-
 /*
 
 	This function will order any group to exectue given task. The task has to be defined via FUPS_fnc_registerTask.

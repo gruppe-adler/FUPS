@@ -1,4 +1,3 @@
-
 /*
 
 	Sets basic variables & tasks, called during preInit
@@ -9,7 +8,7 @@
 	RETURN:
 		-
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 

@@ -1,4 +1,3 @@
-
 /*
 
 	Will be executed on each frame. Calculates all FUPS groups frame by frame.
@@ -12,7 +11,7 @@
 	RETURN:
 		-
 
-	Author: [W] Fett_Li
+	AUTHOR: [W] Fett_Li
 
 */
 
