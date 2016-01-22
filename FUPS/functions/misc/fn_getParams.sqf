@@ -1,3 +1,19 @@
+/*
+
+	Parses all FUPS parameters of an array.
+	Not-matched parameters will be printed afterwards.
+
+	PARAMS:
+		0 <GROUP> - group to parse for.
+		1 <ARRAY> - array to parse from.
+
+	RETURN:
+		<ARRAY> - array with settings values
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params ["_group","_list"];

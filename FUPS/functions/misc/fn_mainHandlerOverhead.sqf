@@ -1,8 +1,16 @@
 /*
 
-	This function will be called after all group calculations.
+	This function will be called after all group calculations and does some overhead calculations.
 
- */
+	PARAMS:
+		-
+
+	RETURN:
+		nil
+
+	AUTHOR: [W] Fett_Li
+
+*/
 
 #include "..\..\header\header.hpp"
 

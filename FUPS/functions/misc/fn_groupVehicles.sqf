@@ -1,7 +1,20 @@
+/*
+
+	Get's all vehicles of a group without duplicates.
+
+	PARAMS:
+		0 <GROUP> - group
+
+	RETURN:
+		<<OBJECT> ARRAY> - all group vehicles (no crews)
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
 params [["_group",grpNull,[grpNull]]];
-if (isNull _group) throw NULLPOINTEREXCEPTION;
 
 private _vs = [];
 

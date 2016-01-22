@@ -1,6 +1,20 @@
+/*
+
+	Parses all waypoints of a group. Only move and cycle waypoints will be counted. Every non-move/cycle waypoint will be treated as move waypoint.
+
+	PARAMS:
+		0 <GROUP> - group to get waypoints from
+
+	RETURN:
+		<ARRAY> - array with elements formated as: [POSITION,NEXT WP INDEX]
+
+	AUTHOR: [W] Fett_Li
+
+*/
+
 #include "..\..\header\header.hpp"
 
-params ["_group"];
+params [["_group",grpNull,[grpNull]]];
 
 _group = _this select 0;
 private _wps = waypoints _group;
