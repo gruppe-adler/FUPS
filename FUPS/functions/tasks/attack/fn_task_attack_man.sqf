@@ -7,7 +7,7 @@ switch _mode do {
 	case ("init"): {
 		["Attacking",false,false,ACTIONS_LOG] call FUPS_fnc_log;
 
-		_group setBehaviour "COMBAT";
+		_group setBehaviour "AWARE";
 		_group setSpeedMode "FULL";
 
 		private _targetPos = (leader _group targetKnowledge leader _target) select 6;
@@ -25,8 +25,7 @@ switch _mode do {
 
 		if (_inBuilding) then {
 			_pos = getPosATL _build;
-		}
-		else {
+		} else {
 			_pos = (selectBestPlaces [_currpos,20,"hills + forest + trees - meadow",5,1]) select 0 select 0;
 			_group move _pos;
 		};
@@ -35,28 +34,26 @@ switch _mode do {
 		if (leader _group distance leader _target < 100) then {
 			// skip flanking, etc. when enemy is too close
 			_group setVariable ["FUPS_taskState","flank"];
-		}
-		else {
+		} else {
 			_group setVariable ["FUPS_taskState","evase"];
 		};
 	};
 	case ("evase"): {
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
-			// only sortie if not to far away
-			if (leader _group distance leader _target < 800) then {
-				// position calculation
-				private _targetPos = (leader _group targetKnowledge leader _target) select 6;
+			// --- ToDo: only sortie if not to far away? And: what to do, if group is that far away?
 
-				private _dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
-				_dir = if (random 1 < .5) then {_dir + 90} else {_dir - 90};
-				private _dist = ((_currpos distance _targetPos) * 2 / 3) min 200;
-				private _pos = [_currpos,_dist * 2 / 3,_dir] call FUPS_fnc_relPos;
+			// position calculation
+			private _targetPos = (leader _group targetKnowledge leader _target) select 6;
 
-				_group move _pos;
+			private _dir = [_currpos,_targetPos] call FUPS_fnc_getDir;
+			_dir = if (random 1 < .5) then {_dir + 90} else {_dir - 90};
+			private _dist = ((_currpos distance _targetPos) * 2 / 3) min 200;
+			private _pos = [_currpos,_dist * 2 / 3,_dir] call FUPS_fnc_relPos;
 
-				_group setVariable ["FUPS_movePos",_pos];
-				_group setVariable ["FUPS_taskState","evase"];
-			};
+			_group move _pos;
+
+			_group setVariable ["FUPS_movePos",_pos];
+			_group setVariable ["FUPS_taskState","flank"];
 		};
 	};
 	case ("flank"): {
@@ -78,6 +75,8 @@ switch _mode do {
 		};
 	};
 	case ("attack"): {
+		_group setBehaviour "COMBAT";
+
 		// flanking finished?
 		if (_currpos distance (_group getVariable ["FUPS_movePos",_currpos]) < (_group getVariable "FUPS_closeenough")) then {
 			{ _x doWatch (leader _target) } forEach (units _group);
