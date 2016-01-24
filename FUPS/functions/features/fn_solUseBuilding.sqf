@@ -17,7 +17,7 @@
 
 #include "..\..\header\header.hpp"
 
-params ["_sol","_build"];
+params [["_sol",objNull,[objNull]],["_build",objNull,[objNull]]];
 
 _count = 0;
 _positions = [];

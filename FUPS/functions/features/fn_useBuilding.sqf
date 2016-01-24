@@ -17,7 +17,7 @@
 
 #include "..\..\header\header.hpp"
 
-params ["_group","_building"];
+params [["_group",grpNull,[grpNull]],["_building",objNull,[objNull]]];
 
 private _index = 0;
 private _posArray = [];
