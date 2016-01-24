@@ -12,6 +12,7 @@ switch _mode do {
 
 		_params = _group getVariable "FUPS_reinfInfo";
 		_params params ["_areainfo","_stayInArea","_combinedGroups","_targets"];
+		AREA_PARAMS(_areainfo); // _origin, _mindist, _xAxis, _yAxis, _dir
 
 		if (_stayInArea) then {
 			[_group,_areainfo] call FUPS_fnc_setPatrolMarker;
@@ -21,7 +22,7 @@ switch _mode do {
 			_group reveal [_x,3];
 		} forEach _targets;
 
-		private _center = (_areainfo select 0) vectorAdd ((_areainfo select 2) vectorMultiply 0.5) vectorAdd ((_areainfo select 3) vectorMultiply 0.5);
+		private _center = _center vectorAdd (_xAxis vectorMultiply 0.5) vectorAdd (_yAxis vectorMultiply 0.5);
 		private _movePos = getPosATL leader _group;
 		private _dir = [_center,_movePos] call FUPS_fnc_getDir;
 		private _relDist = [_areainfo,_dir] call FUPS_fnc_recMarkerRad;
