@@ -1,17 +1,18 @@
 /*
- AREA holds data about a area to patrol in, etc.
- Format:
-	 0 <STRING> - identifier
-	 1 <ARRAY format POSITION> - origin of the area
-	 2 <SCALAR> - mindist for each waypoint to be apart of the current position
-	 3 <ARRAY format VECTOR> - y axis of the area
-	 4 <ARRAY format VECTOR> - x axis of the area
-	 5 <SCALAR> - direction difference to zero degrees
 
- PARAMS will name variables:
- 	_origin, _mindist, _xAxis, _yAxis, _dir
+	AREA holds data about a area to patrol in, etc.
+	Format:
+		0 <STRING> - identifier
+		1 <ARRAY format POSITION> - origin of the area
+		2 <SCALAR> - mindist for each waypoint to be apart of the current position
+		3 <ARRAY format VECTOR> - y axis of the area
+		4 <ARRAY format VECTOR> - x axis of the area
+		5 <SCALAR> - direction difference to zero degrees
 
- */
+	PARAMS will name variables:
+		_origin, _mindist, _xAxis, _yAxis, _dir
+
+*/
 
 // Basic values
 #define AREA_VAL			[]
