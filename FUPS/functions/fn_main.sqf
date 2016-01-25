@@ -163,14 +163,14 @@ _group setVariable ["FUPS_allowWater",_allowWater];
 _group setVariable ["FUPS_members",count units _group];
 _group setVariable ["FUPS_break",{true}];
 _group setVariable ["FUPS_task",""];
-_group setVariable ["FUPS_orders",[]];
-_group setVariable ["FUPS_moveQueue",[]];
+_group setVariable ["FUPS_orders",[]]; // --- ToDo: make ad
+// _group setVariable ["FUPS_moveQueue",[]]; // --- ToDo: use with new task system
 _group setVariable ["FUPS_clockPulse",-1];
 _group setVariable ["FUPS_lastDamage",0];
 _group setVariable ["FUPS_panic",0];
 _group setVariable ["FUPS_target",objNull];
 _group setVariable ["FUPS_askedForSupport",[]];
-_group setVariable ["FUPS_revealMap",[[],[]]];
+_group setVariable ["FUPS_revealMap",[[],[]]]; // --- ToDo: make ad
 // Check for existence because eh could have been added before initializing
 if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
 	_group setVariable ["FUPS_onTaskEhs",[]];
