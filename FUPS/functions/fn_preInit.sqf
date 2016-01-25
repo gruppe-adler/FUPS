@@ -44,11 +44,6 @@ FUPS_enemies_east = [];
 FUPS_enemies_guer = [];
 FUPS_enemies = [FUPS_enemies_west,FUPS_enemies_east,FUPS_enemies_guer];
 
-FUPS_groups_west = [];
-FUPS_groups_east = [];
-FUPS_groups_guer = [];
-FUPS_groups = [FUPS_groups_west,FUPS_groups_east,FUPS_groups_guer];
-
 FUPS_share_west = [];
 FUPS_share_east = [];
 FUPS_share_guer = [];

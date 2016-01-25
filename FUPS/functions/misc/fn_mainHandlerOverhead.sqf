@@ -43,7 +43,7 @@ if (count FUPS_oefGroups_toDelete > 0) then {
 		// clear array without resetting the pointer
 		_x resize 0;
 	} forEach _x;
-} forEach [FUPS_enemies,FUPS_groups,FUPS_share];
+} forEach [FUPS_enemies,FUPS_share];
 
 {
 	private _side = side _x;
@@ -51,10 +51,6 @@ if (count FUPS_oefGroups_toDelete > 0) then {
 	if (west getFriend _side < 0.6) then {FUPS_enemies_west pushBack _x};
 	if (east getFriend _side < 0.6) then {FUPS_enemies_east pushBack _x};
 	if (independent getFriend _side < 0.6) then {FUPS_enemies_guer pushBack _x};
-
-	if (_side != civilian) then {
-		(FUPS_groups select (FUPS_sideOrder find _side)) pushBack _x;
-	};
 } forEach allGroups;
 
 if (count FUPS_oefGroups_toAdd > 0) then {
