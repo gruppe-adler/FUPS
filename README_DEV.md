@@ -13,3 +13,5 @@ Changelog
 -------------------------
 
 ### Next version
+* Unnecessary variables removed
+* Documentation added
