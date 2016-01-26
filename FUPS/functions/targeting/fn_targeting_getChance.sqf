@@ -10,7 +10,8 @@ private _dist = _lookAt distance _lookFrom;
 // Out of sight distance
 if (_dist > FUPS_targeting_maxRange) exitWith {0};
 // No line of sight
-if !(lineIntersectsSurfaces [getPosASL _lookFrom,getPosASL _lookAt] isEqualTo []) exitWith {0};
+if !(lineIntersectsSurfaces [eyePos _lookFrom,eyePos _lookAt] isEqualTo []) exitWith {0};
+// --- ToDo: maybe add "VIEW" and "GEOM" LODs
 // Is diving
 if (getPosASL _lookAt select 2 < 0) exitWith {0};
 
