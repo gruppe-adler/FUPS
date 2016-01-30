@@ -5,7 +5,7 @@
 	PARAMS:
 		0 <ARRAY FORMAT POSITION> - position to spawn
 		1 <STRING> - marker to patrol in
-		2 <SCALAR ARRAY> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
+		2 <<SCALAR/ARRAY> ARRAY/OBJECT> - array filled with indexes of units to spawn, multiple occurrents of the same index possible
 		@optional 3 <ARRAY> - additional parameters for FUPS initialization
 		@optional 4 <BOOLEAN> - false to suppress FUPS initialization
 		@optional 5 <SCALAR> - duration to sleep between each unit spawn
@@ -30,11 +30,17 @@ private _toSpawn = [];
 switch (typeName _templates) do {
 	case ("ARRAY"): {
 		{
-			if (_count > _x && { !isNil { FUPS_templates select _x } }) then {
-				_toSpawn pushBack (FUPS_templates select _x);
-			}
-			else {
-				[["Fatal Error: Template %1 not found",_x],true,true,true] call FUPS_fnc_log;
+			switch (typeName _x) do {
+				case ("NUMBER"): {
+					if (_count > _x && { !isNil { FUPS_templates select _x } }) then {
+						_toSpawn pushBack (FUPS_templates select _x);
+					} else {
+						[["Fatal Error: Template %1 not found",_x],true,true,true] call FUPS_fnc_log;
+					};
+				};
+				case ("ARRAY"): {
+					_toSpawn pushBack _x;
+				};
 			};
 		} forEach _templates;
 	};
