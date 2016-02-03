@@ -48,9 +48,9 @@ if (count FUPS_oefGroups_toDelete > 0) then {
 {
 	private _side = side _x;
 	// refill the enemie arrays
-	if (west getFriend _side < 0.6) then {FUPS_enemies_west pushBack _x};
-	if (east getFriend _side < 0.6) then {FUPS_enemies_east pushBack _x};
-	if (independent getFriend _side < 0.6) then {FUPS_enemies_guer pushBack _x};
+	if (west getFriend _side < 0.6 && count units _x > 0) then {FUPS_enemies_west pushBack _x};
+	if (east getFriend _side < 0.6 && count units _x > 0) then {FUPS_enemies_east pushBack _x};
+	if (independent getFriend _side < 0.6 && count units _x > 0) then {FUPS_enemies_guer pushBack _x};
 } forEach allGroups;
 
 if (count FUPS_oefGroups_toAdd > 0) then {
