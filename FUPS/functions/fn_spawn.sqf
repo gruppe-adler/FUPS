@@ -31,7 +31,7 @@ switch (typeName _templates) do {
 	case ("ARRAY"): {
 		{
 			switch (typeName _x) do {
-				case ("NUMBER"): {
+				case ("SCALAR"): {
 					if (_count > _x && { !isNil { FUPS_templates select _x } }) then {
 						_toSpawn pushBack (FUPS_templates select _x);
 					} else {
