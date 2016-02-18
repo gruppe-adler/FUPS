@@ -352,7 +352,7 @@ if (_panic >= FUPS_panic_isPanickedThreshold) then {
 	_skipActionChance = FUPS_panic_skipAction_nervous;
 }};
 
-if (random 1 < 1 - _skipActionChance) then {
+if (random 1 < (1 - _skipActionChance)) then {
 	_params call (missionnamespace getVariable _task);
 };
 
