@@ -88,10 +88,11 @@ private _vehicle = _settings select 7;
 _group setVariable ["FUPS_vehicle",_vehicle];
 */
 
-private _randomSpawn = _settings select 8;
+// --- ToDo
+/*private _randomSpawn = _settings select 8;
 if (_randomSpawn) then {
-	[_group,_vehicles] call FUPS_fnc_randomSpawn;
-};
+	[_group,([_group] call FUPS_fnc_groupVehicles)] call FUPS_fnc_randomSpawn;
+};*/
 
 private _simulation = _settings select 9;
 _group setVariable ["FUPS_simulation",{true}];

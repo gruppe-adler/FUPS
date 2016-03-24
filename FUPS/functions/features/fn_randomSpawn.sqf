@@ -13,11 +13,14 @@
 
 */
 
+throw "Not implemented";
+
 #include "..\..\header\header.hpp"
 
 params ["_group","_vehicles"];
 
 private _type = [_group] call FUPS_fnc_ai_type;
+private _area = _group getVariable "FUPS_marker";
 
 switch (_type) do {
 	case (0): { // infantry

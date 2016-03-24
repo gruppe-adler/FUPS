@@ -16,7 +16,6 @@ switch _mode do {
 		} else {
 			private _holdPos = (selectBestPlaces [_currpos,20,"hills + forest + trees - meadow",5,1]) select 0 select 0;
 			_group move _holdPos;
-			systemChat str _holdPos;
 
 			_group setVariable ["FUPS_movePos",_holdPos];
 		};
