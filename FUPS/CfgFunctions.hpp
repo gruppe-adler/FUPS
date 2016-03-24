@@ -1,5 +1,5 @@
 class FUPS {
-	version = "v2.2.26";
+	version = "v2.2.27";
 
 	class api {
 		file = "FUPS\functions\api";
