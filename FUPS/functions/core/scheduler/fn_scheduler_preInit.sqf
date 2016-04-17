@@ -5,7 +5,7 @@
 	PARAMS:
 		NONE
 
-	RETURN VALUE;
+	RETURNS:
 		NONE
 
 	AUTHOR: [W] Fett_Li

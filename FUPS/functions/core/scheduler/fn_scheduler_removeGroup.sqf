@@ -6,7 +6,7 @@
 		0 <GROUP>
 			- group to be removed
 
-	RETURN VALUE:
+	RETURNS:
 		NONE
 
 	AUTHOR: [W] Fett_Li

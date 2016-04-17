@@ -12,7 +12,7 @@
 		2 <BOOLEAN> @optional default: false
 			- true if the function should be executed only once.
 
-	RETURN VALUE:
+	RETURNS:
 		NONE
 
 	AUTHOR: [W] Fett_Li

@@ -8,7 +8,7 @@
 		0 <GROUP>
 			- group to be scheduled
 
-	RETURN VALUE:
+	RETURNS:
 		NONE
 
 	AUTHOR: [W] Fett_Li

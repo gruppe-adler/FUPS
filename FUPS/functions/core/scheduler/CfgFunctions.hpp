@@ -1,5 +1,5 @@
 class scheduler {
-	file = "FUPS\core\scheduler";
+	file = "FUPS\functions\core\scheduler";
 	class scheduler_addGroup {};
 	class scheduler_addOverheadFunction {};
 	class scheduler_main {};
