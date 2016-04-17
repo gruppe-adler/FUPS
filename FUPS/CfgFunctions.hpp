@@ -64,7 +64,6 @@ class FUPS {
 		class addEventHandler {};
 		class do {};
 		class main {};
-		class mainHandler {};
 		class preInit { preInit = 1; };
 		class registerTask {};
 		class reinforcement {};
@@ -94,7 +93,6 @@ class FUPS {
 		class getParams {};
 		class getWaypoints {};
 		class groupVehicles {};
-		class mainHandlerOverhead {};
 	};
 	class panic {
 		file = "FUPS\functions\panic";
