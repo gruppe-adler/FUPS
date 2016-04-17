@@ -206,3 +206,4 @@ if (FUPS_panic_enabled) then {
 
 ["Adding",false,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;
+// ToDo: do this in scheduler

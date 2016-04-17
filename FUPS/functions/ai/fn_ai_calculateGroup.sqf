@@ -1,31 +1,24 @@
 /*
 
-	Will be executed on each frame. Calculates all FUPS groups frame by frame.
-	After having calculated all groups it will do some overhead work.
-
-	DON'T CALL THIS FUNCTION BY HAND AS IT WILL CLASH WITH NORMAL FUPS CALCULATION!
+	Calculates the low level ai for a group.
+	Group must be initialized with FUPS.
 
 	PARAMS:
-		-
+		0 <GROUP> - group to be calculated
 
-	RETURN:
-		-
+	RETURNS:
+		NONE
 
 	AUTHOR: [W] Fett_Li
 
 */
 
-#include "..\header\header.hpp"
+#include "macros.hpp"
 
-// clock pulse tracking
-FUPS_oefIndex = FUPS_oefIndex + 1;
-// Will be executed after all groups have been calculated
-if (FUPS_oefIndex == count FUPS_oefGroups) exitWith
-	FUPS_fnc_mainHandlerOverhead;
+params ["_group"];
 
-private _group = FUPS_oefGroups select FUPS_oefIndex;
-if (isNull _group || units _group isEqualTo []) exitWith {
-	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
+if (units _group isEqualTo []) exitWith {
+	// ToDo: delete group
 };
 
 private _side = side _group;
@@ -59,7 +52,7 @@ private _groupdamage = 0;
 _groupdamage = _groupdamage + ((_group getVariable "FUPS_members") - _membersCount);
 
 if (_groupdamage == _membersCount) exitWith {
-	FUPS_oefGroups_toDelete pushBack FUPS_oefIndex;
+	// ToDo: delete group
 };
 
 _combatStrength = 1 - (_groupdamage / _membersCount);

@@ -3,10 +3,10 @@
 	This function will be called after all group calculations and does some overhead calculations.
 
 	PARAMS:
-		-
+		NONE
 
-	RETURN:
-		nil
+	RETURNS:
+		NONE
 
 	AUTHOR: [W] Fett_Li
 
@@ -14,23 +14,9 @@
 
 #include "..\..\header\header.hpp"
 
-FUPS_oefIndex = -1;
 FUPS_oefClockPulse = FUPS_oefClockPulse + 1;
 FUPS_cycleTime = (count FUPS_oefGroups + 1) / diag_fps;
 // [["FUPS needs %1s to cycle through all groups",FUPS_cycleTime],true,false,ENVIROMENT_LOG] call FUPS_fnc_log;
-
-// delete groups
-if (count FUPS_oefGroups_toDelete > 0) then {
-	// Remove duplicates
-	FUPS_oefGroups_toDelete = FUPS_oefGroups_toDelete arrayIntersect FUPS_oefGroups_toDelete;
-
-	// Sort descending
-	FUPS_oefGroups_toDelete sort false;
-	{
-		FUPS_oefGroups deleteAt _x;
-	} foreach FUPS_oefGroups_toDelete;
-	FUPS_oefGroups_toDelete = [];
-};
 
 // re-calculate all groups
 {
@@ -52,11 +38,6 @@ if (count FUPS_oefGroups_toDelete > 0) then {
 	if (east getFriend _side < 0.6 && count units _x > 0) then {FUPS_enemies_east pushBack _x};
 	if (independent getFriend _side < 0.6 && count units _x > 0) then {FUPS_enemies_guer pushBack _x};
 } forEach allGroups;
-
-if (count FUPS_oefGroups_toAdd > 0) then {
-	FUPS_oefGroups append FUPS_oefGroups_toAdd;
-	FUPS_oefGroups_toAdd = [];
-};
 
 FUPS_players = [];
 if (isMultiplayer) then {
