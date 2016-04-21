@@ -79,7 +79,10 @@ private _spawned = []; // saves spawned leaders
 			(commander _veh) setSkill _skill;
 			(crew _veh) joinSilent _grp;
 		};
-		if (_sleepTime > 0) then {sleep _sleepTime};
+
+		if (canSuspend) then {
+			sleep _sleepTime;
+		};
 	} forEach _units;
 
 	// init the new group
