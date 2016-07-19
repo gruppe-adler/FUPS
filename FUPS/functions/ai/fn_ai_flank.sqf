@@ -1,5 +1,4 @@
 params ["_args", ["_leader",objNull,[objNull]], ["_flankPos",[],[[]],[3]]];
-if (isNil "_args" || {!(_args isEqualType [])}) throw "IllegalArgumentsException";
 
 _flankPos set [2, 0];
 _args set [0, _leader];
