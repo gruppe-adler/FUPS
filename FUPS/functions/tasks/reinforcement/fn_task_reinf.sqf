@@ -12,7 +12,7 @@ switch _mode do {
 
 		_params = _group getVariable "FUPS_reinfInfo";
 		_params params ["_areainfo","_stayInArea","_combinedGroups","_targets"];
-		AREA_PARAMS(_areainfo); // _origin, _mindist, _xAxis, _yAxis, _dir
+		_areainfo params ["_origin","_mindist","_yAxis","_xAxis","_dir"];
 
 		if (_stayInArea) then {
 			[_group,_areainfo] call FUPS_fnc_setPatrolMarker;

@@ -18,10 +18,9 @@
 params [["_group",grpNull,[grpNull]],["_pos",[0,0,0],[[]],[2,3]]];
 
 private _area = _group getVariable "FUPS_marker";
-if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
-AREA_PARAMS(_area); // _origin, _mindist, _xAxis, _yAxis, _dir
+_area params ["_origin","_mindist","_yAxis","_xAxis","_dir"];
 
-if ([_pos,_area] call FUPS_fnc_posInMarker) exitWith { _pos };
+if ([_area,_pos] call FUPS_fnc_posInArea) exitWith { _pos };
 
 private _posDir		= acos (([0,1,0]) vectorCos (_pos vectorDiff _origin));
 private _rotX		= [_origin,vectorMagnitude _xVector,90] call FUPS_fnc_relPos;

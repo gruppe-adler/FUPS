@@ -15,9 +15,10 @@
 
 #include "..\..\header\header.hpp"
 
-params [["_group",grpNull,[grpNull]],["_area",AREA_VAL,[AREA_VAL]]];
-if (_area isEqualTo AREA_VAL) then { _area = _group getVariable "FUPS_marker" };
-if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
+params [["_group",grpNull,[grpNull]],["_area",[],[[]],5]];
+if (_area isEqualTo []) then {
+	_area = _group getVariable "FUPS_marker";
+};
 
 private _type = [_group] call FUPS_fnc_ai_type;
 private _allowWater = [0,0,2,1] select _type;

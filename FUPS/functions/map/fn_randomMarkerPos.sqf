@@ -20,9 +20,8 @@
 
 #include "..\..\header\header.hpp"
 
-params [["_group",grpNull,[grpNull]],["_freeRadius",0,[0]],["_water",0,[0]],["_area",AREA_VAL,[AREA_VAL]]];
-if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
-AREA_PARAMS(_area); // _origin, _mindist, _xAxis, _yAxis, _dir
+params [["_group",grpNull,[grpNull]],["_freeRadius",0,[0]],["_water",0,[0]],["_area",[],[[]],5]];
+_area params ["_origin","_mindist","_yAxis","_xAxis","_dir"];
 
 // for _water: 0 - no water, 1 - force water, 2 - don't care
 private _waterCondition = [{!surfaceIsWater _pos},{surfaceIsWater _pos},{true}] select _water;

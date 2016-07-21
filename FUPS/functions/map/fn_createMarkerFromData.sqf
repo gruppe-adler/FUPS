@@ -15,9 +15,8 @@
 
 #include "..\..\header\header.hpp"
 
-params [["_area",AREA_VAL,[AREA_VAL]],["_invisible",true,[false]]];
-if !AREA_VALID(_area) throw ILLEGALARGUMENTSEXCEPTION;
-AREA_PARAMS(_area); // _origin, _mindist, _xAxis, _yAxis, _dir
+params [["_area",[],[[]],5],["_invisible",true,[false]]];
+_area params ["_origin","_mindist","_yAxis","_xAxis","_dir"];
 
 _origin = _origin vectorAdd (_xAxis vectorMultiply 0.5) vectorAdd (_yAxis vectorMultiply 0.5);
 

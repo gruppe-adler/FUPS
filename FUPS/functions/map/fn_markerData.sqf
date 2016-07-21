@@ -51,12 +51,4 @@ private _pos = _pos vectorAdd ((_vectorY vectorMultiply -0.5) vectorAdd (_vector
 
 private _mindist = ((vectorMagnitude (_vectorY vectorAdd _vectorX)) / 4) min 200;
 
-// Create struct from data
-private _area = AREA_NEW();
-AREA_SET_ORIGIN(_area,_pos);
-AREA_SET_MINDIST(_area,_mindist);
-AREA_SET_XAXIS(_area,_vectorX);
-AREA_SET_YAXIS(_area,_vectorY);
-AREA_SET_DIR(_area,_dir);
-
-_area
+[_pos,_mindist,_vectorY,_vectorX,_dir]

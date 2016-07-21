@@ -60,10 +60,4 @@ private _xAxis	= [0,1,0] vectorMultiply (2*_sizeB);
 private _origin		= (_centerpos vectorAdd (_yAxis vectorMultiply -0.5)) vectorAdd (_xAxis vectorMultiply -0.5);
 _mindist		= (vectorMagnitude (_yAxis vectorAdd _xAxis)) / 4;
 
-private _area = AREA_NEW();
-AREA_SET_ORIGIN(_area,_origin);
-AREA_SET_MINDIST(_area,_mindist);
-AREA_SET_XAXIS(_area,_xAxis);
-AREA_SET_YAXIS(_area,_yAxis);
-
-_area
+[_origin,_mindist,_xAxis,_yAxis,0];

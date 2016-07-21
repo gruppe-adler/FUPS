@@ -82,7 +82,7 @@ class FUPS {
 		class isSurrounded {};
 		class markerData {};
 		class nearestBuilding {};
-		class posInMarker {};
+		class posInArea {};
 		class randomMarkerPos {};
 		class relpos {};
 		class stayInside {};

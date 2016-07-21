@@ -15,8 +15,8 @@
 
 #include "..\..\header\header.hpp"
 
-params [["_group",grpNull,[grpNull]],["_marker","",["",[]]]];
-if (_marker isEqualTo "" || (_marker isEqualType [] && {!AREA_VALID(_marker)})) throw ILLEGALARGUMENTSEXCEPTION;
+params [["_group",grpNull,[grpNull]],["_marker","",["",[]],5]];
+if (_marker isEqualTo "") throw ILLEGALARGUMENTSEXCEPTION;
 
 if (_marker isEqualType "") then {
 	_marker = [_marker] call FUPS_fnc_markerData;
