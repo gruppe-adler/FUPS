@@ -24,9 +24,9 @@ while {isNull _group} do {
 	_group = FUPS_scheduler_groupQueue deleteAt 0;
 };
 
-// Since _group isNil FUPS_scheduler_groupQueue must be empty
+// If _group isNil FUPS_scheduler_groupQueue must be empty
 if (isNil "_group") exitWith {
-	// Array assigning is no problem because if pointer usage
+	// Array assigning is no problem because of pointer usage
 	FUPS_scheduler_groupQueue = FUPS_scheduler_enqueued;
 	FUPS_scheduler_groupEnqueued = [];
 
@@ -48,4 +48,13 @@ if (isNil "_group") exitWith {
 
 FUPS_scheduler_groupEnqueued pushBack _group;
 
-[_group] call FUPS_fnc_ai_calculateGroup; // ToDo
+private _clockPulse = _group getVariable ["FUPS_clockPulse", 1];
+_group setVariable ["FUPS_clockPulse", _clockPulse + 1];
+
+{
+	if (_clockPulse mod (_forEachIndex + 1) == 0) then {
+		{
+			[_group] call _x;
+		} forEach _x;
+	};
+} forEach FUPS_scheduler_groupScripts;

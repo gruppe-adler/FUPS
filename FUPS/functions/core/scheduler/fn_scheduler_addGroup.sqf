@@ -19,10 +19,11 @@
 
 params [["_group",grpNull,[grpNull]]];
 
+if (FUPS_scheduler_oefID == -1) then {
+	FUPS_scheduler_oefID = [FUPS_fnc_scheduler_main,0,[]] call CBA_fnc_addPerFrameHandler;
+};
+
 [{
-	params [["_group",grpNull,[grpNull]]];
-	FUPS_scheduler_groupQueue pushbackUnique _group;
+	FUPS_scheduler_groupQueue pushbackUnique _this;
 
-},[_group],true] call FUPS_fnc_scheduler_addOverheadFunction;
-
-nil
+},_group,true] call FUPS_fnc_scheduler_addOverheadFunction;

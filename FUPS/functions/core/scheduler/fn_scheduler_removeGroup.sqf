@@ -18,9 +18,8 @@
 params [["_group",grpNull,[grpNull]]];
 
 [{
-	params [["_group",grpNull,[grpNull]]];
-	FUPS_scheduler_groupQueue deleteAt (FUPS_scheduler_groupQueue find _group);
+	FUPS_scheduler_groupQueue deleteAt (FUPS_scheduler_groupQueue find _this);
 
-},[_group],true] call FUPS_fnc_scheduler_addOverheadFunction;
+},_group,true] call FUPS_fnc_scheduler_addOverheadFunction;
 
 nil
