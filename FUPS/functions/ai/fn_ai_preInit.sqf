@@ -12,16 +12,12 @@
 
 */
 
+FUPS_ai_oefClockPulse = 0;
+
 FUPS_reinforcements_east = [];
 FUPS_reinforcements_west = [];
 FUPS_reinforcements_guer = [];
 FUPS_reinforcements = [FUPS_reinforcements_west,FUPS_reinforcements_east,FUPS_reinforcements_guer];
-
-// OnEachFrame handler variables
-FUPS_oefGroups = [];
-FUPS_oefGroups_toAdd = [];
-FUPS_oefGroups_toDelete = [];
-FUPS_oefClockPulse = 0;
 
 // initialize global arrays
 FUPS_enemies_west = [];

@@ -9,7 +9,7 @@
 		1 <SCALAR> @optional default: 1
 			- Integer number symbolizing the cycle size. For example: value of 2 would lead to the script being calculated every 2 loops.
 		2 <SCALAR> @optional default: 0
-			- Priority of the script. The script will be executed before each script that has a lower priority.
+			- Priority of the script. The script will be executed before each script that has a higher priority.
 
 	RETURNS:
 		True iff adding was successful. False otherwise.

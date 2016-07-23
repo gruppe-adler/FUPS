@@ -6,4 +6,7 @@ class ai {
 	class ai_overhead {};
 	class ai_postInit {};
 	class ai_preInit {};
+	class ai_scanEnemies {};
+	class ai_simulation {};
+	class ai_updateStatus {};
 };

@@ -54,21 +54,18 @@ FUPS_scheduler_groupEnqueued pushBack _group;
 private _clockPulse = _group getVariable ["FUPS_clockPulse", 1];
 _group setVariable ["FUPS_clockPulse", _clockPulse + 1];
 
-// Loop scripts backwards in order to exec higher priority first
-for "_priority" from (count FUPS_scheduler_groupScripts - 1) to 0 do {
-
-	private _priorityScripts = FUPS_scheduler_groupScripts select _priority;
-	if (!isNil "_priorityScripts") then {
+{
+	if (!isNil "_x") then {
 		// Execute scripts only that should be executed in this loop
 		{ // forEach
 			if (_clockPulse mod (_forEachIndex + 1) == 0) then {
 				{
 					private _carryOn = [_group] call _x;
-					if (!_carryOn) then {
+					if (_carryOn isEqualTo false) then {
 						breakOut "main";
 					};
 				} forEach _x;
 			};
-		} forEach _priorityScripts;
+		} forEach _x;
 	};
-};
+} forEach FUPS_scheduler_groupScripts;
