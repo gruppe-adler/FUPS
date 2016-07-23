@@ -9,7 +9,6 @@
 params ["_targets","_areas","_units"];
 
 private _assignedTargets = (_units apply { _x getVariable "FUPS_ai_target"; }) - [objNull];
-private _targets = _targets - _assignedTargets;
 
 private _unitsWithNearest = [];
 private _unitsUnderThreat = [];
@@ -31,6 +30,7 @@ private _unitsUnderThreat = [];
 
 _unitsWithNearest sort ASCENDING;
 
+private _unassignedUnits = [];
 { // forEach
 	private _targetToAssign = objNull;
 	{
@@ -41,6 +41,8 @@ _unitsWithNearest sort ASCENDING;
 	} forEach (_x getVariable "FUPS_ai_targets");
 
 	if (!isNull _targetToAssign) then {
-
+		_x setVariable ["FUPS_ai_target", _targetToAssign];
+	} else {
+		_unassignedUnits pushBack _x;
 	};
 } forEach (_unitsWithNearest apply { _x select 0 });

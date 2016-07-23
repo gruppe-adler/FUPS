@@ -1,4 +1,5 @@
-#include "..\..\header\header.hpp"
+
+#include "macros.hpp"
 
 params ["_vehicle","_weapon","_muzzle","_mode","_ammo"];
 
