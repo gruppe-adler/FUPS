@@ -20,4 +20,6 @@ _group setVariable ["FUPS_ai_gotHit", _groupdamage > (_group getVariable "FUPS_l
 _group setVariable ["FUPS_ai_lastDamage", _groupdamage];
 _group getVariable ["FUPS_ai_weakened", _combatStrength < FUPS_damageToRetreat];
 
+// TODO: use getSuppression
+
 true

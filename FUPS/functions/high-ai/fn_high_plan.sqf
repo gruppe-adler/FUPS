@@ -31,7 +31,7 @@ private _unitsUnderThreat = [];
 
 _unitsWithNearest sort ASCENDING;
 
-{
+{ // forEach
 	private _targetToAssign = objNull;
 	{
 		_x params ["_target", "_dist"];

@@ -31,10 +31,6 @@ class FUPS {
 		file = "FUPS\functions\tasks\getOutOfWater";
 		class task_getOutOfWater {};
 	};
-	class hearing {
-		file = "FUPS\functions\hearing";
-		class hearing_eh {};
-	};
 	class hold {
 		file = "FUPS\functions\tasks\hold";
 		class task_hold_air {};
@@ -46,6 +42,7 @@ class FUPS {
 		file = "FUPS\functions\information";
 		class ai_type {};
 		class ai_type_init {};
+		class fears {};
 		class g_centerPos {};
 		class g_centerPos_get {};
 		class g_centerPos_init {};
@@ -54,6 +51,9 @@ class FUPS {
 		class g_type_init {};
 		class g_weapons {};
 		class g_weapons_init {};
+		class getUniformCamo {};
+		class getUnitStance {};
+		class isEffective {};
 		class v_type {};
 		class v_type_init {};
 		class v_weapons {};
@@ -118,16 +118,5 @@ class FUPS {
 		class settings_hearing { file = "FUPS\settings_hearing.sqf"; preInit = 1; };
 		class settings_panic { file = "FUPS\settings_panic.sqf"; preInit = 1; };
 		class settings_targeting { file = "FUPS\settings_targeting.sqf"; preInit = 1; };
-	};
-	class targeting {
-		file = "FUPS\functions\targeting";
-		class fears {};
-		class getUniformCamo {};
-		class getUnitStance {};
-		class isEffective {};
-		class targeting_getChance {};
-		class targeting_getMapValue {};
-		class targeting_getThreshold {};
-		class targeting_increaseThreshold {};
 	};
 };

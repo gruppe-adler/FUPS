@@ -1,4 +1,5 @@
-#include "..\..\header\header.hpp"
+
+#include "macros.hpp"
 
 params [["_lookAt",objNull,[objNull]],["_lookFrom",objNull,[objNull]]];
 
@@ -15,12 +16,12 @@ if !(lineIntersectsSurfaces [eyePos _lookFrom,eyePos _lookAt] isEqualTo []) exit
 // Is diving
 if (getPosASL _lookAt select 2 < 0) exitWith {0};
 
-private _reveal = linearConversion [FUPS_targeting_hide_increaseThreshold,FUPS_targeting_maxRange,_dist,FUPS_targeting_base,FUPS_targeting_base * 1.66,true];
+private _reveal = linearConversion [FUPS_targeting_hide_increaseThreshold, FUPS_targeting_maxRange, _dist, FUPS_targeting_base, FUPS_targeting_base * 1.66, true];
 
 // Multiply revealchance in relation to moving angle and speed
 private _speed = vectorMagnitude velocity _lookAt;
 if (_speed > 1.4) then { // Speed has to be more than walking
-	_reveal = FUPS_targeting_time_moving * linearConversion [1,4,_speed,1,1/3,true];
+	_reveal = FUPS_targeting_time_moving * linearConversion [1, 4, _speed, 1, 1/3, true];
 };
 
 private _stance = [_lookAt] call FUPS_fnc_getUnitStace;
@@ -40,4 +41,4 @@ if ([_lookAt] call FUPS_fnc_inTown) then {
 _reveal = _reveal min FUPS_targeting_maxTime;
 _reveal = FUPS_cycleTime / _reveal;
 
-(([group _lookFrom,group _lookAt,(_reveal max 0)] call FUPS_fnc_targeting_getThreshold) - 1) max 0 min 1.33
+0 max (([group _lookFrom, group _lookAt, (_reveal max 0)] call FUPS_fnc_targeting_getThreshold) - 1) min 1.33
