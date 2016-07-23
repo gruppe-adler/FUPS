@@ -23,7 +23,10 @@ if (FUPS_scheduler_oefID == -1) then {
 	FUPS_scheduler_oefID = [FUPS_fnc_scheduler_main,0,[]] call CBA_fnc_addPerFrameHandler;
 };
 
+{
+	[_group] call _x;
+} forEach FUPS_scheduler_initScripts;
+
 [{
 	FUPS_scheduler_groupQueue pushbackUnique _this;
-
 },_group,true] call FUPS_fnc_scheduler_addOverheadFunction;
