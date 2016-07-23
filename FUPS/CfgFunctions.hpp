@@ -2,8 +2,7 @@ class FUPS {
 	version = "v2.3.0";
 
 	#include "ai\CfgFunctions.hpp"
-	#include "core\scheduler\CfgFunctions.hpp"
-	#include "core\scheduler\CfgFunctions.hpp"
+	#include "core\CfgFunctions.hpp"
 	#include "hearing\CfgFunctions.hpp"
 	#include "high-ai\CfgFunctions.hpp"
 	#include "simulation\CfgFunctions.hpp"

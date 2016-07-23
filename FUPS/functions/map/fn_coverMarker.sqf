@@ -19,7 +19,7 @@
 params [["_targets",[],[[]]],["_minSize",50,[0]]];
 
 private _positions = [];
-{
+{ // forEach
 	switch (typeName _x) do {
 		case (typeName []): {
 			_positions pushBack _x;
