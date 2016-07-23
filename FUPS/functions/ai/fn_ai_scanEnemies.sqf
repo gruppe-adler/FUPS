@@ -44,11 +44,11 @@ private _shareNext = FUPS_share select _sideIndex;
 			(_x getVariable ["FUPS_firedLast",[-1,0]]) params ["_firedAt","_soundDistance"];
 			if (_firedAt + FUPS_cycleTime + 0.01 > time && _soundDistance <= _dist) then {
 				private _reveal = linearConversion [_soundDistance / 2,_soundDistance,_dist,FUPS_hearing_shotRevealMax,FUPS_hearing_shotRevealMin,true];
-				_group reveal [leader _x,_reveal];
+				_group reveal [leader _x, _reveal];
 				_maxKnowledge = _reveal;
 
 				if (FUPS_targeting_enabled) then {
-					[_group,_x,0.90] call FUPS_fnc_targeting_increaseThreshold;
+					[_group, _x, 0.90] call FUPS_fnc_targeting_increaseThreshold;
 				};
 			};
 		};
@@ -67,17 +67,20 @@ private _shareNext = FUPS_share select _sideIndex;
 
 		// Even the groups enenmy knowledge
 		{
-			_group reveal [_x,_maxKnowledge];
+			_group reveal [_x, _maxKnowledge];
 		} forEach (units _x);
 
 		// Do the actual "this group was spotted"-stuff
 		if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
 			_knowsAny = true;
 
-			if (_dist < 150) then {_nearEnemies pushBack _x};
+			if (_dist < 150) then {
+				_nearEnemies pushBack [_x, _dist];
+			};
 
 			_x setVariable ["FUPS_revealedAt",time];
-			_enemies pushBack _x;
+			_enemies pushBack [_x, _dist];
+
 			if (_group getVariable "FUPS_doShare") then {
 				_shareNext pushBack _x;
 			};
@@ -87,7 +90,7 @@ private _shareNext = FUPS_share select _sideIndex;
 			};
 
 			if ([_group,_x] call FUPS_fnc_isEffective) then {
-				_targets pushBack _x;
+				_targets pushBack [_x, _dist];
 			} else {
 				if ([_group,_x] call FUPS_fnc_fears) then {
 					_fears pushBack _x;
@@ -125,10 +128,14 @@ private _shareNext = FUPS_share select _sideIndex;
 } forEach (_askedForSupport - _fears);
 
 _group setVariable ["FUPS_ai_knowsAny", _knowsAny];
+_targets sort ASCENDING;
 _group setVariable ["FUPS_ai_targets", _targets];
+_group setVariable ["FUPS_ai_nearestTarget", _nearestTarget select 0];
 _group setVariable ["FUPS_ai_directions", _directions];
+_enemies sort ASCENDING;
 _group setVariable ["FUPS_ai_enemies", _enemies];
 _group setVariable ["FUPS_ai_nearEnemies", _nearEnemies];
+_group setVariable ["FUPS_ai_nearestEnemy", _nearestEnemy select 0];
 _group setVariable ["FUPS_ai_fears", _fears];
 _group setVariable ["FUPS_ai_theyGotUs", _theyGotUs];
 _group setVariable ["FUPS_ai_surrounded", _directions call FUPS_fnc_isSurrounded];
