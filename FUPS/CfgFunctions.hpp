@@ -93,6 +93,7 @@ class FUPS {
 		class getParams {};
 		class getWaypoints {};
 		class groupVehicles {};
+		class selectOrEnlarge {};
 	};
 	class panic {
 		file = "FUPS\functions\panic";
