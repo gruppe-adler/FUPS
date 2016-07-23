@@ -28,51 +28,7 @@ private _currpos = getPosATL _leader;
 _currpos set [2,0];
 
 // re-evaluate current target
-private _target = _group getVariable "FUPS_target";
-private _target_val = 0;
-private _target_dist = 10000;
-if !(isNull _target) then {
-	_target_val = count (_target getVariable ["FUPS_supportFor",[]]);
-	_target_dist = _leader distance leader _target;
-};
-
-private _nearestTarget = grpNull;
-private _nearestTarget_dist = 10000;
-private _nearestTarget_val = 10000;
-private _mostDangerousTarget = grpNull;
-private _mostDangerousTarget_val = 0;
-private _mostDangerousTarget_dist = 10000;
-{ // foreach
-	private _dist = _leader distance leader _x;
-	private _val = count (_x getVariable ["FUPS_supportFor",[]]);
-
-	// nearest Target
-	if (_dist < _nearestTarget_dist) then {
-		_nearestTarget = _x;
-		_nearestTarget_dist = _dist;
-		_nearestTarget_val = _val;
-	};
-
-	// most dangerous Target
-	if (_val > _mostDangerousTarget_val) then {
-		_mostDangerousTarget = _x;
-		_mostDangerousTarget_val = _val;
-		_mostDangerousTarget_dist = _dist;
-	} else {
-		if (_val == _mostDangerousTarget_val && _dist < _mostDangerousTarget_dist) then {
-			_mostDangerousTarget = _x;
-			_mostDangerousTarget_val = _val;
-			_mostDangerousTarget_dist = _dist;
-		};
-	};
-} forEach _targets;
-
-// get the target
-_target = _nearestTarget;
-if (_mostDangerousTarget_dist - _nearestTarget_dist < 150) then {
-	_target = _mostDangerousTarget;
-};
-_group setVariable ["FUPS_target",_target];
+private _target = _group getVariable "FUPS_ai_target";
 
 private _task			= "";
 private _curTask		= _group getVariable "FUPS_task";

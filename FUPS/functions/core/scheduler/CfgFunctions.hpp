@@ -1,4 +1,4 @@
-class scheduler {
+class core_scheduler {
 	file = "FUPS\functions\core\scheduler";
 	class scheduler_addGroup {};
 	class scheduler_addOverheadFunction {};

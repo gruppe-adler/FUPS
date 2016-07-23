@@ -21,3 +21,5 @@ _group setVariable ["FUPS_ai_fears", []];
 _group setVariable ["FUPS_ai_theyGotUs", false];
 _group setVariable ["FUPS_ai_surrounded", false];
 _group setVariable ["FUPS_ai_headsdown", false];
+
+_group setVariable ["FUPS_ai_target", objNull];

@@ -1,5 +1,13 @@
 class FUPS {
-	version = "v2.2.27";
+	version = "v2.3.0";
+
+	#include "ai\CfgFunctions.hpp"
+	#include "core\scheduler\CfgFunctions.hpp"
+	#include "core\scheduler\CfgFunctions.hpp"
+	#include "hearing\CfgFunctions.hpp"
+	#include "high-ai\CfgFunctions.hpp"
+	#include "simulation\CfgFunctions.hpp"
+	#include "targeting\CfgFunctions.hpp"
 
 	class api {
 		file = "FUPS\functions\api";
@@ -15,11 +23,6 @@ class FUPS {
 		class task_attack_man {};
 		class task_attack_ship {};
 		class task_attack_vehicle {};
-	};
-	class enviroment {
-		file = "FUPS\functions\enviroment";
-		class log {};
-		class simulation {};
 	};
 	class features {
 		file = "FUPS\functions\features";

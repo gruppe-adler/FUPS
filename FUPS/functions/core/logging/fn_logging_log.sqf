@@ -19,7 +19,7 @@
 
 */
 
-#include "..\..\header\header.hpp"
+#include "macros.hpp"
 
 params [["_str","",["",[]]],["_format",true,[true]],["_notification",false,[true]],["_log",FUPS_log,[true,0]]];
 _log = FUPS_log || (_log isEqualTo true) || (_log isEqualType 0 && {_log >= 0 && FUPS_logLevels param [_log,false]});

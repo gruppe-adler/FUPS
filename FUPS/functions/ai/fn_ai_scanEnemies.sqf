@@ -27,7 +27,6 @@ if (_group getVariable "FUPS_doSupport") then {
 };
 
 private _askedForSupport = _group getVariable "FUPS_askedForSupport";
-private _shareNext = FUPS_share select _sideIndex;
 { // foreach
 	if !(isNull _x || units _x isEqualTo []) then {
 
@@ -35,12 +34,12 @@ private _shareNext = FUPS_share select _sideIndex;
 
 		// How much does this group know the other?
 		private _maxKnowledge = 0;
-		{ // foreach
+		{ // forEach
 			_maxKnowledge = (_group knowsAbout _x) max _maxKnowledge;
 		} forEach (units _x);
 
 		// Even the groups enenmy knowledge
-		{
+		{ // forEach
 			_group reveal [_x, _maxKnowledge];
 		} forEach (units _x);
 
@@ -55,10 +54,6 @@ private _shareNext = FUPS_share select _sideIndex;
 			_x setVariable ["FUPS_revealedAt",time];
 			_enemies pushBack [_x, _dist];
 
-			if (_group getVariable "FUPS_doShare") then {
-				_shareNext pushBack _x;
-			};
-
 			if !([3] isEqualTo ([_x] call FUPS_fnc_g_type)) then {
 				_directions pushBack ([_currpos,getPosATL leader _x] call FUPS_fnc_getDir);
 			};
@@ -70,21 +65,17 @@ private _shareNext = FUPS_share select _sideIndex;
 					_fears pushBack _x;
 
 					// is this vehicle aimed at the group?
-					{ // foreach
+					{ // forEach
 						private _v = vehicle _x;
 						_theyGotUs = _theyGotUs || ({_v aimedAtTarget [_x] > 0.9} count _members > 0);
 					} forEach (units _x);
 				};
 			};
 		};
-		// --- ToDo: implement with new task system
-		/* else { if (_maxKnowledge >= 0) then {
-			// --- ToDo: reset patrol route
-		}};*/
 	} else {
 		[["Error: group %1 is null or empty - looping enemies",_x],true,false,ERROR_LOG] call FUPS_fnc_log;
 	};
-} forEach (FUPS_enemies select _sideIndex);
+} forEach (FUPS_enemies select _sideIndex); // TODO: use section
 
 _group setVariable ["FUPS_ai_knowsAny", _knowsAny];
 _targets sort ASCENDING;
