@@ -1,0 +1,13 @@
+
+#include "..\..\header\header.hpp"
+
+#define MIN_PANIC 0
+#define MAX_PANIC 10
+#define PANIC_THRESHOLD 1
+
+#define PANIC_DECREASE_RATE 0.0035
+
+#define PANIC_FROM_DAMAGE(X) (exp (ln 11 * X) - 1)
+#define PANIC_FROM_SUPPRESSION(X) (0.0872 * X^2)
+
+#define PANIC_FNC(DAMAGE,SUPPRESSION) (PANIC_FROM_DAMAGE(DAMAGE) + PANIC_FROM_SUPPRESSION(SUPPRESSION))
