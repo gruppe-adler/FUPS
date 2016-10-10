@@ -14,7 +14,6 @@ private _theyGotUs = false;
 private _shareNow = FUPS_shareNow select _sideIndex;
 
 // Get the current panic level
-[_group] call FUPS_fnc_lowerPanic;
 private _panic = _group getVariable ["FUPS_panic",0];
 
 // Reveal all shared enemies
@@ -33,10 +32,7 @@ private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 		private _dist = _leader distance leader _x;
 
 		// How much does this group know the other?
-		private _maxKnowledge = 0;
-		{ // forEach
-			_maxKnowledge = (_group knowsAbout _x) max _maxKnowledge;
-		} forEach (units _x);
+		private _maxKnowledge = REDUCE((units _x) apply {_group knowsAbout _x}, 0, max);
 
 		// Even the groups enenmy knowledge
 		{ // forEach

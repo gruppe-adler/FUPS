@@ -177,32 +177,5 @@ if (isNil {_group getVariable "FUPS_onTaskEhs"}) then {
 	_group setVariable ["FUPS_onTaskEhs",[]];
 };
 
-// Add panic eventhandlers
-if (FUPS_panic_enabled) then {
-	{
-		_x addEventHandler ["Killed",{
-			params ["_unit"];
-			[_unit,FUPS_panic_killed] call FUPS_fnc_raisePanic;
-		}];
-
-		_x addEventHandler ["Explosion",{
-			params ["_unit"];
-			[_unit,FUPS_panic_explosion] call FUPS_fnc_raisePanic;
-		}];
-
-		_x addEventHandler ["FiredNear",{
-			params ["_unit","_firer"];
-			if (_unit == leader _unit && side _firer getFriend side _unit < 0.6) then {
-				[_unit,FUPS_panic_firedNear] call FUPS_fnc_raisePanic;
-			};
-		}];
-
-		_x addEventHandler ["Hit",{
-			params ["_unit"];
-			[_unit,FUPS_panic_hit] call FUPS_fnc_raisePanic;
-		}];
-	} forEach (units _group);
-};
-
 ["Adding",false,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 [_group] call FUPS_fnc_scheduler_addGroup;

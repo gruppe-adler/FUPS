@@ -31,4 +31,3 @@ private _share = FUPS_share select (FUPS_sideOrder find _side);
 if !(_toReveal isEqualType []) exitWith {DOREVEAL(_toReveal)};
 
 { DOREVEAL(_x) } forEach _toReveal;
-

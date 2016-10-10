@@ -7,6 +7,8 @@ private _leader = leader _group;
 private _members = units _group;
 private _membersCount = count _members;
 
+[_group] call FUPS_fnc_lowerPanic;
+
 // get the group damage
 private _combatStrength = 1;
 private _groupdamage = 0;
