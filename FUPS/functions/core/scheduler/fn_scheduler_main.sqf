@@ -51,21 +51,27 @@ if (isNil "_group") exitWith {
 FUPS_scheduler_groupEnqueued pushBack _group;
 
 // Check clockpulse of the group
-private _clockPulse = _group getVariable ["FUPS_clockPulse", 1];
-_group setVariable ["FUPS_clockPulse", _clockPulse + 1];
+private _clockPulse = _group getVariable "FUPS_clockPulse" + 1;
+_group setVariable ["FUPS_clockPulse", _clockPulse];
+// Check cycle duration per group
+private _tickDiff = time - _group getVariable "FUPS_tickTime";
+if (_tickDiff > FUPS_minTickDiffTime) then {
+	_group setVariable ["FUPS_tickDiff", _tickDiff];
+	_group setVariable ["FUPS_tickTime", time];
 
-{
-	if (!isNil "_x") then {
-		// Execute scripts only that should be executed in this loop
-		{ // forEach
-			if (_clockPulse mod (_forEachIndex + 1) == 0) then {
-				{
-					private _carryOn = [_group] call _x;
-					if (_carryOn isEqualTo false) then {
-						breakOut "main";
-					};
-				} forEach _x;
-			};
-		} forEach _x;
-	};
-} forEach FUPS_scheduler_groupScripts;
+	{
+		if (!isNil "_x") then {
+			// Execute scripts only that should be executed in this loop
+			{ // forEach
+				if (_clockPulse mod (_forEachIndex + 1) == 0) then {
+					{
+						private _carryOn = [_group] call _x;
+						if (_carryOn isEqualTo false) then {
+							breakOut "main";
+						};
+					} forEach _x;
+				};
+			} forEach _x;
+		};
+	} forEach FUPS_scheduler_groupScripts;
+};

@@ -23,6 +23,10 @@ if (FUPS_scheduler_oefID == -1) then {
 	FUPS_scheduler_oefID = [FUPS_fnc_scheduler_main,0,[]] call CBA_fnc_addPerFrameHandler;
 };
 
+_group setVariable ["FUPS_clockPulse", 1];
+_group setVariable ["FUPS_tickTime", time];
+_group setVariable ["FUPS_tickDiff", 0];
+
 {
 	[_group] call _x;
 } forEach FUPS_scheduler_initScripts;

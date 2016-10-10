@@ -8,3 +8,5 @@
 #define FUPS_damageToRetreat 0.4
 // If the group has a knowledge of knowsAbout greater this value, it will consider the enemy to be known
 #define FUPS_knowsAboutThreshold 0.5
+// Defines the minimum time that must have passed since last calculation before a group will be calculated again.
+#define FUPS_minTickDiffTime 2
