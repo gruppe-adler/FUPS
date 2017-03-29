@@ -204,5 +204,7 @@ if (FUPS_panic_enabled) then {
 	} forEach (units _group);
 };
 
+_group enableDynamicSimulation false;
+
 ["Adding",false,false,ENVIROMENT_LOG] call FUPS_fnc_log;
 FUPS_oefGroups_toAdd pushBack _group;
