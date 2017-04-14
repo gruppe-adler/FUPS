@@ -8,6 +8,7 @@
 	};
 
 	private _pos = getPosATL leader _x;
+	_pos set [2, 0];
 	if (_length == 0 || {(_posArray select (_length - 1)) distance2D _pos >= POS_DIFF}) then {
 		_posArray pushBack _pos;
 
