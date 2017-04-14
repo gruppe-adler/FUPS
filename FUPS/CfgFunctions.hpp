@@ -5,6 +5,7 @@ class FUPS {
 	#include "core\CfgFunctions.hpp"
 	#include "hearing\CfgFunctions.hpp"
 	#include "high-ai\CfgFunctions.hpp"
+	#include "orientation\CfgFunctions.hpp"
 	#include "simulation\CfgFunctions.hpp"
 	#include "targeting\CfgFunctions.hpp"
 
