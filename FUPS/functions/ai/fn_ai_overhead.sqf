@@ -32,6 +32,10 @@ FUPS_cycleTime = (count FUPS_oefGroups + 1) / diag_fps;
 } forEach [FUPS_enemies,FUPS_share];
 
 {
+	if (isNil {_x getVariable "FUPS_ai_assignedFor"}) then {
+		_x setVariable ["FUPS_ai_assignedFor", []];
+	};
+
 	private _side = side _x;
 	// refill the enemie arrays
 	if (west getFriend _side < 0.6 && count units _x > 0) then {
@@ -59,3 +63,37 @@ if (isMultiplayer) then {
 } else {
 	FUPS_players = [player];
 };
+
+private _sidedGroups = FUPS_sideOrder apply {[]};
+{
+	(_sidedGroups select sideIndex(_x)) pushBack _x;
+} forEach FUPS_scheduler_groupQueue;
+
+// assign group targets
+{
+	private _enemies = FUPS_enemies select _forEachIndex;
+	private _enemyRatio = count _enemies / count _x;
+	private _maxGroups = 3 max round (1 / _enemyRatio);
+
+	{
+		if (isNull (_group getVariable "FUPS_ai_target")) then {
+			private _group = _x;
+			// TODO: filter for possible targets
+			// TODO: filter for maximum distance
+			private _enemies = _enemies apply { [leader _group distance2D leader _x, _x] };
+			_enemies sort ASCENDING;
+
+			(_enemies select 0) params ["_d", "_target"];
+			while {!(_enemies isEqualTo [])} do {
+				(_enemies deleteAt 0) params ["_dNow", "_targetNow"];
+
+				if (_dNow / _d > _enemyRatio && {count (_targetNow getVariable "FUPS_ai_assignedFor") < _maxGroups}) exitWith {};
+				_target = _targetNow;
+				if (_target getVariable ["FUPS_ai_assignedFor", []] isEqualTo []) exitWith {};
+			};
+
+			(_target getVariable "FUPS_ai_assignedFor") pushBack _group;
+			_group setVariable ["FUPS_ai_target", _target];
+		};
+	} forEach _x;
+} forEach _sidedGroups;
