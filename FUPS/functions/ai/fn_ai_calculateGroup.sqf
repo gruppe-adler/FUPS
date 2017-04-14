@@ -32,7 +32,8 @@ if (isNull _target || {surfaceIsWater _curPos && !(_group getVariable "FUPS_allo
 
 private _moveQueue = _group getVariable "FUPS_ai_moveQueue";
 private _wp = _moveQueue select 0;
-if (_curPos distance2D (_wp select 0) <= (_group getVariable "FUPS_closeenough")) do {
+if (_curPos distance2D (_wp select 0) <= (_group getVariable "FUPS_closeenough")) then {
+	(_wp select 4) call (_wp select 3);
 	_moveQueue deleteAt 0;
 	_wp = _moveQueue select 0;
 
