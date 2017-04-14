@@ -29,7 +29,7 @@ while {isNull _group || {units _group isEqualTo []}} do {
 // If _group isNil FUPS_scheduler_groupQueue must be empty
 if (isNil "_group") exitWith {
 	// Array assigning is no problem because of pointer usage
-	FUPS_scheduler_groupQueue = FUPS_scheduler_enqueued;
+	FUPS_scheduler_groupQueue = FUPS_scheduler_groupEnqueued;
 	FUPS_scheduler_groupEnqueued = [];
 
 	// Execute every overhead function inbetween group calculation
