@@ -10,3 +10,7 @@
 #define FUPS_knowsAboutThreshold 0.5
 // Defines the minimum time that must have passed since last calculation before a group will be calculated again.
 #define FUPS_minTickDiffTime 2
+// Sets the default speed of a group initialized with FUPS.
+#define FUPS_defaultSpeed "LIMITED"
+// Sets the default behaviour of a group initialized with FUPS.
+#define FUPS_defaultBehaviour "SAFE"

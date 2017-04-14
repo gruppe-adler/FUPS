@@ -19,17 +19,17 @@
 params ["_group","_list"];
 
 private _args = [
-	"SAFE",		// 0 - BEHAVIOUR:
-	"LIMITED",	// 1 - SPEED:
-	false,		// 2 - NOFOLLOW --- ToDo
-	false,		// 3 - NOSHARE
-	false,		// 4 - NOSUPPORT
-	false,		// 5 - NOWAIT
-	[],			// 6 - ROUTE
-	objNull,	// 7 - VEHICLE: --- ToDO
-	false,		// 8 - RANDOM
-	objNull,	// 9 - SIMULATION:
-	[]			// 10 - REINFORCEMENT:
+	FUPS_defaultBehaviour,	// 0 - BEHAVIOUR:
+	FUPS_defaultSpeed,		// 1 - SPEED:
+	false,					// 2 - NOFOLLOW --- ToDo
+	false,					// 3 - NOSHARE
+	false,					// 4 - NOSUPPORT
+	false,					// 5 - NOWAIT
+	[],						// 6 - ROUTE
+	objNull,				// 7 - VEHICLE: --- ToDO
+	false,					// 8 - RANDOM
+	objNull,				// 9 - SIMULATION:
+	[]						// 10 - REINFORCEMENT:
 ];
 if (count _list == 2) exitWith { _args };
 
