@@ -138,26 +138,22 @@ if (count _reinforcement > 0) then {
 };
 
 private _closeenough = 7;
-private _typeName = "_man";
-private _allowWater = false;
+private _allowWater = 0;
 switch ([_group] call FUPS_fnc_ai_type) do {
 	case 1: {
 		_closeenough = 20;
-		_typeName = "_vehicle";
 	};
 	case 2: {
 		_closeenough = 50;
-		_typeName = "_air";
 		_allowWater = true;
+		_allowWater = 2;
 	};
 	case 3: {
 		_closeenough = 20;
-		_typeName = "_ship";
-		_allowWater = true;
+		_allowWater = 1;
 	};
 };
 _group setVariable ["FUPS_closeenough",_closeenough];
-_group setVariable ["FUPS_typeName",_typeName];
 _group setVariable ["FUPS_allowWater",_allowWater];
 
 // Initializing generic varaibles

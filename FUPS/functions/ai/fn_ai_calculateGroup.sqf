@@ -22,10 +22,10 @@ private _curPos = getPosATL _leader;
 // re-evaluate current target
 private _target = _group getVariable "FUPS_ai_target";
 
-if (isNull _target || {surfaceIsWater _curPos && !(_group getVariable "FUPS_allowWater")}) then {
-	// patrol or get out of water
+if (isNull _target || {surfaceIsWater _curPos && (_group getVariable "FUPS_allowWater" == 0)}) then {
+
 } else {
-	// fight
+	[_group, _target] call FUPS_fnc_tasks_attack;
 };
 
 private _moveQueue = _group getVariable "FUPS_ai_moveQueue";
