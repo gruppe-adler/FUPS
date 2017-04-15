@@ -24,11 +24,9 @@ private _target = _group getVariable "FUPS_ai_target";
 
 if (isNull _target || {surfaceIsWater _curPos && !(_group getVariable "FUPS_allowWater")}) then {
 	// patrol or get out of water
-} else { if ([_group] call FUPS_fnc_panic_isPanicked) then {
-	// flee
 } else {
 	// fight
-}};
+};
 
 private _moveQueue = _group getVariable "FUPS_ai_moveQueue";
 private _wp = _moveQueue select 0;

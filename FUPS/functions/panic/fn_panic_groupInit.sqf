@@ -8,6 +8,7 @@ if (FUPS_panic_enabled) then {
 
 	_group setVariable ["FUPS_panic_killed", 0];
 	_group setVariable ["FUPS_panic_value", 0];
+    _group setVariable ["FUPS_panic_damageConsidered", 0];
 
 	{
 		_x addEventHandler ["Killed",{

@@ -3,17 +3,32 @@
 
 params ["_group"];
 private _units = units _group;
-private _tickDiff = _group getVariable "FUPS_tickDiff";
-private _panic = (_group getVariable "FUPS_panic_value" - (_tickDiff * PANIC_DECREASE_RATE)) max MIN_PANIC;
-
 private _killed = _group getVariable "FUPS_panic_killed";
-_group setVariable ["FUPS_panic_killed", 0];
+private _countUnits = {alive _x} count _units + _killed;
+private _tickDiff = _group getVariable "FUPS_tickDiff";
 
-private _groupDamage = (REDUCE(_units apply { damage _x }, 0, +) + _killed) / (count _units + _killed);
-private _groupSuppression = (REDUCE(_units apply { getSuppression _x }, 0, +) + _killed) / (count _units + _killed);
+private _rawDamage = REDUCE(_units apply { if (alive _x) then {damage _x} else {0} }, 0, +) + _killed;
+private _damageConsidered = _group getVariable "FUPS_panic_damageConsidered";
 
-_panic = _panic + PANIC_FNC(_groupDamage,_groupSuppression);
+private _groupDamage =  _rawDamage / _countUnits;
+if (_groupDamage > _damageConsidered) then {
+    _damageConsidered = _damageConsidered + ((_groupDamage - _damageConsidered) / DAMAGE_DECREASE_FACTOR * _tickDiff);
+    _group setVariable ["FUPS_panic_damageConsidered", _damageConsidered];
+};
+_groupDamage = (_rawDamage - _damageConsidered) / (_countUnits - _damageConsidered);
 
-_panic = _panic max MAX_PANIC;
+private _groupSuppression = (REDUCE(_units apply { if (alive _x) then {getSuppression _x} else {0} }, 0, +) + _killed) / _countUnits;
+
+_panic = PANIC_FNC(_groupDamage,_groupSuppression);
 _group setVariable ["FUPS_panic_value", _panic];
-_panic > PANIC_THRESHOLD
+
+_group allowFleeing _panic;
+
+private _isFleeing = fleeing leader _group;
+
+if (_isFleeing) then {
+    _group setVariable ["FUPS_ai_target", objNull];
+    [_group] call FUPS_fnc_ai_clearWp;
+};
+
+_isFleeing
