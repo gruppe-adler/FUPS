@@ -32,13 +32,13 @@ private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 		if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
 			_x setVariable ["FUPS_revealedAt",time];
 
-			if (_dist < 150) then {
+			if (_dist < NEAR_ENEMY_DIST) then {
 				_nearEnemies pushBack [_x, _dist];
 			};
 			_enemies pushBack [_x, _dist];
 
 			if ([_group,_x] call FUPS_fnc_isEffective) then {
-				_targets pushBack [_x, _dist];
+				_targets pushBack [_x, _dist]; // TODO: consider distance to possible target
 			} else {if ([_group,_x] call FUPS_fnc_fears) then {
 				_fears pushBack _x;
 			}};
@@ -46,7 +46,7 @@ private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 	} else {
 		[["Error: group %1 is null or empty - looping enemies",_x],true,false,ERROR_LOG] call FUPS_fnc_logging_log;
 	};
-} forEach (FUPS_enemies select _sideIndex); // TODO: use section
+} forEach (FUPS_enemies select _sideIndex);
 
 _targets sort ASCENDING;
 _enemies sort ASCENDING;
