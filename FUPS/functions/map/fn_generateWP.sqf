@@ -20,8 +20,7 @@ if (_area isEqualTo []) then {
 	_area = _group getVariable "FUPS_marker";
 };
 
-private _type = [_group] call FUPS_fnc_ai_type;
-private _allowWater = [0,0,2,1] select _type;
+private _allowWater = _group getVariable "FUPS_allowWater";
 private _pos = [_group,0,_allowWater,_area] call FUPS_fnc_randomMarkerPos;
 
 if (_type == 1) then {

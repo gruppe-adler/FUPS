@@ -23,7 +23,7 @@ private _curPos = getPosATL _leader;
 private _target = _group getVariable "FUPS_ai_target";
 
 if (isNull _target || {surfaceIsWater _curPos && (_group getVariable "FUPS_allowWater" == 0)}) then {
-
+	[_group] call FUPS_fnc_tasks_patrol;
 } else {
 	[_group, _target] call FUPS_fnc_tasks_attack;
 };
