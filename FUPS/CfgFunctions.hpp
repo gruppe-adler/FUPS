@@ -6,8 +6,10 @@ class FUPS {
 	#include "hearing\CfgFunctions.hpp"
 	#include "high-ai\CfgFunctions.hpp"
 	#include "orientation\CfgFunctions.hpp"
+	#include "panic\CfgFunctions.hpp"
 	#include "simulation\CfgFunctions.hpp"
 	#include "targeting\CfgFunctions.hpp"
+	#include "tasks\CfgFunctions.hpp"
 
 	class api {
 		file = "FUPS\functions\api";
@@ -17,29 +19,11 @@ class FUPS {
 		class setPatrolMarker {};
 		class stop {};
 	};
-	class attack {
-		file = "FUPS\functions\tasks\attack";
-		class task_attack_air {};
-		class task_attack_man {};
-		class task_attack_ship {};
-		class task_attack_vehicle {};
-	};
 	class features {
 		file = "FUPS\functions\features";
 		class randomSpawn {};
 		class solUseBuilding {};
 		class useBuilding {};
-	};
-	class getOutOfWater {
-		file = "FUPS\functions\tasks\getOutOfWater";
-		class task_getOutOfWater {};
-	};
-	class hold {
-		file = "FUPS\functions\tasks\hold";
-		class task_hold_air {};
-		class task_hold_man {};
-		class task_hold_ship {};
-		class task_hold_vehicle {};
 	};
 	class information {
 		file = "FUPS\functions\information";
@@ -64,11 +48,8 @@ class FUPS {
 	};
 	class main {
 		file = "FUPS\functions";
-		class addEventHandler {};
-		class do {};
 		class main {};
 		class preInit { preInit = 1; };
-		class registerTask {};
 		class reinforcement {};
 		class saveTemplate {};
 		class spawn {};
@@ -97,23 +78,6 @@ class FUPS {
 		class getWaypoints {};
 		class groupVehicles {};
 		class selectOrEnlarge {};
-	};
-	class panic {
-		file = "FUPS\functions\panic";
-		class lowerPanic {};
-		class raisePanic {};
-	};
-	class patrol {
-		file = "FUPS\functions\tasks\patrol";
-		class task_patrol {};
-	};
-	class reinforcement {
-		file = "FUPS\functions\tasks\reinforcement";
-		class task_reinf {};
-	};
-	class retreat {
-		file = "FUPS\functions\tasks\retreat";
-		class task_retreat {};
 	};
 	class settings {
 		class settings { file = "FUPS\settings.sqf"; preInit = 1; };

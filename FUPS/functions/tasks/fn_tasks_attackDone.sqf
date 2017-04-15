@@ -1,4 +1,6 @@
 
+#include "macros.hpp"
+
 params ["_group", "_target"];
 
 _group setVariable ["FUPS_tasks_attacked", objNull];

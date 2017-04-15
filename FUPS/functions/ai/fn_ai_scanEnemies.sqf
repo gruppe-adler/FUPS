@@ -19,7 +19,6 @@ if (_group getVariable "FUPS_doSupport") then {
 	} forEach _shareNow;
 };
 
-private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 { // foreach
 	if !(isNull _x || units _x isEqualTo []) then {
 
