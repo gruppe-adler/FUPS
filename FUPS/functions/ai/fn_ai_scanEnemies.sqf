@@ -26,7 +26,7 @@ private _askedForSupport = _group getVariable "FUPS_askedForSupport";
 		private _dist = _leader distance leader _x;
 
 		// How much does this group know the other?
-		private _maxKnowledge = REDUCE(((units _x) ) apply {_group knowsAbout _x}, 0, max);
+		private _maxKnowledge = REDUCE(units _x apply {_group knowsAbout _x}, 0, max);
 
 		// Do the actual "this group was spotted"-stuff
 		if (_maxKnowledge >= FUPS_knowsAboutThreshold) then {
@@ -55,7 +55,3 @@ _group setVariable ["FUPS_ai_targets", _targets];
 _group setVariable ["FUPS_ai_enemies", _enemies];
 _group setVariable ["FUPS_ai_nearEnemies", _nearEnemies];
 _group setVariable ["FUPS_ai_fears", _fears];
-
-_group setVariable ["FUPS_ai_knowsAny", !(_enemies isEqualTo [])];
-_group setVariable ["FUPS_ai_nearestTarget", _targets select 0];
-_group setVariable ["FUPS_ai_nearestEnemy", _nearEnemies select 0];
